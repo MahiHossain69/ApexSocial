@@ -38,7 +38,7 @@ const MobPagination = ({ totalItems, itemsPerPage, currentPage, onPageChange, on
     </div>
 
     {/* Middle Info */}
-    <div className="text-[9px] font-medium cursor-pointer sm:text-sm  text-gray-600">
+    <div className="text-[8px] font-medium cursor-pointer sm:text-sm  text-gray-600">
       {startItem} to {endItem} of {totalItems}
     </div>
 
