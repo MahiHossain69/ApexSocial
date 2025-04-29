@@ -1,23 +1,23 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Search, CalendarIcon, ChevronDown, ChevronUp, AlignCenter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
-
+import { CustomCalendar } from "../Celendar/CustomCalendar";
+import { Mobcele } from "@/MobCeneldar/Mobcele";
+import { CalendarDays } from 'lucide-react';
+import Info from "@/assets/info.png"
 
 export default function FilterSidebar() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(
-    new Date(new Date().setFullYear(new Date().getFullYear() + 3))
-  );
-
-  const [showFilters, setShowFilters] = useState(false)
-
+  const [startDate, setStartDate] = useState(new Date(2024, 5, 1)); // June 2024
+  const [endDate, setEndDate] = useState(new Date(2027, 5, 1)); // June 2027
+  const [desktopCalendarOpen, setDesktopCalendarOpen] = useState(false);
+  const [mobileCalendarOpen, setMobileCalendarOpen] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   const professions = [
     "Education/Teachers",
@@ -29,185 +29,176 @@ export default function FilterSidebar() {
   ];
   const [selectedProfessions, setSelectedProfessions] = useState([]);
 
-  const toggleProfession = (profession) => {
-    if (selectedProfessions.includes(profession)) {
-      setSelectedProfessions(selectedProfessions.filter((item) => item !== profession));
-    } else {
-      setSelectedProfessions([...selectedProfessions, profession]);
-    }
-  };
-
-  const handleProfessionCheckAll = () => {
-    if (selectedProfessions.length === professions.length) {
-      setSelectedProfessions([]);
-    } else {
-      setSelectedProfessions(professions);
-    }
-  };
-
-  
   const countries = ["USA", "UK", "Germany", "Australia"];
   const [selectedCountries, setSelectedCountries] = useState([]);
 
-  const toggleCountry = (country) => {
-    if (selectedCountries.includes(country)) {
-      setSelectedCountries(selectedCountries.filter((item) => item !== country));
+  const toggleSelection = (item, selectedItems, setSelectedItems) => {
+    if (selectedItems.includes(item)) {
+      setSelectedItems(selectedItems.filter((i) => i !== item));
     } else {
-      setSelectedCountries([...selectedCountries, country]);
+      setSelectedItems([...selectedItems, item]);
     }
   };
 
-  const handleCountryCheckAll = () => {
-    if (selectedCountries.length === countries.length) {
-      setSelectedCountries([]);
+
+  const handleCheckAll = (items, selectedItems, setSelectedItems) => {
+    if (selectedItems.length === items.length) {
+      setSelectedItems([]);
     } else {
-      setSelectedCountries(countries);
+      setSelectedItems(items);
     }
   };
+
 
   return (
     <>
-    <div className="bg-[#F6F8FA] hidden md:block  rounded-lg shadow-sm border border-gray-100 p-4">
-     
-      <div className="mb-6">
-        <div className="relative">
+      {/* Desktop Sidebar */}
+      <div className="bg-[#F6F8FA] hidden md:block rounded-lg shadow-sm border border-gray-100 p-4">
+        {/* Search Bar */}
+        <div className="mb-6 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
           <Input placeholder="Search..." className="pl-10 bg-white border-gray-200" />
         </div>
-      </div>
 
-      <div className="space-y-6">
-        
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Qualified to care for</h3>
-          <div className="space-y-2">
+        {/* Filters */}
+        <div className="space-y-6">
+          {/* Qualified to Care For */}
+          <div>
+            <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Qualified to care for</h3>
             {["Children ages 0-23 Months", "Children ages 2+ years", "Children with special needs"].map((text, index) => (
               <div className="flex items-center space-x-2" key={index}>
-                <Checkbox  id={`qualified-${index}`} />
-                <Label htmlFor={`qualified-${index}`} className="text-sm text-gray-600">
-                  {text}
-                </Label>
+                <Checkbox id={`qualified-${index}`} />
+                <Label htmlFor={`qualified-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{text}</Label>
               </div>
             ))}
           </div>
-        </div>
 
-
-        <div>
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="font-medium text-gray-800">Profession</h3>
-            <Label onClick={handleProfessionCheckAll} className="text-xs font-medium text-gray-800cursor-pointer ">
-              {selectedProfessions.length === professions.length ? "Uncheck All" : "Check All"}
-            </Label>
-          </div>
-          <div className="space-y-2">
+          {/* Profession */}
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14]">Profession</h3>
+              <div className="flex gap-[5px]">
+                <Checkbox
+                  checked={selectedProfessions.length === professions.length}
+                  onCheckedChange={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
+                />
+                <Label
+                  onClick={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
+                  className="text-xs font-medium text-gray-800 cursor-pointer"
+                >
+                  {selectedProfessions.length === professions.length ? "Uncheck All" : "Check All"}
+                </Label>
+              </div>
+            </div>
             {professions.map((profession, index) => (
               <div className="flex items-center space-x-2" key={index}>
-                <Checkbox
+                <Checkbox className="cursor-pointer"
                   id={`profession-${index}`}
                   checked={selectedProfessions.includes(profession)}
-                  onCheckedChange={() => toggleProfession(profession)}
+                  onCheckedChange={() => toggleSelection(profession, selectedProfessions, setSelectedProfessions)}
                 />
-                <Label htmlFor={`profession-${index}`} className="text-sm text-gray-600">
-                  {profession}
-                </Label>
+                <Label htmlFor={`profession-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{profession}</Label>
               </div>
             ))}
           </div>
-        </div>
 
-        
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Requirements</h3>
-          <div className="space-y-2">
+          {/* Requirements */}
+          <div>
+            <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Requirements</h3>
             {["Has a driver license", "Swimmer"].map((text, index) => (
               <div className="flex items-center space-x-2" key={index}>
                 <Checkbox id={`requirement-${index}`} />
-                <Label htmlFor={`requirement-${index}`} className="text-sm text-gray-600">
-                  {text}
-                </Label>
+                <Label htmlFor={`requirement-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{text}</Label>
               </div>
             ))}
           </div>
-        </div>
 
-        
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Gender</h3>
-          <Select defaultValue="any">
-            <SelectTrigger className="w-full bg-white border-gray-200">
-              <SelectValue placeholder="Any" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="any">Any</SelectItem>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-       
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Available to start</h3>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" className="w-full justify-start text-left font-normal bg-white border-gray-200">
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {startDate && endDate ? (
-                  <>
-                    {format(startDate, "MMM yyyy")} - {format(endDate, "MMM yyyy")}
-                  </>
-                ) : (
-                  <span>Pick a date range</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <div className="flex flex-col space-y-2 p-2">
-                <div className="space-y-1">
-                  <h4 className="text-sm font-medium">Start Date</h4>
-                  <Calendar mode="single" selected={startDate} onSelect={setStartDate} initialFocus />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-medium">End Date</h4>
-                  <Calendar mode="single" selected={endDate} onSelect={setEndDate} initialFocus />
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
-
-      
-        <div>
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="font-medium text-gray-800">Country</h3>
-            <Label onClick={handleCountryCheckAll} className="text-xs font-medium text-gray-8000 cursor-pointer ">
-              {selectedCountries.length === countries.length ? "Uncheck All" : "Check All"}
-            </Label>
+          {/* Gender */}
+          <div>
+            <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Gender</h3>
+            <Select defaultValue="any">
+              <SelectTrigger className="w-full bg-white border-gray-200">
+                <SelectValue placeholder="Any" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="any">Any</SelectItem>
+                <SelectItem value="male">Male</SelectItem>
+                <SelectItem value="female">Female</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-          <div className="space-y-2">
+
+          {/* Available to Start */}
+          <div className="border-t border-gray-100 pt-6">
+            <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Available to start</h3>
+            <Popover open={desktopCalendarOpen} onOpenChange={setDesktopCalendarOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start text-left font-normal bg-white border-gray-200 relative"
+                  onClick={() => setDesktopCalendarOpen(true)}
+                >
+                  <CalendarDays className="mr-2 h-4 w-4" />
+                  {startDate && endDate ? (
+                    `${format(startDate, "MMM yyyy")} - ${format(endDate, "MMM yyyy")}`
+                  ) : (
+                    <span>Pick a date range</span>
+                  )}
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <img src={Info} className="h-4 w-4 text-gray-400" />
+                  </div>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <CustomCalendar
+                  startDate={startDate}
+                  endDate={endDate}
+                  onStartDateChange={setStartDate}
+                  onEndDateChange={setEndDate}
+                  onCancel={() => setDesktopCalendarOpen(false)}
+                  onApply={() => setDesktopCalendarOpen(false)}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          {/* Country */}
+          <div>
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14]">Country</h3>
+              <div className="flex gap-[5px]">
+                <Checkbox className="cursor-pointer"
+                  checked={selectedCountries.length === countries.length}
+                  onCheckedChange={() => handleCheckAll(countries, selectedCountries, setSelectedCountries)}
+                />
+                <Label
+                  onClick={() => handleCheckAll(countries, selectedCountries, setSelectedCountries)}
+                  className="text-xs font-medium text-gray-800 cursor-pointer"
+                >
+                  {selectedCountries.length === countries.length ? "Uncheck All" : "Check All"}
+                </Label>
+
+              </div>
+            </div>
             {countries.map((country, index) => (
               <div className="flex items-center space-x-2" key={index}>
                 <Checkbox
                   id={`country-${index}`}
                   checked={selectedCountries.includes(country)}
-                  onCheckedChange={() => toggleCountry(country)}
+                  onCheckedChange={() => toggleSelection(country, selectedCountries, setSelectedCountries)}
                 />
-                <Label htmlFor={`country-${index}`} className="text-sm text-gray-600">
-                  {country}
-                </Label>
+                <Label htmlFor={`country-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{country}</Label>
               </div>
             ))}
           </div>
         </div>
-
       </div>
-    </div>
 
-    <div className="md:hidden ">
-        <div className="flex  gap-2 mb-4">
-          <div className="relative  flex-1">
+      {/* Mobile Sidebar */}
+      <div className="md:hidden">
+        <div className="flex gap-2 mb-4">
+          <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <Input placeholder="Search..." className="pl-10 bg-white border-gray-200" />
           </div>
@@ -215,146 +206,122 @@ export default function FilterSidebar() {
             className="bg-teal-500 cursor-pointer hover:bg-teal-600 flex items-center gap-2"
             onClick={() => setShowFilters(!showFilters)}
           >
-            Filter
-            {showFilters ? <ChevronUp  className="h-4 w-4" /> : <AlignCenter className="h-4 w-4" />}
+            Filter {showFilters ? <ChevronUp className="h-4 w-4" /> : <AlignCenter className="h-4 w-4" />}
           </Button>
         </div>
 
         {showFilters && (
-          <div className="bg-gray-50 rounded-lg p-4 mb-4">
-           <div className="space-y-6">
-        
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Qualified to care for</h3>
-          <div className="space-y-2">
-            {["Children ages 0-23 Months", "Children ages 2+ years", "Children with special needs"].map((text, index) => (
-              <div className="flex items-center space-x-2" key={index}>
-                <Checkbox  id={`qualified-${index}`} />
-                <Label htmlFor={`qualified-${index}`} className="text-sm text-gray-600">
-                  {text}
-                </Label>
-              </div>
-            ))}
-          </div>
-        </div>
-
-
-        <div>
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="font-medium text-gray-800">Profession</h3>
-            <Label onClick={handleProfessionCheckAll} className="text-xs font-medium text-gray-800cursor-pointer ">
-              {selectedProfessions.length === professions.length ? "Uncheck All" : "Check All"}
-            </Label>
-          </div>
-          <div className="space-y-2">
-            {professions.map((profession, index) => (
-              <div className="flex items-center space-x-2" key={index}>
-                <Checkbox
-                  id={`profession-${index}`}
-                  checked={selectedProfessions.includes(profession)}
-                  onCheckedChange={() => toggleProfession(profession)}
-                />
-                <Label htmlFor={`profession-${index}`} className="text-sm text-gray-600">
-                  {profession}
-                </Label>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Requirements</h3>
-          <div className="space-y-2">
-            {["Has a driver license", "Swimmer"].map((text, index) => (
-              <div className="flex items-center space-x-2" key={index}>
-                <Checkbox id={`requirement-${index}`} />
-                <Label htmlFor={`requirement-${index}`} className="text-sm text-gray-600">
-                  {text}
-                </Label>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Gender</h3>
-          <Select defaultValue="any">
-            <SelectTrigger className="w-full bg-white border-gray-200">
-              <SelectValue placeholder="Any" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="any">Any</SelectItem>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-       
-        <div>
-          <h3 className="font-medium text-gray-800 mb-3">Available to start</h3>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline" className="w-full justify-start text-left font-normal bg-white border-gray-200">
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {startDate && endDate ? (
-                  <>
-                    {format(startDate, "MMM yyyy")} - {format(endDate, "MMM yyyy")}
-                  </>
-                ) : (
-                  <span>Pick a date range</span>
-                )}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <div className="flex flex-col space-y-2 p-2">
-                <div className="space-y-1">
-                  <h4 className="text-sm font-medium">Start Date</h4>
-                  <Calendar mode="single" selected={startDate} onSelect={setStartDate} initialFocus />
+          <div className="bg-gray-50 rounded-lg p-4 mb-4 space-y-6">
+            {/* Reuse the same structure from desktop */}
+            {/* Qualified to Care For */}
+            <div>
+              <h3 className="font-medium text-gray-800 mb-3">Qualified to care for</h3>
+              {["Children ages 0-23 Months", "Children ages 2+ years", "Children with special needs"].map((text, index) => (
+                <div className="flex items-center space-x-2" key={index}>
+                  <Checkbox id={`mobile-qualified-${index}`} />
+                  <Label htmlFor={`mobile-qualified-${index}`} className="text-sm text-gray-600">{text}</Label>
                 </div>
-                <div className="space-y-1">
-                  <h4 className="text-sm font-medium">End Date</h4>
-                  <Calendar mode="single" selected={endDate} onSelect={setEndDate} initialFocus />
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
+              ))}
+            </div>
 
-      
-        <div>
-          <div className="flex justify-between items-center mb-3">
-            <h3 className="font-medium text-gray-800">Country</h3>
-            <Label onClick={handleCountryCheckAll} className="text-xs font-medium text-gray-8000 cursor-pointer ">
-              {selectedCountries.length === countries.length ? "Uncheck All" : "Check All"}
-            </Label>
-          </div>
-          <div className="space-y-2">
-            {countries.map((country, index) => (
-              <div className="flex items-center space-x-2" key={index}>
-                <Checkbox
-                  id={`country-${index}`}
-                  checked={selectedCountries.includes(country)}
-                  onCheckedChange={() => toggleCountry(country)}
-                />
-                <Label htmlFor={`country-${index}`} className="text-sm text-gray-600">
-                  {country}
+            {/* Profession */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-medium text-gray-800">Profession</h3>
+                <Label onClick={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)} className="text-xs font-medium text-gray-800 cursor-pointer">
+                  {selectedProfessions.length === professions.length ? "Uncheck All" : "Check All"}
                 </Label>
               </div>
-            ))}
-          </div>
-        </div>
+              {professions.map((profession, index) => (
+                <div className="flex items-center space-x-2" key={index}>
+                  <Checkbox
+                    id={`mobile-profession-${index}`}
+                    checked={selectedProfessions.includes(profession)}
+                    onCheckedChange={() => toggleSelection(profession, selectedProfessions, setSelectedProfessions)}
+                  />
+                  <Label htmlFor={`mobile-profession-${index}`} className="text-sm text-gray-600">{profession}</Label>
+                </div>
+              ))}
+            </div>
 
-      </div>
+            {/* Requirements */}
+            <div>
+              <h3 className="font-medium text-gray-800 mb-3">Requirements</h3>
+              {["Has a driver license", "Swimmer"].map((text, index) => (
+                <div className="flex items-center space-x-2" key={index}>
+                  <Checkbox id={`mobile-requirement-${index}`} />
+                  <Label htmlFor={`mobile-requirement-${index}`} className="text-sm text-gray-600">{text}</Label>
+                </div>
+              ))}
+            </div>
+
+            {/* Gender */}
+            <div>
+              <h3 className="font-medium text-gray-800 mb-3">Gender</h3>
+              <Select defaultValue="any">
+                <SelectTrigger className="w-full bg-white border-gray-200">
+                  <SelectValue placeholder="Any" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="any">Any</SelectItem>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="female">Female</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Available to Start */}
+            <div>
+              <h3 className="font-medium text-gray-800 mb-3">Available to start</h3>
+              <Popover open={mobileCalendarOpen} onOpenChange={setMobileCalendarOpen}>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="w-full justify-start text-left font-normal bg-white border-gray-200">
+                    <CalendarDays className="mr-2 h-4 w-4" />
+                    {startDate && endDate ? `${format(startDate, "MMM yyyy")} - ${format(endDate, "MMM yyyy")}` : <span>Pick a date range</span>}
+                    <div className="xs:ml-[108px] sm:ml-[370px]">
+                      <img src={Info} className="h-4 w-4 text-gray-400" />
+                    </div>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-full p-0 rounded-t-2xl overflow-hidden">
+                  <div className="bg-white p-4">
+                    <Mobcele
+                      startDate={startDate}
+                      endDate={endDate}
+                      onStartDateChange={setStartDate}
+                      onEndDateChange={setEndDate}
+                      onCancel={() => setMobileCalendarOpen(false)}
+                      onApply={() => setMobileCalendarOpen(false)}
+                    />
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
+
+            {/* Country */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-medium text-gray-800">Country</h3>
+                <Label onClick={() => handleCheckAll(countries, selectedCountries, setSelectedCountries)} className="text-xs font-medium text-gray-800 cursor-pointer">
+                  {selectedCountries.length === countries.length ? "Uncheck All" : "Check All"}
+                </Label>
+              </div>
+              {countries.map((country, index) => (
+                <div className="flex items-center space-x-2" key={index}>
+                  <Checkbox
+                    id={`mobile-country-${index}`}
+                    checked={selectedCountries.includes(country)}
+                    onCheckedChange={() => toggleSelection(country, selectedCountries, setSelectedCountries)}
+                  />
+                  <Label htmlFor={`mobile-country-${index}`} className="text-sm text-gray-600">{country}</Label>
+                </div>
+              ))}
+            </div>
+
           </div>
         )}
       </div>
-
-
-   </>
-    
+    </>
   );
 }
