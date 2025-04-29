@@ -313,16 +313,17 @@ export default function FilterSidebar() {
               <div className="flex justify-between items-center mb-3">
                 <h3 className="font-semibold font-inter text-[#0A0D14]">Country</h3>
                 <div className="flex gap-[5px]">
-                <Checkbox className="bg-white cursor-pointer"
-                  checked={selectedProfessions.length === professions.length}
-                  onCheckedChange={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
+                <Checkbox className="cursor-pointer bg-white"
+                  checked={selectedCountries.length === countries.length}
+                  onCheckedChange={() => handleCheckAll(countries, selectedCountries, setSelectedCountries)}
                 />
                 <Label
-                  onClick={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
-                  className="text-[14px] font-inter font-normal text-[#525866] cursor-pointer"
+                  onClick={() => handleCheckAll(countries, selectedCountries, setSelectedCountries)}
+                  className="text-xs font-medium text-gray-800 cursor-pointer"
                 >
-                  {selectedProfessions.length === professions.length ? "Uncheck All" : "Check All"}
+                  {selectedCountries.length === countries.length ? "Uncheck All" : "Check All"}
                 </Label>
+
               </div>
               </div>
               {countries.map((country, index) => (
