@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@radix-ui/react-select'
-import { Badge, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Heart, User } from 'lucide-react'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Heart, User } from 'lucide-react'
 import React, { useState } from 'react'
 import { cn } from "@/lib/utils"
 import Jenny from "../../assets/jenny.png"
@@ -36,8 +36,9 @@ const Candidate = () => {
       name: "Robert Fox",
       title: "Infant care and special needs qualified physical therapist from United States",
       available: Now,
+      text:"San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!",
       description:
-        "San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!",
+        "San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!",
       qualifications: {
         hours: "Over 1500 hrs.",
         infantQualified: true,
@@ -51,8 +52,9 @@ const Candidate = () => {
       name: "Floyd Miles",
       title: "Infant care and special needs qualified physical therapist from United States",
       available: Now,
+      text:"San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!",
       description:
-        "San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!",
+        "San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!San Francisco Suburbs-Energetic, Friendly Family of 6; Excited to Have a Care Professional with Special Needs Experience Join our Family to Help Us Enjoy Life Even More!",
       qualifications: {
         hours: "Over 1500 hrs.",
         infantQualified: true,
@@ -72,44 +74,38 @@ const Candidate = () => {
     <div className="space-y-6">
       
       {/* Pagination Top Bar (Desktop Only) */}
-      <div className="flex xs:hidden md:flex justify-between bg-[#F6F8FA] rounded-lg h-[55px] pl-5 items-center">
-        
-        {/* Display current entries info */}
-        <div className="text-sm text-gray-600">1 to 10 of 67 candidates</div>
+      <div className="md:hidden xs:hidden h-[56px] pl-[10px] pr-[10px] rounded-lg bg-[#F6F8FA] lg:flex md:justify-between items-center">
+        <div className="xl:text-[14px] lg:text-[12px] md:text-[0px] font-inter font-normal text-[#525866]">1 to 10 of 67 candidates</div>
 
-        {/* Pagination Buttons */}
         <div className="flex items-center gap-2">
-          {/* First Page Button */}
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-gray-200"
+            className="h-8 w-8 p-0 border-none bg-transparent shadow-none text-[black] "
             onClick={() => setCurrentPage(1)}
           >
-            <ChevronsLeft className="h-4 w-4" />
+            <ChevronsLeft className="h-4 w-4 " />
             <span className="sr-only">First page</span>
           </Button>
 
-          {/* Previous Page Button */}
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-gray-200"
+            className="h-8 w-8 p-0 border-none bg-transparent shadow-none "
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-4 w-4  " />
             <span className="sr-only">Previous page</span>
           </Button>
 
-          {/* Page Numbers */}
           {[1, 2, 3, 4, 5].map((page) => (
             <Button
               key={page}
               variant={currentPage === page ? "default" : "outline"}
               size="icon"
               className={cn(
-                "h-8 w-8 p-0 border-gray-200",
-                currentPage === page && "bg-gray-200 hover:bg-gray-300 text-gray-800",
+                "h-8 w-8 p-0 border-[2px] border-[#E2E4E9]",
+                currentPage === page && "bg-[#F6F8FA] hover:bg-gray-300 text-gray-800",
               )}
               onClick={() => setCurrentPage(page)}
             >
@@ -117,22 +113,20 @@ const Candidate = () => {
             </Button>
           ))}
 
-          {/* Next Page Button */}
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-gray-200"
+            className="h-8 w-8 p-0 border-none bg-transparent shadow-none"
             onClick={() => setCurrentPage(currentPage + 1)}
           >
             <ChevronRight className="h-4 w-4" />
             <span className="sr-only">Next page</span>
           </Button>
 
-          {/* Last Page Button */}
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-gray-200"
+            className="h-8 w-8 p-0 border-none bg-transparent shadow-none text-[black]"
             onClick={() => setCurrentPage(5)}
           >
             <ChevronsRight className="h-4 w-4" />
@@ -140,17 +134,16 @@ const Candidate = () => {
           </Button>
         </div>
 
-        {/* Entries Per Page Dropdown */}
-        <div className="flex bg-red-200 items-center gap-2">
+        <div className="cursor-pointer">
           <Select value={entriesPerPage} onValueChange={setEntriesPerPage}>
-            <SelectTrigger className="w-[130px] bg-white border-gray-200">
+            <SelectTrigger className="w-[130px] outline-none bg-white font-inter text-[#0A0D14] text-[14px] border-gray-200">
               <SelectValue placeholder="7 Entries" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="5">5 Entries</SelectItem>
-              <SelectItem value="7">7 Entries</SelectItem>
-              <SelectItem value="10">10 Entries</SelectItem>
-              <SelectItem value="20">20 Entries</SelectItem>
+              <SelectItem value="5" className="font-inter text-[14px] font-normal">5 Entries</SelectItem>
+              <SelectItem value="7" className="font-inter text-[14px] font-normal">7 Entries</SelectItem>
+              <SelectItem value="10" className="font-inter text-[14px] font-normal">10 Entries</SelectItem>
+              <SelectItem value="20" className="font-inter text-[14px] font-normal">20 Entries</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -169,14 +162,14 @@ const Candidate = () => {
                 {/* Candidate Basic Info */}
                 <div className="p-4">
                   <div className="flex justify-between items-start mb-4">
-                    <div className="text-sm text-[#525866] font-semibold bg-[#F6F8FA] w-[88px] h-[36px] text-center rounded-lg pt-[6px]">ID {candidate.id}</div>
+                    <div className="text-sm text-[#525866] font-semibold font-inter bg-[#F6F8FA] w-[88px] h-[36px] text-center rounded-lg pt-[8px]">ID {candidate.id}</div>
                     <div className="flex gap-2">
                       {/* Favorite Button */}
-                      <Button variant="ghost" size="icon" className="text-teal-500 h-8 w-8">
+                      <Button variant="fev" size="icon" className="text-teal-500  hover:bg-teal-500 hover:text-white h-8 w-8">
                         <Heart className="h-4 w-4" />
                       </Button>
                       {/* View Button */}
-                      <Button size="sm" className="bg-teal-500 hover:bg-teal-600 px-3">
+                      <Button variant="fev" size="sm" className="text-teal-500  hover:bg-teal-500 hover:text-white px-3">
                         View
                       </Button>
                     </div>
@@ -191,18 +184,18 @@ const Candidate = () => {
                           alt={candidate.name}
                           width={80}
                           height={80}
-                          className="w-20 h-20 object-cover"
+                          className="w-[120px] h-[120px] object-cover"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <h2 className="text-lg font-semibold text-gray-800">{candidate.name}</h2>
-                      <p className="text-sm text-gray-600">{candidate.title}</p>
+                      <h2 className="text-[20px] font-semibold font-inter text-[#0A0D14]">{candidate.name}</h2>
+                      <p className="text-[14px] font-inter font-normal text-[#525866]">{candidate.title}</p>
 
                       {/* Availability Status */}
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-sm text-gray-600">Available to start:</span>
+                        <span className="text-[14px] font-inter font-normal text-[#525866]">Available to start:</span>
                         <img
                           src={candidate.available}
                           alt="Available"
@@ -214,42 +207,43 @@ const Candidate = () => {
                 </div>
 
                 {/* Candidate Description */}
-                <div className="px-4 py-3 border-t border-gray-100">
-                  <p className="text-[#525866] leading-[20px] font-inter text-[11px] font-normal">{candidate.description}</p>
+                <div className="px-4 py-3 border-t-2 border-gray-100">
+                  <p className="text-[#525866] leading-[20px] font-inter text-[16px] font-normal">{candidate.description}</p>
                 </div>
-                <div className="">
-                  <p>{candidate.text}</p>
+                <div className="px-4 py-3">
+                  <p className='text-[#525866] font-inter font-normal text-[14px] text-sm'>{candidate.text}</p>
                 </div>
+                
 
                 {/* Candidate Qualifications */}
-                <div className="border-t border-gray-100">
+                <div className="border-t-2 border-gray-100">
                   <div className="p-4">
                     <div className="space-y-3">
                       {/* Childcare Hours */}
                       <div className="bg-[#F6F8FA] p-3 mb-3 h-[80px] mt-[3px] rounded-md ">
-                        <div className="text-sm text-gray-500 mb-1">Total Childcare Hours</div>
-                        <div className="font-medium text-gray-800 mb-4">{candidate.qualifications.hours}</div>
+                        <div className="text-[14px] font-inter font-medium text-[#525866] mb-1">Total Childcare Hours</div>
+                        <div className="font-semibold font-inter text-[#0A0D14] text-[20px] mb-4">{candidate.qualifications.hours}</div>
                       </div>
                     </div>
 
                     {/* Qualification Badges */}
                     <div className="space-y-3">
                       <div className="flex items-center justify-between bg-[#F6F8FA] h-[80px] p-3 rounded-md">
-                        <span className="text-sm text-gray-600">Infant Qualified</span>
+                        <span className="text-[14px] font-inter font-medium text-[#525866]">Infant Qualified</span>
                         <div className="flex items-center justify-center w-6 h-6 rounded-full bg-teal-100">
                           <img src={Right}/>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between bg-[#F6F8FA] h-[80px] p-3 rounded-md">
-                        <span className="text-sm text-gray-600">Special Needs Qualified</span>
+                        <span className="text-[14px] font-inter font-medium text-[#525866]">Special Needs Qualified</span>
                         <div className="flex items-center justify-center w-6 h-6 rounded-full bg-teal-100">
                           <img src={Right}/>
                         </div>
                       </div>
 
                       <div className="flex items-center justify-between bg-[#F6F8FA] h-[80px] p-3 rounded-md">
-                        <span className="text-sm text-gray-600">Driver's License</span>
+                        <span className="text-[14px] font-inter font-medium text-[#525866]">Driver's License</span>
                         <div className="flex items-center justify-center w-6 h-6 rounded-full bg-teal-100">
                           <img src={Right}/>
                         </div>
@@ -267,12 +261,12 @@ const Candidate = () => {
                     <div className="text-sm text-[#525866] font-semibold bg-[#F6F8FA] w-[88px] h-[36px] text-center rounded-lg pt-[6px]">ID {candidate.id}</div>
                     <div className="flex gap-2">
                       {/* Add to Favorites Button */}
-                      <Button variant="fev" size="sm" className="text-teal-500  hover:bg-teal-500 hover:text-white">
+                      <Button variant="fev" size="sm" className="text-teal-500 hover:bg-teal-500 hover:text-white">
                         <Heart className="h-4 w-4 mr-1" />
                         Add Favorites
                       </Button>
                       {/* View Profile Button */}
-                      <Button size="sm" className="bg-teal-500 hover:bg-teal-600">
+                      <Button variant="fev" size="sm" className="text-teal-500 hover:bg-teal-500 hover:text-white">
                         <User className="h-4 w-4 mr-1" />
                         View Profile
                       </Button>
@@ -309,42 +303,45 @@ const Candidate = () => {
 
                 {/* Candidate Detailed Description */}
                 <div className="px-6 py-4 border-t border-gray-100">
-                  <p className="text-gray-600 text-sm">{candidate.description}</p>
+                  <p className="text-[#525866] text-[16px] font-inter font-normal">{candidate.description}</p>
+                </div>
+                <div className="px-6 py-4">
+                  <p className='text-[#525866] font-inter font-normal text-[14px] text-sm'>{candidate.text}</p>
                 </div>
 
-                {/* Qualification Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-[10px] p-6">
-                  <div>
-                    <div className="text-sm font-medium bg-[#F6F8FA] pl-5 rounded-lg h-[80px] w-[202px] pt-[20px] text-[#F6F8FA]0">
+                {/* Qualification Grid - Updated for better responsiveness */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 md:p-6">
+                  {/* Childcare Hours - Made responsive */}
+                  <div className="w-full">
+                    <div className="xl:text-[14px] md:text-[13px] md:pt-[15px] lg:text-[9px] font-inter font-medium bg-[#F6F8FA] px-5 rounded-lg h-[80px] w-full lg:pt-[22px] xl:pt-[17px] text-[#525866]">
                       Total Childcare Hours
-                      <div className="font-bold text-black">{candidate.qualifications.hours}</div>
+                      <div className="font-semibold font-inter lg:text-[14px] md:text-[17px] xl:text-[20px] text-[#0A0D14]">{candidate.qualifications.hours}</div>
                     </div>
                   </div>
 
-                  {/* Infant Qualified */}
-                  <div className="flex items-center gap-2">
-                    <div className="text-sm bg-[#F6F8FA] text-[#F6F8FA]0 w-full text-center font-medium rounded-lg flex h-[80px] pt-[28px] pl-[32px] gap-[23px]">
-                      Infant Qualified
-                      <img className="items-center w-[40px] h-[40px] mt-[-10px]" src={Right}/>
+                  {/* Infant Qualified - Made responsive */}
+                  <div className="w-full">
+                    <div className="xl:text-[14px] lg:text-[9px] font-inter bg-[#F6F8FA] text-[#525866] w-full rounded-lg flex items-center justify-between h-[80px] px-5">
+                      <span>Infant Qualified</span>
+                      <img className="w-[24px] h-[24px]  md:w-[32px] md:h-[32px] lg:ml-[10px] xl:ml-0" src={Right} alt="Qualified" />
                     </div>
                   </div>
 
-                  {/* Special Needs Qualified */}
-                  <div className="flex items-center gap-2">
-                    <div className="text-sm bg-[#F6F8FA] text-[#F6F8FA]0 w-full text-left font-medium rounded-lg flex h-[80px] pt-[18px] pl-[12px] text-[14px]">
-                      Special Needs Qualified
-                      <img className="items-center w-[40px] h-[40px] mr-[20px]" src={Right}/>
+                  {/* Special Needs Qualified - Made responsive */}
+                  <div className="w-full">
+                    <div className="xl:text-[14px] lg:text-[9px]  font-inter bg-[#F6F8FA] text-[#525866] w-full rounded-lg flex items-center justify-between h-[80px] px-5">
+                      <span>Special Needs Qualified</span>
+                      <img className="w-[24px] h-[24px] md:w-[32px] md:h-[32px] lg:ml-[10px] xl:ml-0" src={Right} alt="Qualified" />
                     </div>
                   </div>
 
-                  {/* Driver's License */}
-                  <div className="flex items-center gap-2">
-                    <div className="text-sm bg-[#F6F8FA] text-[#F6F8FA]0 w-full text-center font-medium rounded-lg flex h-[80px] pt-[28px] pl-[26px] gap-[31px]">
-                      Driver's License
-                      <img className="items-center w-[40px] h-[40px] mt-[-10px]" src={Right}/>
+                  {/* Driver's License - Made responsive */}
+                  <div className="w-full">
+                    <div className="xl:text-[14px] lg:text-[9px]  font-inter bg-[#F6F8FA] text-[#525866] w-full rounded-lg flex items-center justify-between h-[80px] px-5">
+                      <span>Driver's License</span>
+                      <img className="w-[24px] h-[24px] md:w-[32px] md:h-[32px] lg:ml-[10px] xl:ml-0" src={Right} alt="Qualified" />
                     </div>
                   </div>
-
                 </div>
               </div>
 

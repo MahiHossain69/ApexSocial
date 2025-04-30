@@ -6,6 +6,7 @@
 @theme{
   --breakpoint-xs:375px;
   --font-inter:Inter,"sans-serif"
+  
 
 }
 
@@ -13,6 +14,7 @@
   font-family: inter;
   src: url(./assets/Fonts/Inter_28pt-Regular.ttf);
 }
+
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

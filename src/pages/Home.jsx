@@ -12,7 +12,7 @@ const Home = () => {
           <SideBar />
         </div>
         <div className="flex-1">
-        <div className="md:hidden mb-6">
+        <div className="lg:hidden mb-6">
             <MobPagination
               totalItems={67}
               itemsPerPage={7}

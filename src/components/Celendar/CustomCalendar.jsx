@@ -240,8 +240,8 @@ export function CustomCalendar({
     type="button"
     onClick={option.onClick}
     className={cn(
-      "text-sm text-gray-600 hover:text-gray-900 w-full text-left rounded-md px-2 py-1",
-      activeQuickSelect === option.label && "font-bold text-black bg-[#F6F8FA]"
+      "text-sm text-[#525866] font-inter text-[14px] font-medium hover:text-gray-900 w-full text-left rounded-md px-2 py-1",
+      activeQuickSelect === option.label && "font-medium text-[14px] font-inter text-[#0A0D14] bg-[#F6F8FA]"
     )}
   >
     {option.label}
@@ -250,9 +250,9 @@ export function CustomCalendar({
       </div>
 
       {/* Calendar Main */}
-      <div className="flex-1 p-4">
+      <div className="flex-1 cursor-pointer p-4">
         {/* Header */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between  items-center mb-4">
           <button type="button" onClick={handlePreviousMonth} className="p-1 rounded-lg cursor-pointer z-10 bg-[#FFFFFF] ">
             <ChevronLeft className="h-4 w-4" />
             <span className="sr-only">Previous month</span>
@@ -270,13 +270,16 @@ export function CustomCalendar({
         </div>
 
         {/* Months */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid cursor-pointer   grid-cols-1 sm:grid-cols-2 gap-10">
           {renderMonth(leftMonth, leftMonthData)}
+          <div className="w-[1px] h-[293px] top-0 left-[477px] bg-gray-300 absolute"></div>
           {renderMonth(rightMonth, rightMonthData)}
         </div>
+        
 
+       
         {/* Footer */}
-        <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <div className="mt-4 flex flex-col border-t-1 ml-[-16px] pl-[16px] mr-[-15px] pr-[15px] pt-[12px] sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="text-[14px] flex font-inter font-medium gap-[5px] sm:text-sm text-[#0A0D14]">
             <h1 className="text-[#525866] font-inter font-normal text-[14px]">Range: </h1>
             {selectedStartDate && selectedEndDate

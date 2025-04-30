@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { format } from "date-fns";
 import { CustomCalendar } from "../Celendar/CustomCalendar";
-import { Mobcele } from "@/MobCeneldar/Mobcele";
+import { Mobcele } from "@/components/MobCeneldar/Mobcele";
 import { CalendarDays } from 'lucide-react';
 import Info from "@/assets/info.png"
 
@@ -57,7 +57,7 @@ export default function FilterSidebar() {
         {/* Search Bar */}
         <div className="mb-6 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-          <Input placeholder="Search..." className="pl-10 bg-white border-gray-200" />
+          <Input placeholder="Search..." className="pl-10 bg-white font-inter text-[#525866] border-gray-200" />
         </div>
 
         {/* Filters */}
@@ -67,7 +67,7 @@ export default function FilterSidebar() {
             <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Qualified to care for</h3>
             {["Children ages 0-23 Months", "Children ages 2+ years", "Children with special needs"].map((text, index) => (
               <div className="flex items-center space-x-2" key={index}>
-                <Checkbox id={`qualified-${index}`} />
+                <Checkbox className="bg-white cursor-pointer" id={`qualified-${index}`} />
                 <Label htmlFor={`qualified-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{text}</Label>
               </div>
             ))}
@@ -78,7 +78,7 @@ export default function FilterSidebar() {
             <div className="flex justify-between items-center mb-3">
               <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14]">Profession</h3>
               <div className="flex gap-[5px]">
-                <Checkbox
+                <Checkbox className="bg-white cursor-pointer"
                   checked={selectedProfessions.length === professions.length}
                   onCheckedChange={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
                 />
@@ -92,7 +92,7 @@ export default function FilterSidebar() {
             </div>
             {professions.map((profession, index) => (
               <div className="flex items-center space-x-2" key={index}>
-                <Checkbox className="cursor-pointer"
+                <Checkbox className="cursor-pointer bg-white"
                   id={`profession-${index}`}
                   checked={selectedProfessions.includes(profession)}
                   onCheckedChange={() => toggleSelection(profession, selectedProfessions, setSelectedProfessions)}
@@ -107,7 +107,7 @@ export default function FilterSidebar() {
             <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Requirements</h3>
             {["Has a driver license", "Swimmer"].map((text, index) => (
               <div className="flex items-center space-x-2" key={index}>
-                <Checkbox id={`requirement-${index}`} />
+                <Checkbox className="bg-white cursor-pointer" id={`requirement-${index}`} />
                 <Label htmlFor={`requirement-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{text}</Label>
               </div>
             ))}
@@ -117,11 +117,11 @@ export default function FilterSidebar() {
           <div>
             <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Gender</h3>
             <Select defaultValue="any">
-              <SelectTrigger className="w-full bg-white border-gray-200">
-                <SelectValue placeholder="Any" />
+              <SelectTrigger className="w-full bg-white font-inter text-[#525866] border-gray-200">
+                <SelectValue placeholder="Any"  />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="any">Any</SelectItem>
+                <SelectItem value="any" className="">Any</SelectItem>
                 <SelectItem value="male">Male</SelectItem>
                 <SelectItem value="female">Female</SelectItem>
                 <SelectItem value="other">Other</SelectItem>
@@ -136,10 +136,10 @@ export default function FilterSidebar() {
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="w-full justify-start text-left font-normal bg-white border-gray-200 relative"
+                  className="w-full justify-start text-left font-inter font-normal text-[#0A0D14] bg-white border-gray-200 relative"
                   onClick={() => setDesktopCalendarOpen(true)}
                 >
-                  <CalendarDays className="mr-2 h-4 w-4" />
+                  <CalendarDays className="mr-2 h-4 w-4 text-[#525866]" />
                   {startDate && endDate ? (
                     `${format(startDate, "MMM yyyy")} - ${format(endDate, "MMM yyyy")}`
                   ) : (
@@ -168,7 +168,7 @@ export default function FilterSidebar() {
             <div className="flex justify-between items-center mb-3">
               <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14]">Country</h3>
               <div className="flex gap-[5px]">
-                <Checkbox className="cursor-pointer"
+                <Checkbox className="cursor-pointer bg-white"
                   checked={selectedCountries.length === countries.length}
                   onCheckedChange={() => handleCheckAll(countries, selectedCountries, setSelectedCountries)}
                 />
@@ -183,7 +183,7 @@ export default function FilterSidebar() {
             </div>
             {countries.map((country, index) => (
               <div className="flex items-center space-x-2" key={index}>
-                <Checkbox
+                <Checkbox className="bg-white cursor-pointer"
                   id={`country-${index}`}
                   checked={selectedCountries.includes(country)}
                   onCheckedChange={() => toggleSelection(country, selectedCountries, setSelectedCountries)}
@@ -200,7 +200,7 @@ export default function FilterSidebar() {
         <div className="flex gap-2 mb-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <Input placeholder="Search..." className="pl-10 bg-white border-gray-200" />
+            <Input placeholder="Search..." className="pl-10 bg-white font-inter text-[#868C98] text-[14px] font-normal border-gray-200" />
           </div>
           <Button
             className="bg-teal-500 cursor-pointer hover:bg-teal-600 flex items-center gap-2"
@@ -215,11 +215,11 @@ export default function FilterSidebar() {
             {/* Reuse the same structure from desktop */}
             {/* Qualified to Care For */}
             <div>
-              <h3 className="font-medium text-gray-800 mb-3">Qualified to care for</h3>
+              <h3 className="font-semibold font-inter text-[#0A0D14] mb-3">Qualified to care for</h3>
               {["Children ages 0-23 Months", "Children ages 2+ years", "Children with special needs"].map((text, index) => (
                 <div className="flex items-center space-x-2" key={index}>
-                  <Checkbox id={`mobile-qualified-${index}`} />
-                  <Label htmlFor={`mobile-qualified-${index}`} className="text-sm text-gray-600">{text}</Label>
+                  <Checkbox className="bg-white cursor-pointer" id={`mobile-qualified-${index}`} />
+                  <Label htmlFor={`mobile-qualified-${index}`} className="text-[14px] font-inter font-normal text-[#525866]">{text}</Label>
                 </div>
               ))}
             </div>
@@ -227,43 +227,52 @@ export default function FilterSidebar() {
             {/* Profession */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <h3 className="font-medium text-gray-800">Profession</h3>
-                <Label onClick={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)} className="text-xs font-medium text-gray-800 cursor-pointer">
+                <h3 className="font-semibold font-inter text-[#0A0D14]">Profession</h3>
+                <div className="flex gap-[5px]">
+                <Checkbox className="bg-white cursor-pointer"
+                  checked={selectedProfessions.length === professions.length}
+                  onCheckedChange={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
+                />
+                <Label
+                  onClick={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
+                  className="text-[14px] font-inter font-normal cursor-pointer text-[#525866]"
+                >
                   {selectedProfessions.length === professions.length ? "Uncheck All" : "Check All"}
                 </Label>
               </div>
+              </div>
               {professions.map((profession, index) => (
                 <div className="flex items-center space-x-2" key={index}>
-                  <Checkbox
+                  <Checkbox className="bg-white cursor-pointer"
                     id={`mobile-profession-${index}`}
                     checked={selectedProfessions.includes(profession)}
                     onCheckedChange={() => toggleSelection(profession, selectedProfessions, setSelectedProfessions)}
                   />
-                  <Label htmlFor={`mobile-profession-${index}`} className="text-sm text-gray-600">{profession}</Label>
+                  <Label htmlFor={`mobile-profession-${index}`} className="text-[14px] font-inter font-normal text-[#525866]">{profession}</Label>
                 </div>
               ))}
             </div>
 
             {/* Requirements */}
             <div>
-              <h3 className="font-medium text-gray-800 mb-3">Requirements</h3>
+              <h3 className="font-semibold font-inter text-[#0A0D14] mb-3">Requirements</h3>
               {["Has a driver license", "Swimmer"].map((text, index) => (
                 <div className="flex items-center space-x-2" key={index}>
-                  <Checkbox id={`mobile-requirement-${index}`} />
-                  <Label htmlFor={`mobile-requirement-${index}`} className="text-sm text-gray-600">{text}</Label>
+                  <Checkbox className="bg-white cursor-pointer" id={`mobile-requirement-${index}`} />
+                  <Label htmlFor={`mobile-requirement-${index}`} className="text-[14px] font-inter font-normal text-[#525866]">{text}</Label>
                 </div>
               ))}
             </div>
 
             {/* Gender */}
             <div>
-              <h3 className="font-medium text-gray-800 mb-3">Gender</h3>
+              <h3 className="font-semibold font-inter text-[#0A0D14] mb-3">Gender</h3>
               <Select defaultValue="any">
-                <SelectTrigger className="w-full bg-white border-gray-200">
+                <SelectTrigger className="w-full bg-white text-[#525866] font-inter font-normal text-[14px] border-gray-200">
                   <SelectValue placeholder="Any" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="any">Any</SelectItem>
+                  <SelectItem value="any" className="font-inter">Any</SelectItem>
                   <SelectItem value="male">Male</SelectItem>
                   <SelectItem value="female">Female</SelectItem>
                   <SelectItem value="other">Other</SelectItem>
@@ -273,14 +282,14 @@ export default function FilterSidebar() {
 
             {/* Available to Start */}
             <div>
-              <h3 className="font-medium text-gray-800 mb-3">Available to start</h3>
+              <h3 className="font-semibold font-inter text-[#0A0D14] mb-3">Available to start</h3>
               <Popover open={mobileCalendarOpen} onOpenChange={setMobileCalendarOpen}>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start text-left font-normal bg-white border-gray-200">
+                  <Button variant="outline" className="w-full justify-start font-inter text-left font-normal bg-white border-gray-200">
                     <CalendarDays className="mr-2 h-4 w-4" />
                     {startDate && endDate ? `${format(startDate, "MMM yyyy")} - ${format(endDate, "MMM yyyy")}` : <span>Pick a date range</span>}
-                    <div className="xs:ml-[108px] sm:ml-[370px]">
-                      <img src={Info} className="h-4 w-4 text-gray-400" />
+                    <div className="  ">
+                      <img src={Info} className="w-[20px] xs:ml-[80px] sm:ml-[365px] sm:w-[17px]" />
                     </div>
                   </Button>
                 </PopoverTrigger>
@@ -302,19 +311,28 @@ export default function FilterSidebar() {
             {/* Country */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <h3 className="font-medium text-gray-800">Country</h3>
-                <Label onClick={() => handleCheckAll(countries, selectedCountries, setSelectedCountries)} className="text-xs font-medium text-gray-800 cursor-pointer">
-                  {selectedCountries.length === countries.length ? "Uncheck All" : "Check All"}
+                <h3 className="font-semibold font-inter text-[#0A0D14]">Country</h3>
+                <div className="flex gap-[5px]">
+                <Checkbox className="bg-white cursor-pointer"
+                  checked={selectedProfessions.length === professions.length}
+                  onCheckedChange={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
+                />
+                <Label
+                  onClick={() => handleCheckAll(professions, selectedProfessions, setSelectedProfessions)}
+                  className="text-[14px] font-inter font-normal text-[#525866] cursor-pointer"
+                >
+                  {selectedProfessions.length === professions.length ? "Uncheck All" : "Check All"}
                 </Label>
+              </div>
               </div>
               {countries.map((country, index) => (
                 <div className="flex items-center space-x-2" key={index}>
-                  <Checkbox
+                  <Checkbox className="bg-white cursor-pointer"
                     id={`mobile-country-${index}`}
                     checked={selectedCountries.includes(country)}
                     onCheckedChange={() => toggleSelection(country, selectedCountries, setSelectedCountries)}
                   />
-                  <Label htmlFor={`mobile-country-${index}`} className="text-sm text-gray-600">{country}</Label>
+                  <Label htmlFor={`mobile-country-${index}`} className="text-[14px] font-inter font-normal text-[#525866]">{country}</Label>
                 </div>
               ))}
             </div>
