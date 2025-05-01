@@ -68,7 +68,7 @@ export default function FilterSidebar() {
             {["Children ages 0-23 Months", "Children ages 2+ years", "Children with special needs"].map((text, index) => (
               <div className="flex items-center space-x-2" key={index}>
                 <Checkbox className="bg-white cursor-pointer" id={`qualified-${index}`} />
-                <Label htmlFor={`qualified-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{text}</Label>
+                <Label htmlFor={`qualified-${index}`} className="text-[14px] cursor-pointer font-medium font-inter text-[#525866]">{text}</Label>
               </div>
             ))}
           </div>
@@ -97,7 +97,7 @@ export default function FilterSidebar() {
                   checked={selectedProfessions.includes(profession)}
                   onCheckedChange={() => toggleSelection(profession, selectedProfessions, setSelectedProfessions)}
                 />
-                <Label htmlFor={`profession-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{profession}</Label>
+                <Label htmlFor={`profession-${index}`} className="text-[14px] cursor-pointer font-medium font-inter text-[#525866]">{profession}</Label>
               </div>
             ))}
           </div>
@@ -108,7 +108,7 @@ export default function FilterSidebar() {
             {["Has a driver license", "Swimmer"].map((text, index) => (
               <div className="flex items-center space-x-2" key={index}>
                 <Checkbox className="bg-white cursor-pointer" id={`requirement-${index}`} />
-                <Label htmlFor={`requirement-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{text}</Label>
+                <Label htmlFor={`requirement-${index}`} className="text-[14px] font-medium cursor-pointer font-inter text-[#525866]">{text}</Label>
               </div>
             ))}
           </div>
@@ -117,14 +117,14 @@ export default function FilterSidebar() {
           <div>
             <h3 className="font-semibold font-inter text-[14px] text-[#0A0D14] mb-3">Gender</h3>
             <Select defaultValue="any">
-              <SelectTrigger className="w-full bg-white font-inter text-[#525866] border-gray-200">
+              <SelectTrigger className="w-full cursor-pointer bg-white font-inter text-[#525866] border-gray-200">
                 <SelectValue placeholder="Any"  />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="any" className="">Any</SelectItem>
-                <SelectItem value="male">Male</SelectItem>
-                <SelectItem value="female">Female</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
+                <SelectItem value="any" className="cursor-pointer">Any</SelectItem>
+                <SelectItem value="male" className="cursor-pointer">Male</SelectItem>
+                <SelectItem value="female" className="cursor-pointer">Female</SelectItem>
+                <SelectItem value="other" className="cursor-pointer">Other</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -136,10 +136,10 @@ export default function FilterSidebar() {
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="w-full justify-start text-left font-inter font-normal text-[#0A0D14] bg-white border-gray-200 relative"
+                  className="w-full cursor-pointer justify-start text-left font-inter font-normal text-[#0A0D14] bg-white border-gray-200 relative"
                   onClick={() => setDesktopCalendarOpen(true)}
                 >
-                  <CalendarDays className="mr-2 h-4 w-4 text-[#525866]" />
+                  <CalendarDays className="mr-2 h-4 w-4  text-[#525866]" />
                   {startDate && endDate ? (
                     `${format(startDate, "MMM yyyy")} - ${format(endDate, "MMM yyyy")}`
                   ) : (
@@ -188,7 +188,7 @@ export default function FilterSidebar() {
                   checked={selectedCountries.includes(country)}
                   onCheckedChange={() => toggleSelection(country, selectedCountries, setSelectedCountries)}
                 />
-                <Label htmlFor={`country-${index}`} className="text-[14px] font-medium font-inter text-[#525866]">{country}</Label>
+                <Label htmlFor={`country-${index}`} className="text-[14px] cursor-pointer font-medium font-inter text-[#525866]">{country}</Label>
               </div>
             ))}
           </div>

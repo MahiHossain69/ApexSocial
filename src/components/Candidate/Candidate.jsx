@@ -77,21 +77,21 @@ const Candidate = () => {
       <div className="md:hidden xs:hidden h-[56px] pl-[10px] pr-[10px] rounded-lg bg-[#F6F8FA] lg:flex md:justify-between items-center">
         <div className="xl:text-[14px] lg:text-[12px] md:text-[0px] font-inter font-normal text-[#525866]">1 to 10 of 67 candidates</div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex cursor-pointer items-center gap-2">
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-none bg-transparent shadow-none text-[black] "
+            className="h-8 w-8 p-0 cursor-pointer border-none bg-transparent shadow-none text-[black] "
             onClick={() => setCurrentPage(1)}
           >
-            <ChevronsLeft className="h-4 w-4 " />
+            <ChevronsLeft className="h-4 w-4 cursor-pointer" />
             <span className="sr-only">First page</span>
           </Button>
 
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-none bg-transparent shadow-none "
+            className="h-8 w-8 p-0 cursor-pointer border-none bg-transparent shadow-none "
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
           >
             <ChevronLeft className="h-4 w-4  " />
@@ -104,7 +104,7 @@ const Candidate = () => {
               variant={currentPage === page ? "default" : "outline"}
               size="icon"
               className={cn(
-                "h-8 w-8 p-0 border-[2px] border-[#E2E4E9]",
+                "h-8 w-8 p-0 border-[2px] cursor-pointer border-[#E2E4E9]",
                 currentPage === page && "bg-[#F6F8FA] hover:bg-gray-300 text-gray-800",
               )}
               onClick={() => setCurrentPage(page)}
@@ -116,7 +116,7 @@ const Candidate = () => {
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-none bg-transparent shadow-none"
+            className="h-8 w-8 cursor-pointer p-0 border-none bg-transparent shadow-none"
             onClick={() => setCurrentPage(currentPage + 1)}
           >
             <ChevronRight className="h-4 w-4" />
@@ -126,7 +126,7 @@ const Candidate = () => {
           <Button
             variant="outline"
             size="icon"
-            className="h-8 w-8 p-0 border-none bg-transparent shadow-none text-[black]"
+            className="h-8 w-8 cursor-pointer p-0 border-none bg-transparent shadow-none text-[black]"
             onClick={() => setCurrentPage(5)}
           >
             <ChevronsRight className="h-4 w-4" />
@@ -136,14 +136,14 @@ const Candidate = () => {
 
         <div className="cursor-pointer">
           <Select value={entriesPerPage} onValueChange={setEntriesPerPage}>
-            <SelectTrigger className="w-[130px] outline-none bg-white font-inter text-[#0A0D14] text-[14px] border-gray-200">
+            <SelectTrigger className="w-[130px] outline-none cursor-pointer bg-white font-inter text-[#0A0D14] text-[14px] border-gray-200">
               <SelectValue placeholder="7 Entries" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="5" className="font-inter text-[14px] font-normal">5 Entries</SelectItem>
-              <SelectItem value="7" className="font-inter text-[14px] font-normal">7 Entries</SelectItem>
-              <SelectItem value="10" className="font-inter text-[14px] font-normal">10 Entries</SelectItem>
-              <SelectItem value="20" className="font-inter text-[14px] font-normal">20 Entries</SelectItem>
+              <SelectItem value="5" className="font-inter cursor-pointer text-[14px] font-normal">5 Entries</SelectItem>
+              <SelectItem value="7" className="font-inter cursor-pointer text-[14px] font-normal">7 Entries</SelectItem>
+              <SelectItem value="10" className="font-inter cursor-pointer text-[14px] font-normal">10 Entries</SelectItem>
+              <SelectItem value="20" className="font-inter cursor-pointer text-[14px] font-normal">20 Entries</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -261,12 +261,12 @@ const Candidate = () => {
                     <div className="text-sm text-[#525866] font-semibold bg-[#F6F8FA] w-[88px] h-[36px] text-center rounded-lg pt-[6px]">ID {candidate.id}</div>
                     <div className="flex gap-2">
                       {/* Add to Favorites Button */}
-                      <Button variant="fev" size="sm" className="text-teal-500 hover:bg-teal-500 hover:text-white">
+                      <Button variant="fev" size="sm" className="text-teal-500 cursor-pointer hover:bg-teal-500 hover:text-white">
                         <Heart className="h-4 w-4 mr-1" />
                         Add Favorites
                       </Button>
                       {/* View Profile Button */}
-                      <Button variant="fev" size="sm" className="text-teal-500 hover:bg-teal-500 hover:text-white">
+                      <Button variant="fev" size="sm" className="text-teal-500 cursor-pointer hover:bg-teal-500 hover:text-white">
                         <User className="h-4 w-4 mr-1" />
                         View Profile
                       </Button>

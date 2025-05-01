@@ -215,7 +215,7 @@ export function CustomCalendar({
               type="button"
               onClick={() => handleDateClick(day)}
               className={cn(
-                "h-8 w-8 rounded-lg flex items-center justify-center text-sm transition-colors",
+                "h-8 w-8 rounded-lg cursor-pointer flex items-center justify-center text-sm transition-colors",
                 isToday(day) && "font-semibold",
                 isSelected && "bg-teal-500 text-white",
                 inRange && !isSelected && "bg-teal-100 text-teal-600",
@@ -240,7 +240,7 @@ export function CustomCalendar({
     type="button"
     onClick={option.onClick}
     className={cn(
-      "text-sm text-[#525866] font-inter text-[14px] font-medium hover:text-gray-900 w-full text-left rounded-md px-2 py-1",
+      "text-sm text-[#525866] cursor-pointer font-inter text-[14px] font-medium hover:text-gray-900 w-full text-left rounded-md px-2 py-1",
       activeQuickSelect === option.label && "font-medium text-[14px] font-inter text-[#0A0D14] bg-[#F6F8FA]"
     )}
   >
@@ -253,7 +253,7 @@ export function CustomCalendar({
       <div className="flex-1 cursor-pointer p-4">
         {/* Header */}
         <div className="flex justify-between  items-center mb-4">
-          <button type="button" onClick={handlePreviousMonth} className="p-1 rounded-lg cursor-pointer z-10 bg-[#FFFFFF] ">
+          <button type="button" onClick={handlePreviousMonth} className="p-1  rounded-lg cursor-pointer z-10 bg-[#FFFFFF] ">
             <ChevronLeft className="h-4 w-4" />
             <span className="sr-only">Previous month</span>
           </button>
@@ -272,7 +272,7 @@ export function CustomCalendar({
         {/* Months */}
         <div className="grid cursor-pointer   grid-cols-1 sm:grid-cols-2 gap-10">
           {renderMonth(leftMonth, leftMonthData)}
-          <div className="w-[1px] h-[293px] top-0 left-[477px] bg-gray-300 absolute"></div>
+          <div className="w-[1px] h-[293px] top-0 left-[477px] cursor-pointer bg-gray-300 absolute"></div>
           {renderMonth(rightMonth, rightMonthData)}
         </div>
         
@@ -289,10 +289,10 @@ export function CustomCalendar({
               : "Select a date range"}
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={handleCancel} className="text-xs sm:text-sm">
+            <Button variant="outline" size="sm" onClick={handleCancel} className="text-xs cursor-pointer sm:text-sm">
               Cancel
             </Button>
-            <Button size="sm" className="bg-teal-500 hover:bg-teal-600 text-xs sm:text-sm" onClick={handleApply} disabled={!selectedStartDate}>
+            <Button size="sm" className="bg-teal-500 hover:bg-teal-600 text-xs cursor-pointer sm:text-sm" onClick={handleApply} disabled={!selectedStartDate}>
               Apply
             </Button>
           </div>

@@ -4,10 +4,12 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout/Layout";
+import Profile from "./pages/Profile";
 
 let router = createBrowserRouter(createRoutesFromElements(
   <Route element={<Layout/>}>
     <Route index element={<Home/>}></Route>
+    <Route path="/profile" element ={<Profile/>}></Route>
   </Route>
 ))
 
