@@ -29,7 +29,7 @@ const ProfileSideBar = () => {
         { id: "dashboard", label: "My Dashboard", icon: <TbLayoutDashboardFilled className="h-4 w-4 mr-2" /> },
       ];
   return (
-    <div className="w-full md:w-72 bg-[#F6F8FA] rounded-lg p-6 ">
+    <div className="w-full md:w-72 bg-[#F6F8FA] rounded-lg p-3 ">
     <h2 className="text-[18px] font-inter font-semibold text-[#0A0D14]  mb-6">Need Help? <a href='#'>Contact Us</a></h2>
 
     <div className="mb-6">
@@ -47,7 +47,7 @@ const ProfileSideBar = () => {
   <div className=''>
     
     <h3 className="mt-[35px] text-[18px] font-semibold font-inter text-[#0A0D14]">Jenny Wilson</h3>
-    <p className="text-[10px] font-inter font-normal text-[#0A0D14]">Family Advising Associate</p>
+    <p className="text-[12px] font-inter font-normal text-[#0A0D14]">Family Advising Associate</p>
 
    
     
