@@ -26,6 +26,7 @@ const ProfileSideBar = () => {
       id: "favorites",
       label: "My Favorites",
       icon: <IoIosHeart />,
+      to: "/myfavorite",
     },
     {
       id: "edit",
