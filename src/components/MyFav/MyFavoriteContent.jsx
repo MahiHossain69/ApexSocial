@@ -145,12 +145,12 @@ const MyFavorite = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-6xl mx-auto ">
+      <div className="w-full  mx-auto ">
     
      
 
       {/* Table Container */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm border  border-gray-200 overflow-hidden">
         {people.length === 0 ? (
           <div className="p-8 text-center">
             <p className="text-[20px] text-[#176448]">No favorites added yet.</p>

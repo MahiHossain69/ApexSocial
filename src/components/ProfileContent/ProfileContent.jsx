@@ -20,11 +20,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useState } from "react";
-
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 
 const ProfileContent = () => {
   const [selectedImage, setSelectedImage] = useState(Pro1);
   const thumbnails = [Pro1, Pro2, Pro3, Pro4, Pro5];
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   return (
     <div className="">
       <Card className="border rounded-lg p-6">
@@ -35,72 +36,88 @@ const ProfileContent = () => {
         </div>
 
         <div className="flex flex-col md:flex-row items-start gap-6 mt-[-25px] mb-8">
-      {/* Left Side - Image & Thumbnails */}
-      <div className="w-full md:w-[200px]">
-        <img
-          src={selectedImage}
-          alt="Profile"
-          className="w-full h-auto md:max-w-[180px] rounded-lg object-cover"
-        />
+          {/* Left Side - Image & Thumbnails */}
+          <div className="w-full md:w-[200px]">
+            <img
+              src={selectedImage}
+              alt="Profile"
+              className="w-full h-auto md:max-w-[180px] rounded-lg object-cover"
+            />
 
-        <div className="flex xs:justify-between md:justify-normal gap-2 mt-4">
-          {thumbnails.map((img, idx) => (
-            <div
-              key={idx}
-              onClick={() => setSelectedImage(img)}
-              className="cursor-pointer md:w-9 md:h-9 xs:w-full xs:h-full rounded-md overflow-hidden border hover:ring-2 ring-teal-500"
-            >
-              <img
-                src={img}
-                alt={`Thumbnail ${idx}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Right Side - Text */}
-      <div className="flex-1 sm:ml-0 md:mx-auto mx-auto">
-        <h2 className="text-[18px] sm:text-[20px] font-inter font-bold text-[#0A0D14] mb-4">
-          Dr. Hartman Personality Analysis{" "}
-          <span className="font-normal font-inter text-[20px]">
-            (The Color Code)
-          </span>
-        </h2>
-
-        <div className="space-y-4 mb-6">
-          <div className="flex flex-col sm:flex-row md:items-center gap-2 sm:gap-4">
-            <span className="min-w-[110px] text-[#0A0D14] font-inter text-[14px] font-medium">
-              Primary Color :
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="w-4 h-4 rounded-full bg-blue-600"></span>
-              <span className="font-inter font-normal text-[14px] text-[#0A0D14]">
-                Blue
-              </span>
+            <div className="flex xs:justify-between md:justify-normal gap-2 mt-4">
+              {thumbnails.map((img, idx) => (
+                <div
+                  key={idx}
+                  onClick={() => setSelectedImage(img)}
+                  className="cursor-pointer md:w-9 md:h-9 xs:w-full xs:h-full rounded-md overflow-hidden border hover:ring-2 ring-teal-500"
+                >
+                  <img
+                    src={img}
+                    alt={`Thumbnail ${idx}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row md:items-center gap-2 sm:gap-4">
-            <span className="min-w-[110px] text-[#0A0D14] font-inter text-[14px] font-medium">
-              Secondary Color :
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="w-4 h-4 rounded-full bg-yellow-500"></span>
-              <span className="font-inter font-normal text-[14px] text-[#0A0D14]">
-                Yellow (Motivated by Fun)
+          {/* Right Side - Text */}
+          <div className="flex-1 sm:ml-0 md:mx-auto mx-auto">
+            <h2 className="text-[18px] sm:text-[20px] font-inter font-bold text-[#0A0D14] mb-4">
+              Dr. Hartman Personality Analysis{" "}
+              <span className="font-normal font-inter text-[20px]">
+                (The Color Code)
               </span>
+            </h2>
+
+            <div className="space-y-4 mb-6">
+              <div className="flex flex-col sm:flex-row md:items-center gap-2 sm:gap-4">
+                <span className="min-w-[110px] text-[#0A0D14] font-inter text-[14px] font-medium">
+                  Primary Color :
+                </span>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-blue-600"></span>
+                  <span className="font-inter font-normal text-[14px] text-[#0A0D14]">
+                    Blue
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row md:items-center gap-2 sm:gap-4">
+                <span className="min-w-[110px] text-[#0A0D14] font-inter text-[14px] font-medium">
+                  Secondary Color :
+                </span>
+                <div className="flex items-center gap-2">
+                  <span className="w-4 h-4 rounded-full bg-yellow-500"></span>
+                  <span className="font-inter font-normal text-[14px] text-[#0A0D14]">
+                    Yellow (Motivated by Fun)
+                  </span>
+                </div>
+              </div>
             </div>
+
+            <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-teal-500 cursor-pointer hover:bg-teal-600 font-inter font-medium text-[14px] text-white px-4 py-2 rounded-md">
+                  <GoVideo className="h-4 text-white w-4 mr-2" />
+                  View Video
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl w-full p-0">
+                <div className="relative w-full aspect-video">
+                  <iframe
+                    className="w-full h-full rounded-lg"
+                    src="https://www.youtube.com/embed/_wS4sXzOerI"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
-
-        <Button className="bg-teal-500 cursor-pointer hover:bg-teal-600 font-inter font-medium text-[14px] text-white px-4 py-2 rounded-md">
-          <GoVideo className="h-4 text-white w-4 mr-2" />
-          View Video
-        </Button>
-      </div>
-    </div>
 
         <div className="grid mt-[-15px] grid-cols-1 md:grid-cols-2 gap-8">
           <div>

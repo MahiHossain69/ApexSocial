@@ -43,11 +43,13 @@ const ProfileSideBar = () => {
       id: "videos",
       label: "Helpful Videos",
       icon: <RiVideoFill />,
+      to: "/helpvid",
     },
     {
       id: "resources",
       label: "Resources",
       icon: <HiLightBulb />,
+      to: "/resources",
     },
     {
       id: "dashboard",
