@@ -126,15 +126,17 @@ const MyFavorite = () => {
         </div>
       </div>
 
-      <Card>
-        <div className="bg-[#EFFAF6] p-3 mx-5 rounded-md">
-          <div>
-            <h1 className="font-inter font-medium ml-3 text-[#176448] flex gap-2 items-center text-[20px]">
-              Your list is empty. Feel free to search our pool of care professionals <PiGreaterThanBold />
-            </h1>
-          </div>
-        </div>
-      </Card>
+     <Card>
+  <div className="bg-[#EFFAF6] p-4 sm:p-5 md:p-6 mx-3 sm:mx-5 rounded-md">
+    <div>
+      <h1 className="font-inter font-medium text-[#176448] flex gap-2 items-center text-base sm:text-lg md:text-xl">
+        Your list is empty. Feel free to search our pool of care professionals
+        <PiGreaterThanBold className="w-4 h-4 sm:w-5 sm:h-5" />
+      </h1>
+    </div>
+  </div>
+</Card>
+
 
       <div className="mb-6 border-b-2 mt-[10px] p-4 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
         <div className="flex ml-0 xs:mt-[15px] md:mt-0 sm:ml-[-15px] gap-2 sm:gap-[10px] items-center">

@@ -32,6 +32,7 @@ const ProfileSideBar = () => {
       id: "edit",
       label: "Edit Application",
       icon: <AiFillEdit />,
+      to: "/application",
     },
     {
       id: "cost",
