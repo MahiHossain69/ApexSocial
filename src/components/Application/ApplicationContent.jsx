@@ -10,6 +10,9 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { Textarea } from "../ui/textarea"
 import { Switch } from "../ui/switch"
 import { Button } from "../ui/button"
+import { IoIosAlert } from "react-icons/io"
+import { Link } from "react-router-dom"
+
 
 
 const ApplicationContent = () => {
@@ -66,58 +69,58 @@ const ApplicationContent = () => {
           {/* Basic Information Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="hostFamilyName" className="block text-sm font-medium text-gray-700 mb-1">
-                Host Family Name <span className="text-gray-500 text-xs">(e.g. Smith Family)</span>
+              <Label htmlFor="hostFamilyName" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+                Host Family Name<span className="text-red-500 ml-[5px]">*</span> <span className="text-gray-500 text-xs font-inter font-normal">(e.g. Smith Family)</span>
               </Label>
-              <Input id="hostFamilyName" placeholder="Type Here..." className="w-full" />
+              <Input id="hostFamilyName" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
             <div>
-              <Label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="email" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 Email <span className="text-red-500">*</span>
               </Label>
-              <Input id="email" type="email" placeholder="Type Here..." className="w-full" />
+              <Input id="email" type="email" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="housePhone" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="housePhone" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 House Phone <span className="text-red-500">*</span>
               </Label>
-              <Input id="housePhone" placeholder="Type Here..." className="w-full" />
+              <Input id="housePhone" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
             <div>
-              <Label htmlFor="streetAddress" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="streetAddress" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 Street Address <span className="text-red-500">*</span>
               </Label>
-              <Input id="streetAddress" placeholder="Type Here..." className="w-full" />
+              <Input id="streetAddress" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="city" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 City <span className="text-red-500">*</span>
               </Label>
-              <Input id="city" placeholder="Type Here..." className="w-full" />
+              <Input id="city" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
             <div>
-              <Label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="state" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 State <span className="text-red-500">*</span>
               </Label>
-              <Input id="state" placeholder="Type Here..." className="w-full" />
+              <Input id="state" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="zipCode" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 Zip / Postal Code <span className="text-red-500">*</span>
               </Label>
-              <Input id="zipCode" placeholder="Type Here..." className="w-full" />
+              <Input id="zipCode" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
             <div>
-              <Label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="country" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 Country <span className="text-red-500">*</span>
               </Label>
               <Select>
@@ -135,16 +138,16 @@ const ApplicationContent = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="website" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 Website / Family Blog <span className="text-red-500">*</span>
               </Label>
-              <Input id="website" placeholder="Type Here..." className="w-full" />
+              <Input id="website" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
             <div>
-              <Label htmlFor="linkedin" className="block text-sm font-medium text-gray-700 mb-1">
+              <Label htmlFor="linkedin" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                 LinkedIn URL <span className="text-red-500">*</span>
               </Label>
-              <Input id="linkedin" placeholder="Type Here..." className="w-full" />
+              <Input id="linkedin" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
             </div>
           </div>
 
@@ -160,7 +163,7 @@ const ApplicationContent = () => {
               className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6"
             >
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="yes" id="citizenship-yes" />
+                <RadioGroupItem value="yes" className="" id="citizenship-yes" />
                 <Label htmlFor="citizenship-yes" className="text-sm">
                   Yes
                 </Label>
@@ -210,7 +213,9 @@ const ApplicationContent = () => {
                 <SelectItem value="5">5+</SelectItem>
               </SelectContent>
             </Select>
-            <p className="text-xs text-gray-500 italic">
+            <p className="text-xs flex gap-[5px] items-center text-[#525866] font-inter font-medium">
+              <IoIosAlert  className="text-[15px] text-[#525866]"/>
+
               Include those you are expecting, adopting or live with you part-time.
             </p>
           </div>
@@ -229,8 +234,7 @@ const ApplicationContent = () => {
               How did you find us if via search engine, what words did you search for?{" "}
               <span className="text-red-500">*</span>
               <span className="block text-xs text-gray-500 font-normal mt-1">
-                (e.g. Google search for special needs childcare, if "other" please specify, if from a friend referral,
-                please tell us their name, so we can thank them!)
+                (i.e. Google search for special needs childcare, If “other” please specify. If from a freind referral, please tell us their name, so we can thank them)
               </span>
             </Label>
             <Textarea id="findUs" placeholder="Type Here..." className="min-h-[80px] resize-none" />
@@ -243,16 +247,16 @@ const ApplicationContent = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="firstName" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     First Name <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="firstName" placeholder="Type Here..." className="w-full" />
+                  <Input id="firstName" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
                 <div>
-                  <Label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="lastName" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Last Name <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="lastName" placeholder="Type Here..." className="w-full" />
+                  <Input id="lastName" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
               </div>
 
@@ -281,46 +285,46 @@ const ApplicationContent = () => {
                   </RadioGroup>
                 </div>
                 <div>
-                  <Label htmlFor="linkedinParent" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="linkedinParent" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     LinkedIn URL <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="linkedinParent" placeholder="Type Here..." className="w-full" />
+                  <Input id="linkedinParent" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="altEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="altEmail" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Alternative Mail
                   </Label>
-                  <Input id="altEmail" placeholder="Type Here..." className="w-full" />
+                  <Input id="altEmail" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
                 <div>
-                  <Label htmlFor="confirmAltEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="confirmAltEmail" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Confirm Alternative Mail
                   </Label>
-                  <Input id="confirmAltEmail" placeholder="Type Here..." className="w-full" />
+                  <Input id="confirmAltEmail" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="mobilePhone" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="mobilePhone" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Mobile Phone <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="mobilePhone" placeholder="Type Here..." className="w-full" />
+                  <Input id="mobilePhone" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
                 <div>
-                  <Label htmlFor="workPhone" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="workPhone" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Work Phone
                   </Label>
-                  <Input id="workPhone" placeholder="Type Here..." className="w-full" />
+                  <Input id="workPhone" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="birthday" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="birthday" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Birthday <span className="text-red-500">*</span>
                   </Label>
                   <div className="relative">
@@ -329,7 +333,7 @@ const ApplicationContent = () => {
                   </div>
                 </div>
                 <div>
-                  <Label htmlFor="occupation" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="occupation" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Occupation <span className="text-red-500">*</span>
                   </Label>
                   <Select>
@@ -348,13 +352,13 @@ const ApplicationContent = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="jobTitle" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="jobTitle" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Job Title / Profession <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="jobTitle" placeholder="Type Here..." className="w-full" />
+                  <Input id="jobTitle" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
                 <div>
-                  <Label htmlFor="education" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="education" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Level of Education <span className="text-red-500">*</span>
                   </Label>
                   <Select>
@@ -380,13 +384,13 @@ const ApplicationContent = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="employer" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="employer" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Employer <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="employer" placeholder="Type Here..." className="w-full" />
+                  <Input id="employer" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
                 <div>
-                  <Label htmlFor="employerAddress" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="employerAddress" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Employer Street Address <span className="text-red-500">*</span>
                   </Label>
                   <Select>
@@ -403,13 +407,13 @@ const ApplicationContent = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="employerCity" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="employerCity" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Employer City <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="employerCity" placeholder="Type Here..." className="w-full" />
+                  <Input id="employerCity" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
                 <div>
-                  <Label htmlFor="employerState" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="employerState" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Employer State <span className="text-red-500">*</span>
                   </Label>
                   <Select>
@@ -427,13 +431,13 @@ const ApplicationContent = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="employerZip" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="employerZip" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Employer Zip / Postal Code <span className="text-red-500">*</span>
                   </Label>
-                  <Input id="employerZip" placeholder="Type Here..." className="w-full" />
+                  <Input id="employerZip" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                 </div>
                 <div>
-                  <Label htmlFor="employerCountry" className="block text-sm font-medium text-gray-700 mb-1">
+                  <Label htmlFor="employerCountry" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                     Employer Country <span className="text-red-500">*</span>
                   </Label>
                   <Select>
@@ -498,16 +502,16 @@ const ApplicationContent = () => {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondFirstName" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondFirstName" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         First Name <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondFirstName" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondFirstName" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                     <div>
-                      <Label htmlFor="secondLastName" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondLastName" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Last Name <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondLastName" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondLastName" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                   </div>
 
@@ -536,46 +540,46 @@ const ApplicationContent = () => {
                       </RadioGroup>
                     </div>
                     <div>
-                      <Label htmlFor="secondLinkedinParent" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondLinkedinParent" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         LinkedIn URL <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondLinkedinParent" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondLinkedinParent" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondAltEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondAltEmail" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Alternative Mail
                       </Label>
-                      <Input id="secondAltEmail" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondAltEmail" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                     <div>
-                      <Label htmlFor="secondConfirmAltEmail" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondConfirmAltEmail" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Confirm Alternative Mail
                       </Label>
-                      <Input id="secondConfirmAltEmail" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondConfirmAltEmail" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondMobilePhone" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondMobilePhone" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Mobile Phone <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondMobilePhone" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondMobilePhone" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                     <div>
-                      <Label htmlFor="secondWorkPhone" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondWorkPhone" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Work Phone
                       </Label>
-                      <Input id="secondWorkPhone" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondWorkPhone" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondBirthday" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondBirthday" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Birthday <span className="text-red-500">*</span>
                       </Label>
                       <div className="relative">
@@ -584,7 +588,7 @@ const ApplicationContent = () => {
                       </div>
                     </div>
                     <div>
-                      <Label htmlFor="secondOccupation" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondOccupation" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Occupation <span className="text-red-500">*</span>
                       </Label>
                       <Select>
@@ -603,13 +607,13 @@ const ApplicationContent = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondJobTitle" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondJobTitle" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Job Title / Profession <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondJobTitle" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondJobTitle" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                     <div>
-                      <Label htmlFor="secondEducation" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondEducation" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Level of Education <span className="text-red-500">*</span>
                       </Label>
                       <Select>
@@ -635,13 +639,13 @@ const ApplicationContent = () => {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondEmployer" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondEmployer" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Employer <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondEmployer" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondEmployer" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                     <div>
-                      <Label htmlFor="secondEmployerAddress" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondEmployerAddress" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Employer Street Address <span className="text-red-500">*</span>
                       </Label>
                       <Select>
@@ -658,13 +662,13 @@ const ApplicationContent = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondEmployerCity" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondEmployerCity" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Employer City <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondEmployerCity" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondEmployerCity" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                     <div>
-                      <Label htmlFor="secondEmployerState" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondEmployerState" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Employer State <span className="text-red-500">*</span>
                       </Label>
                       <Select>
@@ -682,13 +686,13 @@ const ApplicationContent = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <Label htmlFor="secondEmployerZip" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondEmployerZip" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Employer Zip / Postal Code <span className="text-red-500">*</span>
                       </Label>
-                      <Input id="secondEmployerZip" placeholder="Type Here..." className="w-full" />
+                      <Input id="secondEmployerZip" placeholder="Type Here..." className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal" />
                     </div>
                     <div>
-                      <Label htmlFor="secondEmployerCountry" className="block text-sm font-medium text-gray-700 mb-1">
+                      <Label htmlFor="secondEmployerCountry" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
                         Employer Country <span className="text-red-500">*</span>
                       </Label>
                       <Select>
@@ -709,7 +713,9 @@ const ApplicationContent = () => {
 
           {/* Save and Next Button */}
           <div className="flex justify-end pt-6 border-t">
+            <Link to="#">
             <Button className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 sm:px-8">Save and Next</Button>
+            </Link>
           </div>
         </div>
      

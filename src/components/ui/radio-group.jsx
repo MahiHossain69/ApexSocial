@@ -4,38 +4,36 @@ import { CircleIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-function RadioGroup({
-  className,
-  ...props
-}) {
+function RadioGroup({ className, ...props }) {
   return (
     <RadioGroupPrimitive.Root
       data-slot="radio-group"
       className={cn("grid gap-3", className)}
-      {...props} />
+      {...props}
+    />
   );
 }
 
-function RadioGroupItem({
-  className,
-  ...props
-}) {
+function RadioGroupItem({ className, ...props }) {
   return (
     <RadioGroupPrimitive.Item
       data-slot="radio-group-item"
       className={cn(
-        "border-input text-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        "bg-white border border-[#E2E4E9]   data-[state=checked]:bg-[#4CC0B0]  transition-colors size-4 rounded-full flex items-center justify-center shadow-sm focus-visible:ring-2 focus-visible:ring-[#4CC0B0]/50 outline-none disabled:opacity-50 disabled:cursor-not-allowed",
         className
       )}
-      {...props}>
+      {...props}
+    >
       <RadioGroupPrimitive.Indicator
         data-slot="radio-group-indicator"
-        className="relative flex items-center justify-center">
+        className="flex items-center justify-center w-full h-full"
+      >
         <CircleIcon
-          className="fill-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2" />
+          className="text-white bg-white rounded-[10px] shadow-2xl w-2 h-2"
+        />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );
 }
 
-export { RadioGroup, RadioGroupItem }
+export { RadioGroup, RadioGroupItem };
