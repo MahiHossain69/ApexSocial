@@ -1,19 +1,16 @@
 "use client"
 
-import { Calendar, FileText, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react"
+import { Calendar, FileText, ChevronLeft, ChevronRight, Plus } from "lucide-react"
 import { useState } from "react"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Checkbox } from "@/components/ui/checkbox"
-import { IoIosAlert } from "react-icons/io";
-import { BsFillInfoCircleFill } from "react-icons/bs";
-
+import { IoIosAlert } from "react-icons/io"
+import { BsFillInfoCircleFill } from "react-icons/bs"
 
 import { cn } from "@/lib/utils"
 
@@ -64,13 +61,40 @@ const ApplicationContent = () => {
     bengali: false,
   })
 
-  const DatePicker = ({
-    date,
-    setDate,
-    placeholder = "Select date",
-    isOpen,
-    setIsOpen,
-  }) => {
+  // Step 3 states - Children
+  const [childName, setChildName] = useState("")
+  const [childGender, setChildGender] = useState("")
+  const [childBirthday, setChildBirthday] = useState(null)
+  const [childBirthdayCalendarOpen, setChildBirthdayCalendarOpen] = useState(false)
+  const [requireChildCare, setRequireChildCare] = useState("")
+  const [hasSpecialNeeds, setHasSpecialNeeds] = useState("")
+  const [anySpecialNeeds, setAnySpecialNeeds] = useState(false)
+  const [children, setChildren] = useState([])
+
+  // Step 3 states - Additional Child Form
+  const [showAddChildForm, setShowAddChildForm] = useState(false)
+  const [additionalChildName, setAdditionalChildName] = useState("")
+  const [additionalChildGender, setAdditionalChildGender] = useState("")
+  const [additionalChildBirthday, setAdditionalChildBirthday] = useState(null)
+  const [additionalChildBirthdayCalendarOpen, setAdditionalChildBirthdayCalendarOpen] = useState(false)
+  const [additionalRequireChildCare, setAdditionalRequireChildCare] = useState("")
+  const [additionalHasSpecialNeeds, setAdditionalHasSpecialNeeds] = useState("")
+  const [additionalAnySpecialNeeds, setAdditionalAnySpecialNeeds] = useState(false)
+
+  // Step 4 states - Lifestyle
+  const [nativeLanguage, setNativeLanguage] = useState("")
+  const [otherLanguages, setOtherLanguages] = useState("")
+  const [otherHobbies, setOtherHobbies] = useState("")
+  const [dietaryRestrictions, setDietaryRestrictions] = useState("")
+  const [previousAgency, setPreviousAgency] = useState("")
+  const [culturalConsiderations, setCulturalConsiderations] = useState("")
+  const [pets, setPets] = useState("")
+  const [familyLanguages, setFamilyLanguages] = useState([])
+  const [familyFun, setFamilyFun] = useState([])
+  const [childCareArrangements, setChildCareArrangements] = useState([])
+
+  // Enhanced DatePicker component
+  const DatePicker = ({ date, setDate, placeholder = "Select date", isOpen, setIsOpen }) => {
     const [currentMonth, setCurrentMonth] = useState(new Date())
 
     const formatDate = (date) => {
@@ -131,146 +155,194 @@ const ApplicationContent = () => {
 
     return (
       <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
-        >
-          <Calendar className="mr-2 h-4 w-4" />
-          {formatDate(date)}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
-        <div className="p-4">
-          {/* Calendar Header */}
-          <div className="flex items-center justify-between mb-4">
-            <Button variant="outline" size="sm" onClick={() => navigateMonth("prev")} className="h-8 w-8 p-0">
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <h3 className="text-sm font-medium">{monthYear}</h3>
-            <Button variant="outline" size="sm" onClick={() => navigateMonth("next")} className="h-8 w-8 p-0">
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* Days of week header */}
-          <div className="grid grid-cols-7 gap-1 mb-2">
-            {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
-              <div key={day} className="text-center text-xs font-medium text-muted-foreground p-2">
-                {day}
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            className={cn("w-full justify-start text-left font-normal", !date && "text-muted-foreground")}
+          >
+            <Calendar className="mr-2 h-4 w-4" />
+            {formatDate(date)}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <div className="p-4">
+            {/* Calendar Header */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setCurrentMonth((prev) => {
+                      const newMonth = new Date(prev)
+                      newMonth.setFullYear(prev.getFullYear() - 1)
+                      return newMonth
+                    })
+                  }}
+                  className="h-8 w-8 p-0"
+                  title="Previous Year"
+                >
+                  <span className="text-xs">‹‹</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigateMonth("prev")}
+                  className="h-8 w-8 p-0"
+                  title="Previous Month"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
               </div>
-            ))}
-          </div>
 
-          {/* Calendar Grid */}
-          <div className="grid grid-cols-7 gap-1">
-            {days.map((day, index) => (
-              <div key={index} className="aspect-square">
-                {day && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => selectDate(day)}
-                    className={cn(
-                      "h-8 w-8 p-0 font-normal hover:bg-accent",
-                      isSelected(day) && "bg-primary text-primary-foreground hover:bg-primary",
-                      isToday(day) && !isSelected(day) && "bg-accent text-accent-foreground"
-                    )}
-                  >
-                    {day.getDate()}
-                  </Button>
-                )}
+              <div className="flex flex-col items-center">
+                <h3 className="text-sm font-medium">{monthYear}</h3>
               </div>
-            ))}
-          </div>
 
-          {/* Quick actions */}
-          <div className="flex justify-between mt-4 pt-4 border-t">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setDate(new Date())
-                setIsOpen(false)
-              }}
-            >
-              Today
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setDate(null)
-                setIsOpen(false)
-              }}
-            >
-              Clear
-            </Button>
+              <div className="flex items-center space-x-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigateMonth("next")}
+                  className="h-8 w-8 p-0"
+                  title="Next Month"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setCurrentMonth((prev) => {
+                      const newMonth = new Date(prev)
+                      newMonth.setFullYear(prev.getFullYear() + 1)
+                      return newMonth
+                    })
+                  }}
+                  className="h-8 w-8 p-0"
+                  title="Next Year"
+                >
+                  <span className="text-xs">››</span>
+                </Button>
+              </div>
+            </div>
+
+            {/* Days of week header */}
+            <div className="grid grid-cols-7 gap-1 mb-2">
+              {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+                <div key={day} className="text-center text-xs font-medium text-muted-foreground p-2">
+                  {day}
+                </div>
+              ))}
+            </div>
+
+            {/* Calendar Grid */}
+            <div className="grid grid-cols-7 gap-1">
+              {days.map((day, index) => (
+                <div key={index} className="aspect-square">
+                  {day && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => selectDate(day)}
+                      className={cn(
+                        "h-8 w-8 p-0 font-normal hover:bg-accent",
+                        isSelected(day) && "bg-[#45B5AA] text-primary-foreground hover:bg-primary",
+                        isToday(day) && !isSelected(day) && "bg-accent text-accent-foreground",
+                      )}
+                    >
+                      {day.getDate()}
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Quick actions */}
+            <div className="flex justify-between mt-4 pt-4 border-t">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setDate(new Date())
+                  setIsOpen(false)
+                }}
+              >
+                Today
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setDate(null)
+                  setIsOpen(false)
+                }}
+              >
+                Clear
+              </Button>
+            </div>
           </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+        </PopoverContent>
+      </Popover>
     )
   }
 
- const handleStepClick = (step) => {
-  setCurrentStep(step)
-}
-
-const handleNext = () => {
-  if (currentStep < totalSteps) {
-    setCurrentStep(currentStep + 1)
+  const handleStepClick = (step) => {
+    setCurrentStep(step)
   }
-}
 
-const handlePrevious = () => {
-  if (currentStep > 1) {
-    setCurrentStep(currentStep - 1)
+  const handleNext = () => {
+    if (currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1)
+    }
   }
-}
 
-const handleAgeGroupChange = (group) => {
-  setAgeGroups((prev) => ({
-    ...prev,
-    [group]: !prev[group],
-  }))
-}
+  const handlePrevious = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
 
-const handleLanguageChange = (language) => {
-  setLanguages((prev) => ({
-    ...prev,
-    [language]: !prev[language],
-  }))
-}
+  const handleAgeGroupChange = (group) => {
+    setAgeGroups((prev) => ({
+      ...prev,
+      [group]: !prev[group],
+    }))
+  }
+
+  const handleLanguageChange = (language) => {
+    setLanguages((prev) => ({
+      ...prev,
+      [language]: !prev[language],
+    }))
+  }
 
   const renderProgressSteps = () => (
     <div className="mb-6">
-  <p className="text-sm font-inter text-gray-700 mb-3">Steps to Complete</p>
-  <div className="flex justify-center sm:mt-[-31px] sm:ml-[110px] xl:ml-0 items-center space-x-2 overflow-x-auto pb-2">
-    {Array.from({ length: totalSteps }, (_, i) => i + 1).map((step) => {
-      const isCurrent = step === currentStep
-      const isCompleted = step < currentStep
-      const isUpcoming = step > currentStep
+      <p className="text-sm font-inter text-gray-700 mb-3">Steps to Complete</p>
+      <div className="flex justify-center sm:mt-[-31px] sm:ml-[110px] xl:ml-0 items-center space-x-2 overflow-x-auto pb-2">
+        {Array.from({ length: totalSteps }, (_, i) => i + 1).map((step) => {
+          const isCurrent = step === currentStep
+          const isCompleted = step < currentStep
 
-      return (
-        <div
-          key={step}
-          className={`min-w-[20px] w-5 h-5 rounded-full flex items-center justify-center cursor-pointer transition-colors border-2 border-[#E2E4E9] text-[#E2E4E9] bg-transparent ${
-            isCurrent
-              ? "border-2 border-[#45B5AA]! text-[#45B5AA]!"
-              : isCompleted
-              ? "bg-[#45B5AA]! text-[#fff]! border-none!"
-              : ""
-          }`}
-          onClick={() => handleStepClick(step)}
-        >
-          <span className="text-sm font-inter font-medium">{step}</span>
-        </div>
-      )
-    })}
-  </div>
-</div>
-
+          return (
+            <div
+              key={step}
+              className={`min-w-[20px] w-5 h-5 rounded-full flex items-center justify-center cursor-pointer transition-colors border-2 ${
+                isCurrent
+                  ? "border-[#45B5AA] text-[#45B5AA] bg-transparent"
+                  : isCompleted
+                    ? "bg-[#45B5AA] text-white border-[#45B5AA]"
+                    : "border-[#E2E4E9] text-[#E2E4E9] bg-transparent"
+              }`}
+              onClick={() => handleStepClick(step)}
+            >
+              <span className="text-sm font-inter font-medium">{step}</span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 
   const renderStep1 = () => (
@@ -418,7 +490,7 @@ const handleLanguageChange = (language) => {
 
         {/* Citizenship Question */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             Are both parents fluent in English & both are US Citizens or Permanent Residence{" "}
             <span className="text-red-500">*</span>
           </Label>
@@ -429,13 +501,13 @@ const handleLanguageChange = (language) => {
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="yes" id="citizenship-yes" />
-              <Label htmlFor="citizenship-yes" className="text-sm font-inter">
+              <Label htmlFor="citizenship-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Yes
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="no" id="citizenship-no" />
-              <Label htmlFor="citizenship-no" className="text-sm font-inter">
+              <Label htmlFor="citizenship-no" className="text-sm font-inter font-normal text-[#0A0D14]">
                 No
               </Label>
             </div>
@@ -444,11 +516,11 @@ const handleLanguageChange = (language) => {
 
         {/* Family Status */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">Family Status</Label>
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">Family Status</Label>
           <RadioGroup value={familyStatus} onValueChange={setFamilyStatus} className="space-y-2">
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="dual" id="dual-parent" />
-              <Label htmlFor="dual-parent" className="text-sm font-inter">
+              <Label htmlFor="dual-parent" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Dual Parent Household
               </Label>
             </div>
@@ -463,7 +535,7 @@ const handleLanguageChange = (language) => {
 
         {/* Number of Children */}
         <div className="space-y-2">
-          <Label htmlFor="numChildren" className="block text-sm font-inter font-medium text-gray-700">
+          <Label htmlFor="numChildren" className="block text-sm font-inter font-medium text-[#0A0D14]">
             Number of Children <span className="text-red-500">*</span>
           </Label>
           <Select>
@@ -479,23 +551,28 @@ const handleLanguageChange = (language) => {
             </SelectContent>
           </Select>
           <p className="text-xs flex gap-[5px] sm:items-center text-[#525866] font-inter font-medium">
-            <span className="text-[18px] sm:text-[15px] text-[#525866]"><IoIosAlert />
-</span>
+            <span className="text-[18px] sm:text-[15px] text-[#525866]">
+              <IoIosAlert />
+            </span>
             Include those you are expecting, adopting or live with you part-time.
           </p>
         </div>
 
         {/* Additional Care Question */}
         <div className="space-y-2">
-          <Label htmlFor="additionalCare" className="block text-sm font-inter font-medium text-gray-700">
+          <Label htmlFor="additionalCare" className="block text-sm font-inter font-medium text-[#0A0D14]">
             Are other adult involved in the care of your child(ren)? Please describe
           </Label>
-          <Textarea id="additionalCare" placeholder="Type Here..." className="min-h-[80px] resize-none" />
+          <textarea
+            id="additionalCare"
+            placeholder="Type Here..."
+            className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA]"
+          />
         </div>
 
         {/* How did you find us */}
         <div className="space-y-2">
-          <Label htmlFor="findUs" className="block text-sm font-inter font-medium text-gray-700">
+          <Label htmlFor="findUs" className="block text-sm font-inter font-medium text-[#0A0D14]">
             How did you find us if via search engine, what words did you search for?{" "}
             <span className="text-red-500">*</span>
             <span className="block text-xs text-gray-500 font-normal mt-1">
@@ -503,7 +580,11 @@ const handleLanguageChange = (language) => {
               please tell us their name, so we can thank them)
             </span>
           </Label>
-          <Textarea id="findUs" placeholder="Type Here..." className="min-h-[80px] resize-none" />
+          <textarea
+            id="findUs"
+            placeholder="Type Here..."
+            className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA]"
+          />
         </div>
 
         {/* Parent 1 Section */}
@@ -536,7 +617,7 @@ const handleLanguageChange = (language) => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-3">
-                <Label className="block text-sm font-inter font-medium text-gray-700">
+                <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
                   Gender <span className="text-red-500">*</span>
                 </Label>
                 <RadioGroup
@@ -546,13 +627,13 @@ const handleLanguageChange = (language) => {
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="male" id="gender-male" />
-                    <Label htmlFor="gender-male" className="text-sm font-inter">
+                    <Label htmlFor="gender-male" className="text-sm font-inter font-normal text-[#0A0D14]">
                       Male
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="female" id="gender-female" />
-                    <Label htmlFor="gender-female" className="text-sm font-inter">
+                    <Label htmlFor="gender-female" className="text-sm font-inter font-normal text-[#0A0D14]">
                       Female
                     </Label>
                   </div>
@@ -781,7 +862,7 @@ const handleLanguageChange = (language) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
             <h3 className="text-lg font-medium text-gray-900">Is there a Second Parent</h3>
             <div className="flex items-center space-x-2">
-              <Label htmlFor="second-parent" className="text-sm font-inter">
+              <Label htmlFor="second-parent" className="text-sm font-inter font-normal text-[#0A0D14]">
                 {hasSecondParent ? "Yes" : "No"}
               </Label>
               <Switch id="second-parent" checked={hasSecondParent} onCheckedChange={setHasSecondParent} />
@@ -794,7 +875,7 @@ const handleLanguageChange = (language) => {
           <div className="space-y-6 animate-in slide-in-from-top-4 duration-300">
             {/* Same Household Question */}
             <div className="space-y-3">
-              <Label className="block text-sm font-inter font-medium text-gray-700">
+              <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
                 Are both parents living in the same household? <span className="text-red-500">*</span>
               </Label>
               <RadioGroup
@@ -804,13 +885,13 @@ const handleLanguageChange = (language) => {
               >
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="yes" id="household-yes" />
-                  <Label htmlFor="household-yes" className="text-sm font-inter">
+                  <Label htmlFor="household-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="no" id="household-no" />
-                  <Label htmlFor="household-no" className="text-sm font-inter">
+                  <Label htmlFor="household-no" className="text-sm font-inter font-normal text-[#0A0D14]">
                     No
                   </Label>
                 </div>
@@ -853,7 +934,7 @@ const handleLanguageChange = (language) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-3">
-                    <Label className="block text-sm font-inter font-medium text-gray-700">
+                    <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
                       Gender <span className="text-red-500">*</span>
                     </Label>
                     <RadioGroup
@@ -863,13 +944,13 @@ const handleLanguageChange = (language) => {
                     >
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="male" id="second-gender-male" />
-                        <Label htmlFor="second-gender-male" className="text-sm font-inter">
+                        <Label htmlFor="second-gender-male" className="text-sm font-inter font-normal text-[#0A0D14]">
                           Male
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">
                         <RadioGroupItem value="female" id="second-gender-female" />
-                        <Label htmlFor="second-gender-female" className="text-sm font-inter">
+                        <Label htmlFor="second-gender-female" className="text-sm font-inter font-normal text-[#0A0D14]">
                           Female
                         </Label>
                       </div>
@@ -1143,19 +1224,19 @@ const handleLanguageChange = (language) => {
 
       {/* Warning Message */}
       <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
-        <div className="p-1  rounded flex-shrink-0">
-          <BsFillInfoCircleFill
- className="w-5 h-5 text-orange-600" />
+        <div className="p-1 rounded flex-shrink-0">
+          <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
         </div>
-        <p className="text-sm font-inter text-orange-800">
-          Please complete all required fields (fields with an asterisk *) before saving this page.
+        <p className="text-[16px] font-normal font-inter text-[#6E330C] flex gap-[3px]">
+          Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
+          saving this page.
         </p>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
         {/* Candidate Search Type */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             What type of candidate search are you interested in engaging in? <span className="text-red-500">*</span>
           </Label>
           <RadioGroup
@@ -1165,19 +1246,19 @@ const handleLanguageChange = (language) => {
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="international" id="candidate-international" />
-              <Label htmlFor="candidate-international" className="text-sm font-inter">
+              <Label htmlFor="candidate-international" className="text-sm font-inter font-normal text-[#0A0D14]">
                 International Care Professionals
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="american" id="candidate-american" />
-              <Label htmlFor="candidate-american" className="text-sm font-inter">
+              <Label htmlFor="candidate-american" className="text-sm font-inter font-normal text-[#0A0D14]">
                 American Care Professionals
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="all" id="candidate-all" />
-              <Label htmlFor="candidate-all" className="text-sm font-inter">
+              <Label htmlFor="candidate-all" className="text-sm font-inter font-normal text-[#0A0D14]">
                 I'm interested in all Care Professionals
               </Label>
             </div>
@@ -1187,7 +1268,7 @@ const handleLanguageChange = (language) => {
         {/* Date Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="earliest-start" className="block text-sm font-inter font-medium text-gray-700 mb-1">
+            <Label htmlFor="earliest-start" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
               Earliest start date of your caregiver? <span className="text-red-500">*</span>
             </Label>
             <DatePicker
@@ -1199,7 +1280,7 @@ const handleLanguageChange = (language) => {
             />
           </div>
           <div>
-            <Label htmlFor="latest-start" className="block text-sm font-inter font-medium text-gray-700 mb-1">
+            <Label htmlFor="latest-start" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
               What is the latest start <span className="text-red-500">*</span>
             </Label>
             <DatePicker
@@ -1214,7 +1295,7 @@ const handleLanguageChange = (language) => {
 
         {/* Ideal Gender */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             What would be the gender of your ideal candidate? <span className="text-red-500">*</span>
           </Label>
           <RadioGroup
@@ -1224,19 +1305,19 @@ const handleLanguageChange = (language) => {
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="male" id="ideal-male" />
-              <Label htmlFor="ideal-male" className="text-sm font-inter">
+              <Label htmlFor="ideal-male" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Male
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="female" id="ideal-female" />
-              <Label htmlFor="ideal-female" className="text-sm font-inter">
+              <Label htmlFor="ideal-female" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Female
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="open" id="ideal-open" />
-              <Label htmlFor="ideal-open" className="text-sm font-inter">
+              <Label htmlFor="ideal-open" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Open to any gender
               </Label>
             </div>
@@ -1245,7 +1326,7 @@ const handleLanguageChange = (language) => {
 
         {/* Age Groups */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             What age group should your caregiver have experience with? <span className="text-red-500">*</span>
           </Label>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -1259,12 +1340,14 @@ const handleLanguageChange = (language) => {
               { key: "16-18", label: "16-18 years" },
             ].map(({ key, label }) => (
               <div key={key} className="flex items-center space-x-2">
-                <Checkbox
+                <input
+                  type="checkbox"
                   id={`age-${key}`}
                   checked={ageGroups[key]}
-                  onCheckedChange={() => handleAgeGroupChange(key)}
+                  onChange={() => handleAgeGroupChange(key)}
+                  className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
                 />
-                <Label htmlFor={`age-${key}`} className="text-sm font-inter">
+                <Label htmlFor={`age-${key}`} className="text-sm font-inter font-normal text-[#0A0D14]">
                   {label}
                 </Label>
               </div>
@@ -1274,7 +1357,7 @@ const handleLanguageChange = (language) => {
 
         {/* Swimmer */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             Do you need a swimmer <span className="text-red-500">*</span>
           </Label>
           <RadioGroup
@@ -1284,13 +1367,13 @@ const handleLanguageChange = (language) => {
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="yes" id="swimmer-yes" />
-              <Label htmlFor="swimmer-yes" className="text-sm font-inter">
+              <Label htmlFor="swimmer-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Yes
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="no" id="swimmer-no" />
-              <Label htmlFor="swimmer-no" className="text-sm font-inter">
+              <Label htmlFor="swimmer-no" className="text-sm font-inter font-normal text-[#0A0D14]">
                 No
               </Label>
             </div>
@@ -1299,7 +1382,7 @@ const handleLanguageChange = (language) => {
 
         {/* Smoker */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             Would you accept a smoker? <span className="text-red-500">*</span>
           </Label>
           <RadioGroup
@@ -1309,13 +1392,13 @@ const handleLanguageChange = (language) => {
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="yes" id="smoker-yes" />
-              <Label htmlFor="smoker-yes" className="text-sm font-inter">
+              <Label htmlFor="smoker-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Yes
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="no" id="smoker-no" />
-              <Label htmlFor="smoker-no" className="text-sm font-inter">
+              <Label htmlFor="smoker-no" className="text-sm font-inter font-normal text-[#0A0D14]">
                 No
               </Label>
             </div>
@@ -1324,7 +1407,7 @@ const handleLanguageChange = (language) => {
 
         {/* Languages */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             What languages should your caregiver speak? <span className="text-red-500">*</span>
           </Label>
           <div className="border border-gray-300 rounded-md p-3 space-y-2 max-h-40 overflow-y-auto">
@@ -1337,12 +1420,14 @@ const handleLanguageChange = (language) => {
               { key: "bengali", label: "Bengali" },
             ].map(({ key, label }) => (
               <div key={key} className="flex items-center space-x-2">
-                <Checkbox
+                <input
+                  type="checkbox"
                   id={`lang-${key}`}
                   checked={languages[key]}
-                  onCheckedChange={() => handleLanguageChange(key)}
+                  onChange={() => handleLanguageChange(key)}
+                  className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
                 />
-                <Label htmlFor={`lang-${key}`} className="text-sm font-inter">
+                <Label htmlFor={`lang-${key}`} className="text-sm font-inter font-normal text-[#0A0D14]">
                   {label}
                 </Label>
               </div>
@@ -1352,7 +1437,7 @@ const handleLanguageChange = (language) => {
 
         {/* Driver */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             Do you need a driver? <span className="text-red-500">*</span>
           </Label>
           <RadioGroup
@@ -1362,13 +1447,13 @@ const handleLanguageChange = (language) => {
           >
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="yes" id="driver-yes" />
-              <Label htmlFor="driver-yes" className="text-sm font-inter">
+              <Label htmlFor="driver-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Yes
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="no" id="driver-no" />
-              <Label htmlFor="driver-no" className="text-sm font-inter">
+              <Label htmlFor="driver-no" className="text-sm font-inter font-normal text-[#0A0D14]">
                 No
               </Label>
             </div>
@@ -1377,56 +1462,56 @@ const handleLanguageChange = (language) => {
 
         {/* Transportation */}
         <div className="space-y-2">
-          <Label htmlFor="transportation" className="block text-sm font-inter font-medium text-gray-700">
+          <Label htmlFor="transportation" className="block text-sm font-inter font-medium text-[#0A0D14]">
             What kind of transportation options will be available to your caregiver?{" "}
             <span className="text-red-500">*</span>
           </Label>
-          <Textarea
+          <textarea
             id="transportation"
             placeholder="Type Here..."
-            className="min-h-[100px] w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            className="min-h-[100px] w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
           />
         </div>
 
         {/* Personality */}
         <div className="space-y-2">
-          <Label htmlFor="personality" className="block text-sm font-inter font-medium text-gray-700">
+          <Label htmlFor="personality" className="block text-sm font-inter font-medium text-[#0A0D14]">
             How would you describe your ideal caregiver's personality? <span className="text-red-500">*</span>
           </Label>
-          <Textarea
+          <textarea
             id="personality"
             placeholder="Type Here..."
-            className="min-h-[100px] w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            className="min-h-[100px] w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
           />
         </div>
 
         {/* Work Situation */}
         <div className="space-y-3">
-          <Label className="block text-sm font-inter font-medium text-gray-700">
+          <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
             Please describe your family's work situation. <span className="text-red-500">*</span>
           </Label>
           <RadioGroup value={workSituation} onValueChange={setWorkSituation} className="space-y-2">
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="both-outside" id="work-both-outside" />
-              <Label htmlFor="work-both-outside" className="text-sm font-inter">
+              <Label htmlFor="work-both-outside" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Both Parents working outside the home
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="both-home" id="work-both-home" />
-              <Label htmlFor="work-both-home" className="text-sm font-inter">
+              <Label htmlFor="work-both-home" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Both Parents working from home
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="one-home" id="work-one-home" />
-              <Label htmlFor="work-one-home" className="text-sm font-inter">
+              <Label htmlFor="work-one-home" className="text-sm font-inter font-normal text-[#0A0D14]">
                 One Parent working from home
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="stay-home" id="work-stay-home" />
-              <Label htmlFor="work-stay-home" className="text-sm font-inter">
+              <Label htmlFor="work-stay-home" className="text-sm font-inter font-normal text-[#0A0D14]">
                 Stay at home parent
               </Label>
             </div>
@@ -1435,6 +1520,989 @@ const handleLanguageChange = (language) => {
       </div>
     </div>
   )
+
+  const renderStep3 = () => (
+    <div className="space-y-6">
+      <div className="mt-8">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Children</h2>
+        {renderProgressSteps()}
+      </div>
+
+      {/* Warning Message */}
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
+        <div className="p-1 rounded flex-shrink-0">
+          <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
+        </div>
+        <p className="text-[16px] font-normal font-inter text-[#6E330C] flex gap-[3px]">
+          Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
+          saving this page.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
+        <h3 className="text-lg font-medium text-gray-900 mb-6">About Your Children</h3>
+
+        <div className="space-y-6">
+          {/* Name Field */}
+          <div>
+            <Label htmlFor="childName" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+              Name <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              id="childName"
+              placeholder="Type your name..."
+              value={childName}
+              onChange={(e) => setChildName(e.target.value)}
+              className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+
+          {/* Gender Field */}
+          <div className="space-y-3">
+            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Gender <span className="text-red-500">*</span>
+            </Label>
+            <RadioGroup
+              value={childGender}
+              onValueChange={setChildGender}
+              className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="male" id="child-male" />
+                <Label htmlFor="child-male" className="text-sm font-inter font-normal text-[#0A0D14]">
+                  Male
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="female" id="child-female" />
+                <Label htmlFor="child-female" className="text-sm font-inter font-normal text-[#0A0D14]">
+                  Female
+                </Label>
+              </div>
+            </RadioGroup>
+          </div>
+
+          {/* Birthday Field */}
+          <div>
+            <Label htmlFor="childBirthday" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+              Birthday <span className="text-red-500">*</span>
+            </Label>
+            <DatePicker
+              date={childBirthday}
+              setDate={setChildBirthday}
+              placeholder="-- -- ----"
+              isOpen={childBirthdayCalendarOpen}
+              setIsOpen={setChildBirthdayCalendarOpen}
+            />
+          </div>
+
+          {/* Child Care Question */}
+          <div className="space-y-3">
+            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Do you require child care for a child under the age of two <span className="text-red-500">*</span>
+            </Label>
+            <RadioGroup
+              value={requireChildCare}
+              onValueChange={setRequireChildCare}
+              className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="yes" id="childcare-yes" />
+                <Label htmlFor="childcare-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
+                  Yes
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="no" id="childcare-no" />
+                <Label htmlFor="childcare-no" className="text-sm font-inter font-normal text-[#0A0D14]">
+                  No
+                </Label>
+              </div>
+            </RadioGroup>
+          </div>
+
+          {/* Special Needs Question */}
+          <div className="space-y-3">
+            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Do you have a child with special needs <span className="text-red-500">*</span>
+            </Label>
+            <RadioGroup
+              value={hasSpecialNeeds}
+              onValueChange={setHasSpecialNeeds}
+              className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="yes" id="special-yes" />
+                <Label htmlFor="special-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
+                  Yes
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="no" id="special-no" />
+                <Label htmlFor="special-no" className="text-sm font-inter font-normal text-[#0A0D14]">
+                  No
+                </Label>
+              </div>
+            </RadioGroup>
+          </div>
+
+          {/* Any Special Needs Toggle */}
+          <div className="flex items-center justify-between">
+            <Label className="text-sm font-inter font-medium text-[#0A0D14]">Any Special Needs</Label>
+            <div className="flex items-center gap-2">
+              <Switch checked={anySpecialNeeds} onCheckedChange={setAnySpecialNeeds} />
+              <span className="text-sm font-inter font-normal text-[#0A0D14]">Yes</span>
+            </div>
+          </div>
+
+          {/* Special Needs Details - Show when toggle is enabled */}
+          {anySpecialNeeds && (
+            <div className="space-y-6 animate-in slide-in-from-top-4 duration-300 border-t pt-6">
+              {/* Special Need Type Dropdown */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                    What type of special need do you children have?
+                  </Label>
+                  <Select>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select Here" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="no-preference">No Preference</SelectItem>
+                      <SelectItem value="english">English</SelectItem>
+                      <SelectItem value="german">German</SelectItem>
+                      <SelectItem value="hungarian">Hungarian</SelectItem>
+                      <SelectItem value="arabic">Arabic</SelectItem>
+                      <SelectItem value="bengali">Bengali</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* G-tube Feeding Question */}
+                <div className="space-y-3">
+                  <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                    Does your child require G-tube feeding as part of their care routine?
+                  </Label>
+                  <RadioGroup className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6">
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="yes" id="gtube-yes" />
+                      <Label htmlFor="gtube-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
+                        Yes
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="no" id="gtube-no" />
+                      <Label htmlFor="gtube-no" className="text-sm font-inter font-normal text-[#0A0D14]">
+                        No
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </div>
+
+              {/* If yes, please describe */}
+              <div className="space-y-2">
+                <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                  If yes, please describe <span className="text-red-500">*</span>
+                </Label>
+                <textarea
+                  placeholder="Type here..."
+                  className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                />
+              </div>
+
+              {/* Therapy/School Question */}
+              <div className="space-y-2">
+                <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                  Would your caregiver need to be able to observe/accompany them to these therapies or to school?{" "}
+                  <span className="text-red-500">*</span>
+                </Label>
+                <textarea
+                  placeholder="Type here..."
+                  className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                />
+              </div>
+
+              {/* Specific Care Description */}
+              <div className="space-y-2">
+                <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                  Describe the specific care required for your children and what your caregiver needs to be aware of.
+                </Label>
+                <textarea
+                  placeholder="Type here..."
+                  className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                />
+              </div>
+
+              {/* Day-to-day Life Impact */}
+              <div className="space-y-2">
+                <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                  How does your children special needs affect the day-to-day life of the family (if at all)?{" "}
+                  <span className="text-red-500">*</span>
+                </Label>
+                <textarea
+                  placeholder="Type here..."
+                  className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Add Children Button */}
+          <Button
+            variant="outline"
+            className="bg-white text-[#45B5AA] border-[#45B5AA] hover:bg-[#cbf5e5] mt-6"
+            onClick={() => {
+              // Only add current child to children array if form is filled
+              if (childName && childGender && childBirthday) {
+                const newChild = {
+                  id: Date.now(),
+                  name: childName,
+                  gender: childGender,
+                  birthday: childBirthday,
+                  requireChildCare,
+                  hasSpecialNeeds,
+                  anySpecialNeeds,
+                }
+                setChildren([...children, newChild])
+                // Reset main form
+                setChildName("")
+                setChildGender("")
+                setChildBirthday(null)
+                setRequireChildCare("")
+                setHasSpecialNeeds("")
+                setAnySpecialNeeds(false)
+              }
+              // Always show additional child form when clicked
+              setShowAddChildForm(true)
+            }}
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Add Children
+          </Button>
+
+          {/* Display Added Children */}
+          {children.length > 0 && (
+            <div className="mt-6 space-y-4">
+              <h4 className="text-md font-medium text-gray-900">Added Children:</h4>
+              {children.map((child) => (
+                <div key={child.id} className="bg-gray-50 p-4 rounded-lg border">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <p className="font-medium">{child.name}</p>
+                      <p className="text-sm text-gray-600">
+                        {child.gender} • Born: {child.birthday?.toLocaleDateString()}
+                      </p>
+                      <p className="text-sm text-gray-600">
+                        Child care needed: {child.requireChildCare || "Not specified"} • Special needs:{" "}
+                        {child.hasSpecialNeeds || "Not specified"}
+                      </p>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        setChildren(children.filter((c) => c.id !== child.id))
+                      }}
+                      className="text-red-500 border-red-500 hover:bg-red-50"
+                    >
+                      Remove
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Additional Child Form */}
+          {showAddChildForm && (
+            <div className="mt-8 bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6 animate-in slide-in-from-top-4 duration-300">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg font-medium text-gray-900">Add Children</h3>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setShowAddChildForm(false)
+                    // Reset additional form
+                    setAdditionalChildName("")
+                    setAdditionalChildGender("")
+                    setAdditionalChildBirthday(null)
+                    setAdditionalRequireChildCare("")
+                    setAdditionalHasSpecialNeeds("")
+                    setAdditionalAnySpecialNeeds(false)
+                  }}
+                  className="text-red-500 border-red-500 hover:bg-red-50"
+                >
+                  Cancel
+                </Button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Name Field */}
+                <div>
+                  <Label
+                    htmlFor="additionalChildName"
+                    className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+                  >
+                    Name <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    id="additionalChildName"
+                    placeholder="Type your name..."
+                    value={additionalChildName}
+                    onChange={(e) => setAdditionalChildName(e.target.value)}
+                    className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                  />
+                </div>
+
+                {/* Gender Field */}
+                <div className="space-y-3">
+                  <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                    Gender <span className="text-red-500">*</span>
+                  </Label>
+                  <RadioGroup
+                    value={additionalChildGender}
+                    onValueChange={setAdditionalChildGender}
+                    className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="male" id="additional-child-male" />
+                      <Label htmlFor="additional-child-male" className="text-sm font-inter font-normal text-[#0A0D14]">
+                        Male
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="female" id="additional-child-female" />
+                      <Label
+                        htmlFor="additional-child-female"
+                        className="text-sm font-inter font-normal text-[#0A0D14]"
+                      >
+                        Female
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Birthday Field */}
+                <div>
+                  <Label
+                    htmlFor="additionalChildBirthday"
+                    className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+                  >
+                    Birthday <span className="text-red-500">*</span>
+                  </Label>
+                  <DatePicker
+                    date={additionalChildBirthday}
+                    setDate={setAdditionalChildBirthday}
+                    placeholder="-- -- ----"
+                    isOpen={additionalChildBirthdayCalendarOpen}
+                    setIsOpen={setAdditionalChildBirthdayCalendarOpen}
+                  />
+                </div>
+
+                {/* Child Care Question */}
+                <div className="space-y-3">
+                  <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                    Do you require child care for a child under the age of two <span className="text-red-500">*</span>
+                  </Label>
+                  <RadioGroup
+                    value={additionalRequireChildCare}
+                    onValueChange={setAdditionalRequireChildCare}
+                    className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="yes" id="additional-childcare-yes" />
+                      <Label
+                        htmlFor="additional-childcare-yes"
+                        className="text-sm font-inter font-normal text-[#0A0D14]"
+                      >
+                        Yes
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="no" id="additional-childcare-no" />
+                      <Label
+                        htmlFor="additional-childcare-no"
+                        className="text-sm font-inter font-normal text-[#0A0D14]"
+                      >
+                        No
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Special Needs Question */}
+                <div className="space-y-3">
+                  <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                    Do you have a child with special needs <span className="text-red-500">*</span>
+                  </Label>
+                  <RadioGroup
+                    value={additionalHasSpecialNeeds}
+                    onValueChange={setAdditionalHasSpecialNeeds}
+                    className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="yes" id="additional-special-yes" />
+                      <Label htmlFor="additional-special-yes" className="text-sm font-inter font-normal text-[#0A0D14]">
+                        Yes
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="no" id="additional-special-no" />
+                      <Label htmlFor="additional-special-no" className="text-sm font-inter font-normal text-[#0A0D14]">
+                        No
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Any Special Needs Toggle */}
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm font-inter font-medium text-[#0A0D14]">Any Specific Needs</Label>
+                  <div className="flex items-center gap-2">
+                    <Switch checked={additionalAnySpecialNeeds} onCheckedChange={setAdditionalAnySpecialNeeds} />
+                    <span className="text-sm font-inter font-normal text-[#0A0D14]">Yes</span>
+                  </div>
+                </div>
+
+                {/* Special Needs Details for Additional Child */}
+                {additionalAnySpecialNeeds && (
+                  <div className="space-y-6 animate-in slide-in-from-top-4 duration-300 border-t pt-6">
+                    {/* When was diagnosed */}
+                    <div className="space-y-2">
+                      <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                        When was your children diagnosed with this special need?
+                      </Label>
+                      <textarea
+                        placeholder="Type here..."
+                        className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                      />
+                    </div>
+
+                    {/* Treatment/Medication */}
+                    <div className="space-y-2">
+                      <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                        Is your children currently recieving any treatment or taking medication? If yes, please describe{" "}
+                        <span className="text-red-500">*</span>
+                      </Label>
+                      <textarea
+                        placeholder="Type here..."
+                        className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                      />
+                    </div>
+
+                    {/* Therapies */}
+                    <div className="space-y-2">
+                      <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                        Describe any therapies your children recieve and if your caregiver would be able to
+                        observe/accompany them to these therapies or to school?
+                      </Label>
+                      <textarea
+                        placeholder="Type here..."
+                        className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                      />
+                    </div>
+
+                    {/* Specific Care */}
+                    <div className="space-y-2">
+                      <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                        Describe the specific care required for your children and what your caregiver needs to be aware
+                        of.
+                      </Label>
+                      <textarea
+                        placeholder="Type here..."
+                        className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                      />
+                    </div>
+
+                    {/* Day-to-day Impact */}
+                    <div className="space-y-2">
+                      <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                        How does your children special needs affect the day-to-day life of the family (if at all)?{" "}
+                        <span className="text-red-500">*</span>
+                      </Label>
+                      <textarea
+                        placeholder="Type here..."
+                        className="min-h-[80px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Add More Button */}
+                <Button
+                  variant="outline"
+                  className="bg-white text-[#45B5AA] border-[#45B5AA] hover:bg-[#cbf5e5] mt-6 mr-4"
+                  onClick={() => {
+                    // Add additional child to children array
+                    if (additionalChildName && additionalChildGender && additionalChildBirthday) {
+                      const newChild = {
+                        id: Date.now(),
+                        name: additionalChildName,
+                        gender: additionalChildGender,
+                        birthday: additionalChildBirthday,
+                        requireChildCare: additionalRequireChildCare,
+                        hasSpecialNeeds: additionalHasSpecialNeeds,
+                        anySpecialNeeds: additionalAnySpecialNeeds,
+                      }
+                      setChildren([...children, newChild])
+                      // Reset additional form but keep the form open
+                      setAdditionalChildName("")
+                      setAdditionalChildGender("")
+                      setAdditionalChildBirthday(null)
+                      setAdditionalRequireChildCare("")
+                      setAdditionalHasSpecialNeeds("")
+                      setAdditionalAnySpecialNeeds(false)
+                    } else {
+                      alert("Please fill in all required fields (Name, Gender, Birthday)")
+                    }
+                  }}
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add More
+                </Button>
+
+                {/* Done Adding Children Button */}
+                <Button
+                  className="bg-teal-500 hover:bg-teal-600 text-white mt-6"
+                  onClick={() => {
+                    // Add current additional child if form is filled
+                    if (additionalChildName && additionalChildGender && additionalChildBirthday) {
+                      const newChild = {
+                        id: Date.now(),
+                        name: additionalChildName,
+                        gender: additionalChildGender,
+                        birthday: additionalChildBirthday,
+                        requireChildCare: additionalRequireChildCare,
+                        hasSpecialNeeds: additionalHasSpecialNeeds,
+                        anySpecialNeeds: additionalAnySpecialNeeds,
+                      }
+                      setChildren([...children, newChild])
+                    }
+                    // Close the additional form
+                    setShowAddChildForm(false)
+                    // Reset additional form
+                    setAdditionalChildName("")
+                    setAdditionalChildGender("")
+                    setAdditionalChildBirthday(null)
+                    setAdditionalRequireChildCare("")
+                    setAdditionalHasSpecialNeeds("")
+                    setAdditionalAnySpecialNeeds(false)
+                  }}
+                >
+                  Done Adding Children
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderStep4 = () => {
+    const handleFamilyLanguageChange = (language) => {
+      setFamilyLanguages((prev) => {
+        if (prev.includes(language)) {
+          return prev.filter((item) => item !== language)
+        } else {
+          return [...prev, language]
+        }
+      })
+    }
+
+    const handleFamilyFunChange = (activity) => {
+      setFamilyFun((prev) => {
+        if (prev.includes(activity)) {
+          return prev.filter((item) => item !== activity)
+        } else {
+          return [...prev, activity]
+        }
+      })
+    }
+
+    const handleChildCareChange = (arrangement) => {
+      setChildCareArrangements((prev) => {
+        if (prev.includes(arrangement)) {
+          return prev.filter((item) => item !== arrangement)
+        } else {
+          return [...prev, arrangement]
+        }
+      })
+    }
+
+    const removeFamilyLanguage = (language) => {
+      setFamilyLanguages((prev) => prev.filter((item) => item !== language))
+    }
+
+    const removeFamilyFun = (activity) => {
+      setFamilyFun((prev) => prev.filter((item) => item !== activity))
+    }
+
+    const removeChildCare = (arrangement) => {
+      setChildCareArrangements((prev) => prev.filter((item) => item !== arrangement))
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="mt-8">
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Lifestyle</h2>
+          {renderProgressSteps()}
+        </div>
+
+        {/* Warning Message */}
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
+          <div className="p-1 rounded flex-shrink-0">
+            <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
+          </div>
+          <p className="text-[16px] font-normal font-inter text-[#6E330C] flex gap-[3px]">
+            Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
+            saving this page.
+          </p>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
+          {/* Native Language and Other Languages */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="nativeLanguage" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
+                What is your native language <span className="text-red-500">*</span>
+              </Label>
+              <Select value={nativeLanguage} onValueChange={setNativeLanguage}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="english">English</SelectItem>
+                  <SelectItem value="spanish">Spanish</SelectItem>
+                  <SelectItem value="french">French</SelectItem>
+                  <SelectItem value="german">German</SelectItem>
+                  <SelectItem value="chinese">Chinese</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="otherLanguages" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
+                Other Languages?
+              </Label>
+              <Input
+                id="otherLanguages"
+                placeholder="Type Here..."
+                value={otherLanguages}
+                onChange={(e) => setOtherLanguages(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Other Hobbies and Dietary Restrictions */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="otherHobbies" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
+                Other Hobbies?
+              </Label>
+              <Input
+                id="otherHobbies"
+                placeholder="Type Here..."
+                value={otherHobbies}
+                onChange={(e) => setOtherHobbies(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label htmlFor="dietaryRestrictions" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
+                Does your family have any dietary restrictions? <span className="text-red-500">*</span>
+              </Label>
+              <Select value={dietaryRestrictions} onValueChange={setDietaryRestrictions}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">None</SelectItem>
+                  <SelectItem value="vegetarian">Vegetarian</SelectItem>
+                  <SelectItem value="vegan">Vegan</SelectItem>
+                  <SelectItem value="gluten-free">Gluten Free</SelectItem>
+                  <SelectItem value="kosher">Kosher</SelectItem>
+                  <SelectItem value="halal">Halal</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Previous Agency and Cultural Considerations */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="previousAgency" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
+                Previous Agency?
+              </Label>
+              <Input
+                id="previousAgency"
+                placeholder="Type Here..."
+                value={previousAgency}
+                onChange={(e) => setPreviousAgency(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="culturalConsiderations"
+                className="block text-sm font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Please describe Cultural Consideration unique to your family?
+              </Label>
+              <Input
+                id="culturalConsiderations"
+                placeholder="Type Here..."
+                value={culturalConsiderations}
+                onChange={(e) => setCulturalConsiderations(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Pets */}
+          <div className="space-y-2">
+            <Label htmlFor="pets" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Do you have pets? If yes, please describe? <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="pets"
+              placeholder="Type Here..."
+              value={pets}
+              onChange={(e) => setPets(e.target.value)}
+              className="min-h-[100px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+
+          {/* Family Languages - Multi-select */}
+          <div className=" xl:flex xl:justify-between">
+            <div className="space-y-3">
+            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+              What other languages do you or member of your family speak? <span className="text-red-500">*</span>
+            </Label>
+
+            {/* Selected Languages Tags */}
+            {familyLanguages.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                {familyLanguages.slice(0, 3).map((language) => (
+                  <span
+                    key={language}
+                    className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white"
+                  >
+                    {language.toUpperCase()}
+                    <button
+                      type="button"
+                      onClick={() => removeFamilyLanguage(language)}
+                      className="ml-2 text-white hover:text-gray-200"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+                {familyLanguages.length > 3 && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white">
+                    + {familyLanguages.length - 3} OTHERS
+                    <button
+                      type="button"
+                      onClick={() => setFamilyLanguages([])}
+                      className="ml-2 text-white hover:text-gray-200"
+                    >
+                      ×
+                    </button>
+                  </span>
+                )}
+              </div>
+            )}
+
+            <div className="relative">
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <div className="p-2 space-y-2">
+                    {[
+                      { key: "no-preference", label: "No Preference" },
+                      { key: "english", label: "English" },
+                      { key: "german", label: "German" },
+                      { key: "hungarian", label: "Hungarian" },
+                      { key: "arabic", label: "Arabic" },
+                      { key: "bengali", label: "Bengali" },
+                      { key: "spanish", label: "Spanish" },
+                      { key: "french", label: "French" },
+                      { key: "chinese", label: "Chinese" },
+                      { key: "japanese", label: "Japanese" },
+                      { key: "korean", label: "Korean" },
+                      { key: "italian", label: "Italian" },
+                      { key: "portuguese", label: "Portuguese" },
+                      { key: "russian", label: "Russian" },
+                    ].map(({ key, label }) => (
+                      <div key={key} className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id={`family-lang-${key}`}
+                          checked={familyLanguages.includes(key)}
+                          onChange={() => handleFamilyLanguageChange(key)}
+                          className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
+                        />
+                        <Label htmlFor={`family-lang-${key}`} className="text-sm font-inter font-normal text-[#0A0D14]">
+                          {label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Family Fun - Multi-select */}
+          <div className="space-y-3">
+            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+              What does your family(or individuals) like to do for fun? <span className="text-red-500">*</span>
+            </Label>
+
+            {/* Selected Activities Tags */}
+            {familyFun.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                {familyFun.map((activity) => (
+                  <span
+                    key={activity}
+                    className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white"
+                  >
+                    {activity.toUpperCase()}
+                    <button
+                      type="button"
+                      onClick={() => removeFamilyFun(activity)}
+                      className="ml-2 text-white hover:text-gray-200"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <div className="relative">
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <div className="p-2 space-y-2">
+                    {[
+                      { key: "animals", label: "Animals" },
+                      { key: "artwork", label: "Artwork" },
+                      { key: "bicycling", label: "Bicycling" },
+                      { key: "boating", label: "Boating" },
+                      { key: "chorus", label: "Chorus" },
+                      { key: "community-service", label: "Community Service" },
+                      { key: "cooking", label: "Cooking" },
+                      { key: "dancing", label: "Dancing" },
+                      { key: "fishing", label: "Fishing" },
+                      { key: "gardening", label: "Gardening" },
+                      { key: "hiking", label: "Hiking" },
+                      { key: "movies", label: "Movies" },
+                      { key: "music", label: "Music" },
+                      { key: "reading", label: "Reading" },
+                      { key: "sports", label: "Sports" },
+                      { key: "swimming", label: "Swimming" },
+                      { key: "travel", label: "Travel" },
+                      { key: "volunteering", label: "Volunteering" },
+                    ].map(({ key, label }) => (
+                      <div key={key} className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id={`family-fun-${key}`}
+                          checked={familyFun.includes(key)}
+                          onChange={() => handleFamilyFunChange(key)}
+                          className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
+                        />
+                        <Label htmlFor={`family-fun-${key}`} className="text-sm font-inter font-normal text-[#0A0D14]">
+                          {label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          </div>
+
+          {/* Child Care Arrangements - Multi-select */}
+          <div className="space-y-3 xl:w-[400px]">
+            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+              What are your current/past child care arrangements? <span className="text-red-500">*</span>
+            </Label>
+
+            {/* Selected Arrangements Tags */}
+            {childCareArrangements.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-2">
+                {childCareArrangements.map((arrangement) => (
+                  <span
+                    key={arrangement}
+                    className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white"
+                  >
+                    {arrangement.toUpperCase()}
+                    <button
+                      type="button"
+                      onClick={() => removeChildCare(arrangement)}
+                      className="ml-2 text-white hover:text-gray-200"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <div className="relative">
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <div className="p-2 space-y-2">
+                    {[
+                      { key: "pregnant", label: "Pregnant" },
+                      { key: "sahm-sahd", label: "SAHM/SAHD" },
+                      { key: "grandparents", label: "Grandparents" },
+                      { key: "day-care-center", label: "Day Care Center" },
+                      { key: "in-home-daycare", label: "In-home Daycare" },
+                      { key: "pre-school", label: "Pre-School or School" },
+                      { key: "nanny", label: "Nanny" },
+                      { key: "au-pair", label: "Au Pair" },
+                      { key: "babysitter", label: "Babysitter" },
+                      { key: "family-member", label: "Family Member" },
+                      { key: "no-previous", label: "No Previous Childcare" },
+                    ].map(({ key, label }) => (
+                      <div key={key} className="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          id={`childcare-${key}`}
+                          checked={childCareArrangements.includes(key)}
+                          onChange={() => handleChildCareChange(key)}
+                          className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
+                        />
+                        <Label htmlFor={`childcare-${key}`} className="text-sm font-inter font-normal text-[#0A0D14]">
+                          {label}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <section className="">
@@ -1451,13 +2519,15 @@ const handleLanguageChange = (language) => {
         <div className="mt-6">
           {currentStep === 1 && renderStep1()}
           {currentStep === 2 && renderStep2()}
+          {currentStep === 3 && renderStep3()}
+          {currentStep === 4 && renderStep4()}
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex justify-between pt-6  mt-8">
+        <div className="flex justify-between pt-6 mt-8">
           <Button
             variant="outline"
-            className={`px-6 py-2 ${currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`px-6 py-2 ${currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""} border-[#45B5AA] bg-transparent text-[#45B5AA] hover:bg-[#45B5AA]/10`}
             onClick={handlePrevious}
             disabled={currentStep === 1}
           >
