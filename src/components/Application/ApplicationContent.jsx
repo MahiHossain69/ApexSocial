@@ -93,6 +93,49 @@ const ApplicationContent = () => {
   const [familyFun, setFamilyFun] = useState([])
   const [childCareArrangements, setChildCareArrangements] = useState([])
 
+  // Step 5 states - Picture & Videos
+  const [profilePicture, setProfilePicture] = useState(null)
+  const [profileDescription, setProfileDescription] = useState("")
+  const [additionalPictures, setAdditionalPictures] = useState([])
+  const [video, setVideo] = useState(null)
+  const [videoDescription, setVideoDescription] = useState("")
+
+  // Step 6 states - Dear Care Professional Letter
+  const [profileHeadline, setProfileHeadline] = useState("")
+  const [careProfessionalLetter, setCareProfessionalLetter] = useState("")
+
+  // Step 7 states - Family Information
+  const [businessTrips, setBusinessTrips] = useState("")
+  const [homeType, setHomeType] = useState("")
+  const [communityType, setCommunityType] = useState("")
+  const [homeDescription, setHomeDescription] = useState("")
+  const [careProfessionalCriteria, setCareProfessionalCriteria] = useState("")
+  const [caregiverQualities, setCaregiverQualities] = useState("")
+  const [caregiverResponsibilities, setCaregiverResponsibilities] = useState("")
+  const [homeRules, setHomeRules] = useState("")
+  const [safetyConcerns, setSafetyConcerns] = useState("")
+  const [educationalOpportunities, setEducationalOpportunities] = useState("")
+  const [privateBedroomDescription, setPrivateBedroomDescription] = useState("")
+  const [additionalComments, setAdditionalComments] = useState("")
+
+  // Step 8 states - Color Code Test
+
+  // Step 9 states - Personal Reference
+  const [referenceFirstName, setReferenceFirstName] = useState("")
+  const [referenceLastName, setReferenceLastName] = useState("")
+  const [referenceRelationship, setReferenceRelationship] = useState("")
+  const [referenceEmail, setReferenceEmail] = useState("")
+  const [referencePhone, setReferencePhone] = useState("")
+  const [referenceMobilePhone, setReferenceMobilePhone] = useState("")
+  const [referenceOccupation, setReferenceOccupation] = useState("")
+  const [referenceCountry, setReferenceCountry] = useState("")
+  const [referenceStreetAddress, setReferenceStreetAddress] = useState("")
+  const [referenceCity, setReferenceCity] = useState("")
+  const [referenceState, setReferenceState] = useState("")
+  const [referencePostalCode, setReferencePostalCode] = useState("")
+  const [referenceBestTimeToCall, setReferenceBestTimeToCall] = useState("")
+  const [referenceNote, setReferenceNote] = useState("")
+
   // Enhanced DatePicker component
   const DatePicker = ({ date, setDate, placeholder = "Select date", isOpen, setIsOpen }) => {
     const [currentMonth, setCurrentMonth] = useState(new Date())
@@ -353,7 +396,7 @@ const ApplicationContent = () => {
       </div>
 
       {hasSecondParent && (
-        <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 flex items-start space-x-3 mb-8">
+        <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
           <div className="p-1 bg-teal-100 rounded flex-shrink-0">
             <FileText className="w-5 h-5 text-teal-600" />
           </div>
@@ -1223,11 +1266,11 @@ const ApplicationContent = () => {
       </div>
 
       {/* Warning Message */}
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
         <div className="p-1 rounded flex-shrink-0">
           <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
         </div>
-        <p className="text-[16px] font-normal font-inter text-[#6E330C] flex gap-[3px]">
+        <p className="text-base font-normal font-inter text-[#6E330C]">
           Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
           saving this page.
         </p>
@@ -1529,11 +1572,11 @@ const ApplicationContent = () => {
       </div>
 
       {/* Warning Message */}
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
         <div className="p-1 rounded flex-shrink-0">
           <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
         </div>
-        <p className="text-[16px] font-normal font-inter text-[#6E330C] flex gap-[3px]">
+        <p className="text-base font-normal font-inter text-[#6E330C]">
           Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
           saving this page.
         </p>
@@ -2153,11 +2196,11 @@ const ApplicationContent = () => {
         </div>
 
         {/* Warning Message */}
-        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
           <div className="p-1 rounded flex-shrink-0">
             <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
           </div>
-          <p className="text-[16px] font-normal font-inter text-[#6E330C] flex gap-[3px]">
+          <p className="text-base font-normal font-inter text-[#6E330C]">
             Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
             saving this page.
           </p>
@@ -2281,157 +2324,163 @@ const ApplicationContent = () => {
           {/* Family Languages - Multi-select */}
           <div className=" xl:flex xl:justify-between">
             <div className="space-y-3">
-            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
-              What other languages do you or member of your family speak? <span className="text-red-500">*</span>
-            </Label>
+              <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                What other languages do you or member of your family speak? <span className="text-red-500">*</span>
+              </Label>
 
-            {/* Selected Languages Tags */}
-            {familyLanguages.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-2">
-                {familyLanguages.slice(0, 3).map((language) => (
-                  <span
-                    key={language}
-                    className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white"
-                  >
-                    {language.toUpperCase()}
-                    <button
-                      type="button"
-                      onClick={() => removeFamilyLanguage(language)}
-                      className="ml-2 text-white hover:text-gray-200"
+              {/* Selected Languages Tags */}
+              {familyLanguages.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {familyLanguages.slice(0, 3).map((language) => (
+                    <span
+                      key={language}
+                      className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white"
                     >
-                      ×
-                    </button>
-                  </span>
-                ))}
-                {familyLanguages.length > 3 && (
-                  <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white">
-                    + {familyLanguages.length - 3} OTHERS
-                    <button
-                      type="button"
-                      onClick={() => setFamilyLanguages([])}
-                      className="ml-2 text-white hover:text-gray-200"
-                    >
-                      ×
-                    </button>
-                  </span>
-                )}
+                      {language.toUpperCase()}
+                      <button
+                        type="button"
+                        onClick={() => removeFamilyLanguage(language)}
+                        className="ml-2 text-white hover:text-gray-200"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                  {familyLanguages.length > 3 && (
+                    <span className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white">
+                      + {familyLanguages.length - 3} OTHERS
+                      <button
+                        type="button"
+                        onClick={() => setFamilyLanguages([])}
+                        className="ml-2 text-white hover:text-gray-200"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  )}
+                </div>
+              )}
+
+              <div className="relative">
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Here" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <div className="p-2 space-y-2">
+                      {[
+                        { key: "no-preference", label: "No Preference" },
+                        { key: "english", label: "English" },
+                        { key: "german", label: "German" },
+                        { key: "hungarian", label: "Hungarian" },
+                        { key: "arabic", label: "Arabic" },
+                        { key: "bengali", label: "Bengali" },
+                        { key: "spanish", label: "Spanish" },
+                        { key: "french", label: "French" },
+                        { key: "chinese", label: "Chinese" },
+                        { key: "japanese", label: "Japanese" },
+                        { key: "korean", label: "Korean" },
+                        { key: "italian", label: "Italian" },
+                        { key: "portuguese", label: "Portuguese" },
+                        { key: "russian", label: "Russian" },
+                      ].map(({ key, label }) => (
+                        <div key={key} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            id={`family-lang-${key}`}
+                            checked={familyLanguages.includes(key)}
+                            onChange={() => handleFamilyLanguageChange(key)}
+                            className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
+                          />
+                          <Label
+                            htmlFor={`family-lang-${key}`}
+                            className="text-sm font-inter font-normal text-[#0A0D14]"
+                          >
+                            {label}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </SelectContent>
+                </Select>
               </div>
-            )}
-
-            <div className="relative">
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select Here" />
-                </SelectTrigger>
-                <SelectContent>
-                  <div className="p-2 space-y-2">
-                    {[
-                      { key: "no-preference", label: "No Preference" },
-                      { key: "english", label: "English" },
-                      { key: "german", label: "German" },
-                      { key: "hungarian", label: "Hungarian" },
-                      { key: "arabic", label: "Arabic" },
-                      { key: "bengali", label: "Bengali" },
-                      { key: "spanish", label: "Spanish" },
-                      { key: "french", label: "French" },
-                      { key: "chinese", label: "Chinese" },
-                      { key: "japanese", label: "Japanese" },
-                      { key: "korean", label: "Korean" },
-                      { key: "italian", label: "Italian" },
-                      { key: "portuguese", label: "Portuguese" },
-                      { key: "russian", label: "Russian" },
-                    ].map(({ key, label }) => (
-                      <div key={key} className="flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          id={`family-lang-${key}`}
-                          checked={familyLanguages.includes(key)}
-                          onChange={() => handleFamilyLanguageChange(key)}
-                          className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
-                        />
-                        <Label htmlFor={`family-lang-${key}`} className="text-sm font-inter font-normal text-[#0A0D14]">
-                          {label}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                </SelectContent>
-              </Select>
             </div>
-          </div>
 
-          {/* Family Fun - Multi-select */}
-          <div className="space-y-3">
-            <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
-              What does your family(or individuals) like to do for fun? <span className="text-red-500">*</span>
-            </Label>
+            {/* Family Fun - Multi-select */}
+            <div className="space-y-3">
+              <Label className="block text-sm font-inter font-medium text-[#0A0D14]">
+                What does your family(or individuals) like to do for fun? <span className="text-red-500">*</span>
+              </Label>
 
-            {/* Selected Activities Tags */}
-            {familyFun.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-2">
-                {familyFun.map((activity) => (
-                  <span
-                    key={activity}
-                    className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white"
-                  >
-                    {activity.toUpperCase()}
-                    <button
-                      type="button"
-                      onClick={() => removeFamilyFun(activity)}
-                      className="ml-2 text-white hover:text-gray-200"
+              {/* Selected Activities Tags */}
+              {familyFun.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {familyFun.map((activity) => (
+                    <span
+                      key={activity}
+                      className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-[#45B5AA] text-white"
                     >
-                      ×
-                    </button>
-                  </span>
-                ))}
-              </div>
-            )}
+                      {activity.toUpperCase()}
+                      <button
+                        type="button"
+                        onClick={() => removeFamilyFun(activity)}
+                        className="ml-2 text-white hover:text-gray-200"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              )}
 
-            <div className="relative">
-              <Select>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select Here" />
-                </SelectTrigger>
-                <SelectContent>
-                  <div className="p-2 space-y-2">
-                    {[
-                      { key: "animals", label: "Animals" },
-                      { key: "artwork", label: "Artwork" },
-                      { key: "bicycling", label: "Bicycling" },
-                      { key: "boating", label: "Boating" },
-                      { key: "chorus", label: "Chorus" },
-                      { key: "community-service", label: "Community Service" },
-                      { key: "cooking", label: "Cooking" },
-                      { key: "dancing", label: "Dancing" },
-                      { key: "fishing", label: "Fishing" },
-                      { key: "gardening", label: "Gardening" },
-                      { key: "hiking", label: "Hiking" },
-                      { key: "movies", label: "Movies" },
-                      { key: "music", label: "Music" },
-                      { key: "reading", label: "Reading" },
-                      { key: "sports", label: "Sports" },
-                      { key: "swimming", label: "Swimming" },
-                      { key: "travel", label: "Travel" },
-                      { key: "volunteering", label: "Volunteering" },
-                    ].map(({ key, label }) => (
-                      <div key={key} className="flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          id={`family-fun-${key}`}
-                          checked={familyFun.includes(key)}
-                          onChange={() => handleFamilyFunChange(key)}
-                          className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
-                        />
-                        <Label htmlFor={`family-fun-${key}`} className="text-sm font-inter font-normal text-[#0A0D14]">
-                          {label}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                </SelectContent>
-              </Select>
+              <div className="relative">
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Here" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <div className="p-2 space-y-2">
+                      {[
+                        { key: "animals", label: "Animals" },
+                        { key: "artwork", label: "Artwork" },
+                        { key: "bicycling", label: "Bicycling" },
+                        { key: "boating", label: "Boating" },
+                        { key: "chorus", label: "Chorus" },
+                        { key: "community-service", label: "Community Service" },
+                        { key: "cooking", label: "Cooking" },
+                        { key: "dancing", label: "Dancing" },
+                        { key: "fishing", label: "Fishing" },
+                        { key: "gardening", label: "Gardening" },
+                        { key: "hiking", label: "Hiking" },
+                        { key: "movies", label: "Movies" },
+                        { key: "music", label: "Music" },
+                        { key: "reading", label: "Reading" },
+                        { key: "sports", label: "Sports" },
+                        { key: "swimming", label: "Swimming" },
+                        { key: "travel", label: "Travel" },
+                        { key: "volunteering", label: "Volunteering" },
+                      ].map(({ key, label }) => (
+                        <div key={key} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            id={`family-fun-${key}`}
+                            checked={familyFun.includes(key)}
+                            onChange={() => handleFamilyFunChange(key)}
+                            className="rounded border-gray-300 text-[#45B5AA] focus:ring-[#45B5AA]"
+                          />
+                          <Label
+                            htmlFor={`family-fun-${key}`}
+                            className="text-sm font-inter font-normal text-[#0A0D14]"
+                          >
+                            {label}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
-          </div>
           </div>
 
           {/* Child Care Arrangements - Multi-select */}
@@ -2504,6 +2553,891 @@ const ApplicationContent = () => {
     )
   }
 
+  const renderStep5 = () => {
+    const handleFileUpload = (file, type) => {
+      if (type === "profile") {
+        setProfilePicture(file)
+      } else if (type === "additional") {
+        setAdditionalPictures([...additionalPictures, file])
+      } else if (type === "video") {
+        setVideo(file)
+      }
+    }
+
+    const FileUploadArea = ({ onFileSelect, acceptedTypes = "image/*", title, subtitle }) => (
+      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-gray-400 transition-colors">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 text-gray-400">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M7 18a4.6 4.4 0 0 1 0-9 5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12z" />
+              <path d="M9 15l3-3 3 3" />
+              <path d="M12 12v9" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-900 mb-1">{title || "Choose a file or drag & drop it here."}</p>
+            {subtitle && <p className="text-xs text-gray-500">{subtitle}</p>}
+          </div>
+          <Button
+            variant="outline"
+            className="bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+            onClick={() => {
+              const input = document.createElement("input")
+              input.type = "file"
+              input.accept = acceptedTypes
+              input.onchange = (e) => {
+                const file = e.target.files[0]
+                if (file) onFileSelect(file)
+              }
+              input.click()
+            }}
+          >
+            Browse File
+          </Button>
+        </div>
+      </div>
+    )
+
+    return (
+      <div className="space-y-6">
+        <div className="mt-8">
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Picture & Videos</h2>
+          {renderProgressSteps()}
+        </div>
+
+        {/* Warning Message */}
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex items-center space-x-3 mb-8">
+          <div className="p-1 rounded flex-shrink-0 mt-0.5">
+            <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
+          </div>
+          <p className="text-sm font-inter font-medium text-[#6E330C]">
+            Please do upload photos that are max 10MB size
+          </p>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-8">
+          <div className="mb-6">
+            <p className="text-sm font-inter font-normal text-gray-700">
+              Candidates love to see photos of their prospective American host family.
+            </p>
+          </div>
+
+          {/* Profile Picture Section */}
+          <div className="space-y-4">
+            <h3 className="text-base font-medium text-gray-900">Profile Picture</h3>
+
+            <FileUploadArea
+              onFileSelect={(file) => handleFileUpload(file, "profile")}
+              acceptedTypes="image/*"
+              title="Choose a file or drag & drop it here."
+            />
+
+            {profilePicture && (
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <p className="text-sm font-medium text-gray-900">Selected: {profilePicture.name}</p>
+                <p className="text-xs text-gray-500">Size: {(profilePicture.size / 1024 / 1024).toFixed(2)} MB</p>
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label htmlFor="profileDescription" className="block text-sm font-inter font-medium text-gray-700">
+                Description
+              </Label>
+              <textarea
+                id="profileDescription"
+                placeholder="Type Here..."
+                value={profileDescription}
+                onChange={(e) => setProfileDescription(e.target.value)}
+                className="min-h-[100px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Additional Pictures Section */}
+          <div className="space-y-4">
+            <h3 className="text-base font-medium text-gray-900">Additional Picture (Upto 10) (Optional)</h3>
+
+            <FileUploadArea
+              onFileSelect={(file) => handleFileUpload(file, "additional")}
+              acceptedTypes="image/*"
+              title="Choose a file or drag & drop it here."
+            />
+
+            {additionalPictures.length > 0 && (
+              <div className="mt-4 space-y-2">
+                <p className="text-sm font-medium text-gray-900">
+                  Additional Pictures ({additionalPictures.length}/10):
+                </p>
+                <div className="space-y-2">
+                  {additionalPictures.map((file, index) => (
+                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{file.name}</p>
+                        <p className="text-xs text-gray-500">Size: {(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setAdditionalPictures(additionalPictures.filter((_, i) => i !== index))
+                        }}
+                        className="text-red-500 border-red-500 hover:bg-red-50"
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Video Section */}
+          <div className="space-y-4">
+            <h3 className="text-base font-medium text-gray-900">Video</h3>
+
+            <FileUploadArea
+              onFileSelect={(file) => handleFileUpload(file, "video")}
+              acceptedTypes="video/*"
+              title="Choose a file or drag & drop it here."
+            />
+
+            {video && (
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <p className="text-sm font-medium text-gray-900">Selected: {video.name}</p>
+                <p className="text-xs text-gray-500">Size: {(video.size / 1024 / 1024).toFixed(2)} MB</p>
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <Label htmlFor="videoDescription" className="block text-sm font-inter font-medium text-gray-700">
+                Description
+              </Label>
+              <textarea
+                id="videoDescription"
+                placeholder="Type Here..."
+                value={videoDescription}
+                onChange={(e) => setVideoDescription(e.target.value)}
+                className="min-h-[100px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const renderStep6 = () => (
+    <div className="space-y-6">
+      <div className="mt-8">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Dear Care Professional Letter</h2>
+        {renderProgressSteps()}
+      </div>
+
+      {/* Warning Message */}
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
+        <div className="p-1 rounded flex-shrink-0">
+          <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
+        </div>
+        <p className="text-base font-normal font-inter text-[#6E330C]">
+          Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
+          saving this page.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
+        <div className="mb-6">
+          <p className="text-sm font-inter font-normal text-gray-700">
+            Help candidates get to know your family better by creating e profile and letter
+          </p>
+        </div>
+
+        {/* Profile Headline */}
+        <div className="space-y-2">
+          <Label htmlFor="profileHeadline" className="block text-sm font-inter font-medium text-[#0A0D14]">
+            Profile Headline <span className="text-red-500">*</span>
+          </Label>
+          <Input
+            id="profileHeadline"
+            placeholder="Type Here..."
+            value={profileHeadline}
+            onChange={(e) => setProfileHeadline(e.target.value)}
+            className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+          />
+          <p className="text-xs flex gap-[5px] items-center text-[#525866] font-inter font-medium">
+            <span className="text-[15px] text-[#525866]">
+              <BsFillInfoCircleFill />
+            </span>
+            Write a one sentence headline about your family. (Example "New York City:Fun Family of 5 seeking
+            Occupational Therapist or teacher to join our Team")
+          </p>
+        </div>
+
+        {/* Dear Care Professional Letter */}
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <Label htmlFor="careProfessionalLetter" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Dear Care Professional Letter <span className="text-red-500">*</span>
+            </Label>
+            <button
+              type="button"
+              className="text-[#45B5AA] text-sm font-inter font-medium hover:underline"
+              onClick={() => {
+                // You can implement sample letter functionality here
+                console.log("Show sample letter")
+              }}
+            >
+              Click Here for Sample Letter
+            </button>
+          </div>
+          <textarea
+            id="careProfessionalLetter"
+            placeholder="Type Here..."
+            value={careProfessionalLetter}
+            onChange={(e) => setCareProfessionalLetter(e.target.value)}
+            className="min-h-[200px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+          />
+          <p className="text-xs flex gap-[5px] items-start text-[#525866] font-inter font-medium">
+            <span className="text-[15px] text-[#525866] mt-0.5">
+              <BsFillInfoCircleFill />
+            </span>
+            Please write a letter describing your family, home and lifestyle and caregiver responsibilities and general
+            schedule so that candidates will have an understanding of your family and children needs. Please do not
+            include your last name or Your contact information in this letter.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderStep7 = () => (
+    <div className="space-y-6">
+      <div className="mt-8">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Family Information</h2>
+        {renderProgressSteps()}
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-8">
+        {/* Business Trips */}
+        <div className="space-y-2">
+          <Label htmlFor="businessTrips" className="block text-sm font-inter font-medium text-[#0A0D14]">
+            How often and how long do you go on business trips? <span className="text-red-500">*</span>
+          </Label>
+          <textarea
+            id="businessTrips"
+            placeholder="Type Here..."
+            value={businessTrips}
+            onChange={(e) => setBusinessTrips(e.target.value)}
+            className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+          />
+        </div>
+
+        {/* Home and Community Section */}
+        <div className="space-y-6">
+          <h3 className="text-lg font-medium text-gray-900">Home and Community</h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="homeType" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
+                Is your home a... <span className="text-red-500">*</span>
+              </Label>
+              <Select value={homeType} onValueChange={setHomeType}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="single-family">Single Family House</SelectItem>
+                  <SelectItem value="townhouse">Townhouse</SelectItem>
+                  <SelectItem value="condo">Condominium</SelectItem>
+                  <SelectItem value="apartment">Apartment</SelectItem>
+                  <SelectItem value="duplex">Duplex</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="communityType" className="block text-sm font-inter font-medium text-[#0A0D14] mb-1">
+                Community Type <span className="text-red-500">*</span>
+              </Label>
+              <Select value={communityType} onValueChange={setCommunityType}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="urban">Urban</SelectItem>
+                  <SelectItem value="suburban">Suburban</SelectItem>
+                  <SelectItem value="rural">Rural</SelectItem>
+                  <SelectItem value="small-town">Small Town</SelectItem>
+                  <SelectItem value="city-center">City Center</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="homeDescription" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Describe your home <span className="text-red-500">*</span>
+              <span className="text-gray-500 text-xs font-normal ml-1">(Size of building, number of rooms)</span>
+            </Label>
+            <textarea
+              id="homeDescription"
+              placeholder="Type Here..."
+              value={homeDescription}
+              onChange={(e) => setHomeDescription(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+        </div>
+
+        {/* Your Future Care Professional Section */}
+        <div className="space-y-6">
+          <h3 className="text-lg font-medium text-gray-900">Your Future Care Professional</h3>
+
+          <div className="space-y-2">
+            <Label htmlFor="careProfessionalCriteria" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              What's most important to you when selecting a care professional to care for your children?{" "}
+              <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="careProfessionalCriteria"
+              placeholder="Type Here..."
+              value={careProfessionalCriteria}
+              onChange={(e) => setCareProfessionalCriteria(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+            <p className="text-xs flex gap-[5px] items-center text-[#525866] font-inter font-medium">
+              <span className="text-[15px] text-[#525866]">
+                <BsFillInfoCircleFill />
+              </span>
+              Please list 3-5 criteria starting with the most important one.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="caregiverQualities" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              What qualities and skills do you need your caregiver to have? <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="caregiverQualities"
+              placeholder="Type Here..."
+              value={caregiverQualities}
+              onChange={(e) => setCaregiverQualities(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="caregiverResponsibilities" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              List your caregiver's responsibilities? <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="caregiverResponsibilities"
+              placeholder="Type Here..."
+              value={caregiverResponsibilities}
+              onChange={(e) => setCaregiverResponsibilities(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="homeRules" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              What are the most important rules in your home? <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="homeRules"
+              placeholder="Type Here..."
+              value={homeRules}
+              onChange={(e) => setHomeRules(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="safetyConcerns" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              State any safety concerns such as-children are to wear sunscreen outdoors at all times or while in direct
+              sun only, seat belts fastened in the car, children to be buckled in their designated car seats, pool
+              rules, etc? <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="safetyConcerns"
+              placeholder="Type Here..."
+              value={safetyConcerns}
+              onChange={(e) => setSafetyConcerns(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="educationalOpportunities" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Describe the post-secondary accredited educational opportunities in your community??{" "}
+              <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="educationalOpportunities"
+              placeholder="Type Here..."
+              value={educationalOpportunities}
+              onChange={(e) => setEducationalOpportunities(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+            <p className="text-xs flex gap-[5px] items-center text-[#525866] font-inter font-medium">
+              <span className="text-[15px] text-[#525866]">
+                <BsFillInfoCircleFill />
+              </span>
+              Please add a link to the school
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="privateBedroomDescription" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Describe your caregiver's private bedroom? <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="privateBedroomDescription"
+              placeholder="Type Here..."
+              value={privateBedroomDescription}
+              onChange={(e) => setPrivateBedroomDescription(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+        </div>
+
+        {/* Additional Comments Section */}
+        <div className="space-y-2">
+          <Label htmlFor="additionalComments" className="block text-sm font-inter font-medium text-[#0A0D14]">
+            Additional Comments / requests
+          </Label>
+          <textarea
+            id="additionalComments"
+            placeholder="Type Here..."
+            value={additionalComments}
+            onChange={(e) => setAdditionalComments(e.target.value)}
+            className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+          />
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderStep8 = () => (
+    <div className="space-y-6">
+      <div className="mt-8">
+        <h2 className="text-lg font-medium text-[#0A0D14] mb-4">Color Code Test</h2>
+        {renderProgressSteps()}
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
+        {/* Introduction Text */}
+        <div className="space-y-4">
+          <p className="text-base font-inter text-[#0A0D14] leading-relaxed">
+            Apex Social uses Dr. Hartman's "The Color Code" test as a helpful tool for matching families and Care
+            Professional. By taking just 10 minutes to complete the test, you will:
+          </p>
+
+          {/* Benefits Grid */}
+          <div className="grid grid-cols-1 p-4 bg-gray-50 rounded-lg md:grid-cols-2 gap-6 mt-6">
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 mt-1">
+                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <p className="text-sm font-inter text-[#0A0D14]">Learn about your "color" and personality traits</p>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 mt-1">
+                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <p className="text-sm font-inter text-[#0A0D14]">
+                  Be able to do better identify a candidate who meets your needs
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 mt-1">
+                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <p className="text-sm font-inter text-[#0A0D14]">
+                  Avoid candidates whom you would not be compatible with
+                </p>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 mt-1">
+                  <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <div className="text-sm font-inter text-[#0A0D14]">
+                  <p className="mb-2">Avoid candidates whom you would not be compatible with</p>
+                  <p className="text-xs text-[#0A0D14]">
+                    Your color code profile will be upgraded, Compliments of Apex Social, after you speak with
+                    a-Matching Specialists and are ready to interview candidates
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Information */}
+          <div className="-mt-6 p-4 bg-gray-50 rounded-lg">
+            <p className="text-sm font-inter text-[#0A0D14]">
+              Every Care Professionals completes the Color Code test as part of our application process, and you have
+              access to the caregiver's color results.
+            </p>
+          </div>
+
+          {/* Link to Test */}
+          <div className="mt-6">
+            <a
+              href="#"
+              className="text-[#45B5AA] font-inter text-base hover:underline"
+              onClick={(e) => {
+                e.preventDefault()
+                // Handle link click - could open in new tab or modal
+                window.open("#", "_blank")
+              }}
+            >
+              Take your "Color Code" Personality Analysis by Dr. Hartman text here
+            </a>
+          </div>
+
+          {/* Color Selection */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div className="space-y-2">
+              <Label htmlFor="primaryColor" className="block text-sm font-inter font-medium text-[#0A0D14]">
+                Primary Color <span className="text-red-500">*</span>
+              </Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="red">Red - Power</SelectItem>
+                  <SelectItem value="blue">Blue - Intimacy</SelectItem>
+                  <SelectItem value="white">White - Peace</SelectItem>
+                  <SelectItem value="yellow">Yellow - Fun</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="secondaryColor" className="block text-sm font-inter font-medium text-[#0A0D14]">
+                Secondary Color <span className="text-red-500">*</span>
+              </Label>
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="red">Red - Power</SelectItem>
+                  <SelectItem value="blue">Blue - Intimacy</SelectItem>
+                  <SelectItem value="white">White - Peace</SelectItem>
+                  <SelectItem value="yellow">Yellow - Fun</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderStep9 = () => (
+    <div className="space-y-6">
+      <div className="mt-8">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Personal Reference</h2>
+        {renderProgressSteps()}
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
+        {/* Introduction Text */}
+        <div className="space-y-4">
+          <p className="text-base font-inter text-[#0A0D14] leading-relaxed">
+            Apex Social requires that each host provides at least two references. Please provide your first reference on
+            this page and the second reference on the next step
+          </p>
+
+          <p className="text-sm font-inter text-gray-600 leading-relaxed">
+            Your references should be people who know your family well such as freinds or co-workers. References must be
+            from non-relatives. Apex Social will email a short form to be completed by your reference.
+          </p>
+        </div>
+
+        {/* Reference Information Section */}
+        <div className="space-y-6">
+          <h3 className="text-lg font-medium text-gray-900">Reference Information</h3>
+
+          {/* First Name and Last Name */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceFirstName"
+                className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+              >
+                First Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceFirstName"
+                placeholder="Type Here..."
+                value={referenceFirstName}
+                onChange={(e) => setReferenceFirstName(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="referenceLastName"
+                className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+              >
+                Last Name <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceLastName"
+                placeholder="Type Here..."
+                value={referenceLastName}
+                onChange={(e) => setReferenceLastName(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Relationship and Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceRelationship"
+                className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+              >
+                Relationship <span className="text-red-500">*</span>
+                <span className="text-gray-500 text-xs font-normal ml-1">(Friend,Neighbor)</span>
+              </Label>
+              <Input
+                id="referenceRelationship"
+                placeholder="Type Here..."
+                value={referenceRelationship}
+                onChange={(e) => setReferenceRelationship(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label htmlFor="referenceEmail" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+                Email <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceEmail"
+                type="email"
+                placeholder="Type Here..."
+                value={referenceEmail}
+                onChange={(e) => setReferenceEmail(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Phone and Mobile Phone */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="referencePhone" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+                Phone <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referencePhone"
+                placeholder="Type Here..."
+                value={referencePhone}
+                onChange={(e) => setReferencePhone(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="referenceMobilePhone"
+                className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+              >
+                Mobile Phone
+              </Label>
+              <Input
+                id="referenceMobilePhone"
+                placeholder="Type Here..."
+                value={referenceMobilePhone}
+                onChange={(e) => setReferenceMobilePhone(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Occupation and Country */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceOccupation"
+                className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+              >
+                Occupation <span className="text-red-500">*</span>
+              </Label>
+              <Select value={referenceOccupation} onValueChange={setReferenceOccupation}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="professional">Professional</SelectItem>
+                  <SelectItem value="manager">Manager</SelectItem>
+                  <SelectItem value="teacher">Teacher</SelectItem>
+                  <SelectItem value="healthcare">Healthcare</SelectItem>
+                  <SelectItem value="business-owner">Business Owner</SelectItem>
+                  <SelectItem value="consultant">Consultant</SelectItem>
+                  <SelectItem value="engineer">Engineer</SelectItem>
+                  <SelectItem value="lawyer">Lawyer</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="referenceCountry" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+                Country <span className="text-red-500">*</span>
+              </Label>
+              <Select value={referenceCountry} onValueChange={setReferenceCountry}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="United States" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="us">United States</SelectItem>
+                  <SelectItem value="ca">Canada</SelectItem>
+                  <SelectItem value="uk">United Kingdom</SelectItem>
+                  <SelectItem value="au">Australia</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {/* Street Address and City */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceStreetAddress"
+                className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+              >
+                Street Address <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceStreetAddress"
+                placeholder="Type Here..."
+                value={referenceStreetAddress}
+                onChange={(e) => setReferenceStreetAddress(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label htmlFor="referenceCity" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+                City <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceCity"
+                placeholder="Type Here..."
+                value={referenceCity}
+                onChange={(e) => setReferenceCity(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* State and Postal Code */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="referenceState" className="block text-[14px] font-inter font-medium text-gray-700 mb-1">
+                State <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceState"
+                placeholder="Type Here..."
+                value={referenceState}
+                onChange={(e) => setReferenceState(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="referencePostalCode"
+                className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+              >
+                Postal Code <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referencePostalCode"
+                placeholder="Type Here..."
+                value={referencePostalCode}
+                onChange={(e) => setReferencePostalCode(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Best time to call */}
+          <div>
+            <Label
+              htmlFor="referenceBestTimeToCall"
+              className="block text-[14px] font-inter font-medium text-gray-700 mb-1"
+            >
+              Best time to call?
+            </Label>
+            <Input
+              id="referenceBestTimeToCall"
+              placeholder="Type Here..."
+              value={referenceBestTimeToCall}
+              onChange={(e) => setReferenceBestTimeToCall(e.target.value)}
+              className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+
+          {/* Reference Note */}
+          <div className="space-y-2">
+            <Label htmlFor="referenceNote" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Write a brief note below for Apex Social to include in our email to your reference.{" "}
+              <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="referenceNote"
+              placeholder="Type Here..."
+              value={referenceNote}
+              onChange={(e) => setReferenceNote(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+            <div className="flex items-center gap-2 mt-2">
+              <BsFillInfoCircleFill className="w-4 h-4 text-[#525866] mt-0.5 flex-shrink-0" />
+              <p className="text-xs text-[#525866] font-inter font-medium">
+                You may choose to overwrite the text with a personalized message.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
   return (
     <section className="">
       <div className="w-full">
@@ -2521,6 +3455,11 @@ const ApplicationContent = () => {
           {currentStep === 2 && renderStep2()}
           {currentStep === 3 && renderStep3()}
           {currentStep === 4 && renderStep4()}
+          {currentStep === 5 && renderStep5()}
+          {currentStep === 6 && renderStep6()}
+          {currentStep === 7 && renderStep7()}
+          {currentStep === 8 && renderStep8()}
+          {currentStep === 9 && renderStep9()}
         </div>
 
         {/* Navigation Buttons */}
