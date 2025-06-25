@@ -127,6 +127,7 @@ const ApplicationContent = () => {
   const [referenceEmail, setReferenceEmail] = useState("")
   const [referencePhone, setReferencePhone] = useState("")
   const [referenceMobilePhone, setReferenceMobilePhone] = useState("")
+  const [referenceJob, setReferenceJob] = useState("")
   const [referenceOccupation, setReferenceOccupation] = useState("")
   const [referenceCountry, setReferenceCountry] = useState("")
   const [referenceStreetAddress, setReferenceStreetAddress] = useState("")
@@ -1266,7 +1267,7 @@ const ApplicationContent = () => {
       </div>
 
       {/* Warning Message */}
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
+      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-row items-center gap-3 sm:gap-4 mb-8">
         <div className="p-1 rounded flex-shrink-0">
           <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
         </div>
@@ -1572,7 +1573,7 @@ const ApplicationContent = () => {
       </div>
 
       {/* Warning Message */}
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
+       <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-row items-center gap-3 sm:gap-4 mb-8">
         <div className="p-1 rounded flex-shrink-0">
           <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
         </div>
@@ -2196,15 +2197,15 @@ const ApplicationContent = () => {
         </div>
 
         {/* Warning Message */}
-        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
-          <div className="p-1 rounded flex-shrink-0">
-            <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
-          </div>
-          <p className="text-base font-normal font-inter text-[#6E330C]">
-            Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
-            saving this page.
-          </p>
+        <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-row items-center gap-3 sm:gap-4 mb-8">
+        <div className="p-1 rounded flex-shrink-0">
+          <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
         </div>
+        <p className="text-base font-normal font-inter text-[#6E330C]">
+          Please complete all required fields (fields with an asterisk <span className="text-red-500">*</span>) before
+          saving this page.
+        </p>
+      </div>
 
         <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
           {/* Native Language and Other Languages */}
@@ -2735,7 +2736,7 @@ const ApplicationContent = () => {
       </div>
 
       {/* Warning Message */}
-      <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-8">
+       <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-row items-center gap-3 sm:gap-4 mb-8">
         <div className="p-1 rounded flex-shrink-0">
           <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
         </div>
@@ -3438,6 +3439,597 @@ const ApplicationContent = () => {
     </div>
   )
 
+    const renderStep10 = () => (
+    <div className="space-y-6">
+      <div className="mt-8">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Business / Employer Reference</h2>
+        {renderProgressSteps()}
+      </div>
+       {/* Warning Message */}
+       <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-row items-center gap-3 sm:gap-4 mb-8">
+        <div className="p-1 rounded flex-shrink-0">
+          <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
+        </div>
+        <p className="text-base font-normal font-inter text-[#6E330C]">
+          I am self employed or i am not working.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
+        {/* Introduction Text */}
+        <div className="space-y-4">
+          <p className="text-base font-inter text-[#0A0D14] leading-relaxed">
+            Please provide one professional/employment reference from a supervisor or co-worker.
+          </p>
+
+          <p className="text-sm font-inter text-gray-600 leading-relaxed">
+           If you are self-employed or not working, Please provide a second personal reference. We will contact your references via your phone or email.
+          </p>
+        </div>
+
+        {/* Reference Information Section */}
+        <div className="space-y-6">
+          <h3 className="text-lg font-medium text-gray-900">Reference Information</h3>
+
+          {/* First Name and Last Name */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceFirstName"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Reference First Name  <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceFirstName"
+                placeholder="Type Here..."
+                value={referenceFirstName}
+                onChange={(e) => setReferenceFirstName(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="referenceLastName"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Reference Last Name  <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceLastName"
+                placeholder="Type Here..."
+                value={referenceLastName}
+                onChange={(e) => setReferenceLastName(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Relationship and Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceRelationship"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Relationship <span className="text-red-500">*</span>
+                <span className="text-gray-500 text-xs font-normal ml-1">(Friend,Neighbor)</span>
+              </Label>
+              <Input
+                id="referenceRelationship"
+                placeholder="Type Here..."
+                value={referenceRelationship}
+                onChange={(e) => setReferenceRelationship(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label htmlFor="referenceEmail" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Email <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceEmail"
+                type="email"
+                placeholder="Type Here..."
+                value={referenceEmail}
+                onChange={(e) => setReferenceEmail(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Phone and Mobile Phone */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="referencePhone" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Phone <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referencePhone"
+                placeholder="Type Here..."
+                value={referencePhone}
+                onChange={(e) => setReferencePhone(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="referenceMobilePhone"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Company
+              </Label>
+              <Input
+                id="referenceMobilePhone"
+                placeholder="Type Here..."
+                value={referenceMobilePhone}
+                onChange={(e) => setReferenceMobilePhone(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Occupation and Country */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceOccupation"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Occupation <span className="text-red-500">*</span>
+              </Label>
+              <Select value={referenceOccupation} onValueChange={setReferenceOccupation}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="professional">Professional</SelectItem>
+                  <SelectItem value="manager">Manager</SelectItem>
+                  <SelectItem value="teacher">Teacher</SelectItem>
+                  <SelectItem value="healthcare">Healthcare</SelectItem>
+                  <SelectItem value="business-owner">Business Owner</SelectItem>
+                  <SelectItem value="consultant">Consultant</SelectItem>
+                  <SelectItem value="engineer">Engineer</SelectItem>
+                  <SelectItem value="lawyer">Lawyer</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="referenceCountry" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Job Title  <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceMobilePhone"
+                placeholder="Type Here..."
+                value={referenceJob}
+                onChange={(e) => setReferenceJob(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Street Address and City */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceStreetAddress"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Street Address <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceStreetAddress"
+                placeholder="Type Here..."
+                value={referenceStreetAddress}
+                onChange={(e) => setReferenceStreetAddress(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label htmlFor="referenceCity" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                City <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceCity"
+                placeholder="Type Here..."
+                value={referenceCity}
+                onChange={(e) => setReferenceCity(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* State and Postal Code */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="referenceState" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                State <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceState"
+                placeholder="Type Here..."
+                value={referenceState}
+                onChange={(e) => setReferenceState(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            
+            <div>
+              <Label
+                htmlFor="referencePostalCode"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Postal Code <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referencePostalCode"
+                placeholder="Type Here..."
+                value={referencePostalCode}
+                onChange={(e) => setReferencePostalCode(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Best time to call */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div>
+              <Label htmlFor="referenceCountry" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Country <span className="text-red-500">*</span>
+              </Label>
+              <Select value={referenceCountry} onValueChange={setReferenceCountry}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="United States" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="us">United States</SelectItem>
+                  <SelectItem value="ca">Canada</SelectItem>
+                  <SelectItem value="uk">United Kingdom</SelectItem>
+                  <SelectItem value="au">Australia</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+
+             <div>
+            <Label
+              htmlFor="referenceBestTimeToCall"
+              className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+            >
+              Best time to call?
+            </Label>
+            <Input
+              id="referenceBestTimeToCall"
+              placeholder="Type Here..."
+              value={referenceBestTimeToCall}
+              onChange={(e) => setReferenceBestTimeToCall(e.target.value)}
+              className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+          </div>
+
+          {/* Reference Note */}
+          <div className="space-y-2">
+            <Label htmlFor="referenceNote" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Write a brief note below for Apex Social to include in our email to your reference.{" "}
+              <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="referenceNote"
+              placeholder="Type Here..."
+              value={referenceNote}
+              onChange={(e) => setReferenceNote(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+            <div className="flex items-center gap-2 mt-2">
+              <BsFillInfoCircleFill className="text-[12px] text-[#868C98] mt-0.5 flex-shrink-0" />
+              <p className="text-xs text-[#525866] font-inter font-medium">
+                You may choose to overwrite the text with a personalized message.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+   const renderStep11 = () => (
+    <div className="space-y-6">
+      <div className="mt-8">
+        <h2 className="text-lg font-medium text-gray-900 mb-4">Application Fee</h2>
+        {renderProgressSteps()}
+      </div>
+       {/* Warning Message */}
+       <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 flex flex-row items-center gap-3 sm:gap-4 mb-8">
+        <div className="p-1 rounded flex-shrink-0">
+          <BsFillInfoCircleFill className="w-5 h-5 text-orange-600" />
+        </div>
+        <p className="text-base font-normal font-inter text-[#6E330C]">
+         Please note that you may read and sign the Host Family Service Agreement prior to paying the application fee. This step will be completed in the sidebar only after Apex Social staff processes your payment.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 space-y-6">
+        {/* Introduction Text */}
+        <div className="space-y-4">
+          <p className="text-base font-inter text-[#0A0D14] leading-relaxed">
+            Please provide one professional/employment reference from a supervisor or co-worker.
+          </p>
+
+          <p className="text-sm font-inter text-gray-600 leading-relaxed">
+           If you are self-employed or not working, Please provide a second personal reference. We will contact your references via your phone or email.
+          </p>
+        </div>
+
+        {/* Reference Information Section */}
+        <div className="space-y-6">
+          <h3 className="text-lg font-medium text-gray-900">Reference Information</h3>
+
+          {/* First Name and Last Name */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceFirstName"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Reference First Name  <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceFirstName"
+                placeholder="Type Here..."
+                value={referenceFirstName}
+                onChange={(e) => setReferenceFirstName(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="referenceLastName"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Reference Last Name  <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceLastName"
+                placeholder="Type Here..."
+                value={referenceLastName}
+                onChange={(e) => setReferenceLastName(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Relationship and Email */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceRelationship"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Relationship <span className="text-red-500">*</span>
+                <span className="text-gray-500 text-xs font-normal ml-1">(Friend,Neighbor)</span>
+              </Label>
+              <Input
+                id="referenceRelationship"
+                placeholder="Type Here..."
+                value={referenceRelationship}
+                onChange={(e) => setReferenceRelationship(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label htmlFor="referenceEmail" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Email <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceEmail"
+                type="email"
+                placeholder="Type Here..."
+                value={referenceEmail}
+                onChange={(e) => setReferenceEmail(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Phone and Mobile Phone */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="referencePhone" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Phone <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referencePhone"
+                placeholder="Type Here..."
+                value={referencePhone}
+                onChange={(e) => setReferencePhone(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label
+                htmlFor="referenceMobilePhone"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Company
+              </Label>
+              <Input
+                id="referenceMobilePhone"
+                placeholder="Type Here..."
+                value={referenceMobilePhone}
+                onChange={(e) => setReferenceMobilePhone(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Occupation and Country */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceOccupation"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Occupation <span className="text-red-500">*</span>
+              </Label>
+              <Select value={referenceOccupation} onValueChange={setReferenceOccupation}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select Here" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="professional">Professional</SelectItem>
+                  <SelectItem value="manager">Manager</SelectItem>
+                  <SelectItem value="teacher">Teacher</SelectItem>
+                  <SelectItem value="healthcare">Healthcare</SelectItem>
+                  <SelectItem value="business-owner">Business Owner</SelectItem>
+                  <SelectItem value="consultant">Consultant</SelectItem>
+                  <SelectItem value="engineer">Engineer</SelectItem>
+                  <SelectItem value="lawyer">Lawyer</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label htmlFor="referenceCountry" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Job Title  <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceMobilePhone"
+                placeholder="Type Here..."
+                value={referenceJob}
+                onChange={(e) => setReferenceJob(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Street Address and City */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label
+                htmlFor="referenceStreetAddress"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Street Address <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceStreetAddress"
+                placeholder="Type Here..."
+                value={referenceStreetAddress}
+                onChange={(e) => setReferenceStreetAddress(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            <div>
+              <Label htmlFor="referenceCity" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                City <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceCity"
+                placeholder="Type Here..."
+                value={referenceCity}
+                onChange={(e) => setReferenceCity(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* State and Postal Code */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="referenceState" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                State <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referenceState"
+                placeholder="Type Here..."
+                value={referenceState}
+                onChange={(e) => setReferenceState(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+            
+            <div>
+              <Label
+                htmlFor="referencePostalCode"
+                className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+              >
+                Postal Code <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                id="referencePostalCode"
+                placeholder="Type Here..."
+                value={referencePostalCode}
+                onChange={(e) => setReferencePostalCode(e.target.value)}
+                className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+              />
+            </div>
+          </div>
+
+          {/* Best time to call */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div>
+              <Label htmlFor="referenceCountry" className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1">
+                Country <span className="text-red-500">*</span>
+              </Label>
+              <Select value={referenceCountry} onValueChange={setReferenceCountry}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="United States" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="us">United States</SelectItem>
+                  <SelectItem value="ca">Canada</SelectItem>
+                  <SelectItem value="uk">United Kingdom</SelectItem>
+                  <SelectItem value="au">Australia</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+
+             <div>
+            <Label
+              htmlFor="referenceBestTimeToCall"
+              className="block text-[14px] font-inter font-medium text-[#0A0D14] mb-1"
+            >
+              Best time to call?
+            </Label>
+            <Input
+              id="referenceBestTimeToCall"
+              placeholder="Type Here..."
+              value={referenceBestTimeToCall}
+              onChange={(e) => setReferenceBestTimeToCall(e.target.value)}
+              className="w-full placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+          </div>
+          </div>
+
+          {/* Reference Note */}
+          <div className="space-y-2">
+            <Label htmlFor="referenceNote" className="block text-sm font-inter font-medium text-[#0A0D14]">
+              Write a brief note below for Apex Social to include in our email to your reference.{" "}
+              <span className="text-red-500">*</span>
+            </Label>
+            <textarea
+              id="referenceNote"
+              placeholder="Type Here..."
+              value={referenceNote}
+              onChange={(e) => setReferenceNote(e.target.value)}
+              className="min-h-[120px] resize-none w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#45B5AA] focus:border-[#45B5AA] placeholder:text-[#868C98] placeholder:text-[14px] placeholder:font-inter placeholder:font-normal"
+            />
+            <div className="flex items-center gap-2 mt-2">
+              <BsFillInfoCircleFill className="text-[12px] text-[#868C98] mt-0.5 flex-shrink-0" />
+              <p className="text-xs text-[#525866] font-inter font-medium">
+                You may choose to overwrite the text with a personalized message.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
   return (
     <section className="">
       <div className="w-full">
@@ -3460,6 +4052,8 @@ const ApplicationContent = () => {
           {currentStep === 7 && renderStep7()}
           {currentStep === 8 && renderStep8()}
           {currentStep === 9 && renderStep9()}
+          {currentStep === 10 && renderStep10()}
+          {currentStep === 11 && renderStep11()}
         </div>
 
         {/* Navigation Buttons */}
