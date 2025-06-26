@@ -121,11 +121,11 @@ const ProfileSideBar = () => {
 
         <div className="space-y-3">
           <Button className="w-full cursor-pointer bg-teal-500 font-inter font-semibold text-[14px] hover:bg-teal-600 text-white">
-            Schedule Call
+            <a href="#">Schedule Call</a>
           </Button>
           <div className="border-[#E2E4E9] border"></div>
           <Button className="w-full cursor-pointer bg-teal-500 font-inter font-semibold text-[14px] hover:bg-teal-600 text-white">
-            Search Candidates
+           <a href="#"> Search Candidates</a>
           </Button>
         </div>
       </div>

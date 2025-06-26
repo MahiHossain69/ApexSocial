@@ -428,7 +428,9 @@ const ApplicationContent = () => {
               }`}
               onClick={() => handleStepClick(step)}
             >
-              <span className="text-sm font-inter font-medium">{step}</span>
+              <ul>
+                <li className="text-sm font-inter font-medium">{step}</li>
+              </ul>
             </div>
           );
         })}

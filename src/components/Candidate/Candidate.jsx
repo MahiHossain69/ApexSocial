@@ -9,6 +9,7 @@ import Robert from "../../assets/fox.png"
 import Floyd from "../../assets/floyd.png"
 import Now from "../../assets/now.png"  
 import Right from "../../assets/right.png"
+import { Badge } from "@/components/ui/badge"
 
 const Candidate = () => {
 
@@ -74,80 +75,73 @@ const Candidate = () => {
     <div className="space-y-6">
       
       {/* Pagination Top Bar (Desktop Only) */}
-      <div className="md:hidden xs:hidden h-[56px] pl-[10px] pr-[10px] rounded-lg bg-[#F6F8FA] lg:flex md:justify-between items-center">
-        <div className="xl:text-[14px] lg:text-[12px] md:text-[0px] font-inter font-normal text-[#525866]">1 to 10 of 67 candidates</div>
+     <div className="md:hidden xs:hidden h-[56px] pl-[10px] pr-[10px] rounded-lg bg-[#F6F8FA] lg:flex md:justify-between items-center">
+  <div className="xl:text-[14px] lg:text-[12px] md:text-[0px] font-inter font-normal text-[#525866]">
+    1 to 10 of 67 candidates
+  </div>
 
-        <div className="flex cursor-pointer items-center gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 p-0 cursor-pointer border-none bg-transparent shadow-none text-[black] "
-            onClick={() => setCurrentPage(1)}
-          >
-            <ChevronsLeft className="h-4 w-4 cursor-pointer" />
-            <span className="sr-only">First page</span>
-          </Button>
+  <ul className="flex cursor-pointer items-center gap-2 list-none m-0 p-0">
+    <li
+      onClick={() => setCurrentPage(1)}
+      className="h-8 w-8 flex items-center justify-center border-none bg-transparent text-black cursor-pointer"
+    >
+      <ChevronsLeft className="h-4 w-4" />
+      <span className="sr-only">First page</span>
+    </li>
 
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 p-0 cursor-pointer border-none bg-transparent shadow-none "
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-          >
-            <ChevronLeft className="h-4 w-4  " />
-            <span className="sr-only">Previous page</span>
-          </Button>
+    <li
+      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+      className="h-8 w-8 flex items-center justify-center border-none bg-transparent cursor-pointer"
+    >
+      <ChevronLeft className="h-4 w-4" />
+      <span className="sr-only">Previous page</span>
+    </li>
 
-          {[1, 2, 3, 4, 5].map((page) => (
-            <Button
-              key={page}
-              variant={currentPage === page ? "default" : "outline"}
-              size="icon"
-              className={cn(
-                "h-8 w-8 p-0 border-[2px] cursor-pointer border-[#E2E4E9]",
-                currentPage === page && "bg-[#F6F8FA] hover:bg-gray-300 text-gray-800",
-              )}
-              onClick={() => setCurrentPage(page)}
-            >
-              {page}
-            </Button>
-          ))}
+    {[1, 2, 3, 4, 5].map((page) => (
+      <li
+        key={page}
+        onClick={() => setCurrentPage(page)}
+        className={cn(
+          "h-8 w-8 flex items-center rounded-lg justify-center border-[2px] bg-white text-gray-600 border-[#E2E4E9] cursor-pointer",
+          currentPage === page && "bg-[#F6F8FA]  text-black"
+        )}
+      >
+        {page}
+      </li>
+    ))}
 
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 cursor-pointer p-0 border-none bg-transparent shadow-none"
-            onClick={() => setCurrentPage(currentPage + 1)}
-          >
-            <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Next page</span>
-          </Button>
+    <li
+      onClick={() => setCurrentPage(currentPage + 1)}
+      className="h-8 w-8 flex items-center justify-center border-none bg-transparent cursor-pointer"
+    >
+      <ChevronRight className="h-4 w-4" />
+      <span className="sr-only">Next page</span>
+    </li>
 
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 cursor-pointer p-0 border-none bg-transparent shadow-none text-[black]"
-            onClick={() => setCurrentPage(5)}
-          >
-            <ChevronsRight className="h-4 w-4" />
-            <span className="sr-only">Last page</span>
-          </Button>
-        </div>
+    <li
+      onClick={() => setCurrentPage(5)}
+      className="h-8 w-8 flex items-center justify-center border-none bg-transparent text-black cursor-pointer"
+    >
+      <ChevronsRight className="h-4 w-4" />
+      <span className="sr-only">Last page</span>
+    </li>
+  </ul>
 
-        <div className="cursor-pointer">
-          <Select value={entriesPerPage} onValueChange={setEntriesPerPage}>
-            <SelectTrigger className="w-[130px] outline-none cursor-pointer bg-white font-inter text-[#0A0D14] text-[14px] border-gray-200">
-              <SelectValue placeholder="7 Entries" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="5" className="font-inter cursor-pointer text-[14px] font-normal">5 Entries</SelectItem>
-              <SelectItem value="7" className="font-inter cursor-pointer text-[14px] font-normal">7 Entries</SelectItem>
-              <SelectItem value="10" className="font-inter cursor-pointer text-[14px] font-normal">10 Entries</SelectItem>
-              <SelectItem value="20" className="font-inter cursor-pointer text-[14px] font-normal">20 Entries</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+  <div className="cursor-pointer">
+    <Select value={entriesPerPage} onValueChange={setEntriesPerPage}>
+      <SelectTrigger className="w-[130px] outline-none cursor-pointer bg-white font-inter text-[#0A0D14] text-[14px] border-gray-200">
+        <SelectValue placeholder="7 Entries" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="5" className="font-inter cursor-pointer text-[14px] font-normal">5 Entries</SelectItem>
+        <SelectItem value="7" className="font-inter cursor-pointer text-[14px] font-normal">7 Entries</SelectItem>
+        <SelectItem value="10" className="font-inter cursor-pointer text-[14px] font-normal">10 Entries</SelectItem>
+        <SelectItem value="20" className="font-inter cursor-pointer text-[14px] font-normal">20 Entries</SelectItem>
+      </SelectContent>
+    </Select>
+  </div>
+</div>
+
 
       {/* Candidates Listing Section */}
       <div className="space-y-6">
@@ -166,11 +160,15 @@ const Candidate = () => {
                     <div className="flex gap-2">
                       {/* Favorite Button */}
                       <Button variant="fev" size="icon" className="text-teal-500  hover:bg-teal-500 hover:text-white h-8 w-8">
-                        <Heart className="h-4 w-4" />
+                        <a href='#'>
+                          <Heart className="h-4 w-4" />
+                        </a>
                       </Button>
                       {/* View Button */}
                       <Button variant="fev" size="sm" className="text-teal-500  hover:bg-teal-500 hover:text-white px-3">
-                        View
+                       <a href='#'>
+                          <User className="h-4 w-4 mr-1" /> 
+                          </a>
                       </Button>
                     </div>
                   </div>
@@ -261,14 +259,14 @@ const Candidate = () => {
                     <div className="text-sm text-[#525866] font-semibold bg-[#F6F8FA] w-[88px] h-[36px] text-center rounded-lg pt-[6px]">ID {candidate.id}</div>
                     <div className="flex gap-2">
                       {/* Add to Favorites Button */}
-                      <Button variant="fev" size="sm" className="text-teal-500 cursor-pointer hover:bg-teal-500 hover:text-white">
+                     <Button variant="fev" size="sm" className="text-teal-500 cursor-pointer hover:bg-teal-500 hover:text-white">
                         <Heart className="h-4 w-4 mr-1" />
-                        Add Favorites
+                        <a href='#'>Add to Favorites</a>
                       </Button>
                       {/* View Profile Button */}
                       <Button variant="fev" size="sm" className="text-teal-500 cursor-pointer hover:bg-teal-500 hover:text-white">
                         <User className="h-4 w-4 mr-1" />
-                        View Profile
+                       <a href='#'>View Profile</a>
                       </Button>
                     </div>
                   </div>
@@ -291,11 +289,7 @@ const Candidate = () => {
 
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-gray-600">Available to start:</span>
-                        <img
-                          src={candidate.available}
-                          alt="Available"
-                          className="w-[42px] h-[20px] cursor-pointer"
-                        />
+                        <Badge className="bg-teal-50 text-teal-500">New</Badge>
                       </div>
                     </div>
                   </div>
@@ -315,7 +309,7 @@ const Candidate = () => {
                   <div className="w-full">
                     <div className="xl:text-[14px] md:text-[13px] md:pt-[15px] lg:text-[9px] font-inter font-medium bg-[#F6F8FA] px-5 rounded-lg h-[80px] w-full lg:pt-[22px] xl:pt-[17px] text-[#525866]">
                       Total Childcare Hours
-                      <div className="font-semibold font-inter lg:text-[14px] md:text-[17px] xl:text-[20px] text-[#0A0D14]">{candidate.qualifications.hours}</div>
+                      <div className="font-semibold font-inter lg:text-[14px] md:text-[17px] xl:text-[20px] text-[#0A0D14]"><p>{candidate.qualifications.hours}</p></div>
                     </div>
                   </div>
 

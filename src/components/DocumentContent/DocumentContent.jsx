@@ -24,10 +24,10 @@ const DocumentContent = () => {
             <div className="border-b font-inter font-medium text-[14px] text-[#0A0D14] border-r px-4 py-2 text-sm ">
             English Proficiency Evaluation
             </div>
-           <a href='#'> <div className="border-b xs:pb-[28px] sm:pb-2 flex items-center gap-[5px] text-[14px] underline font-inter font-normalZX text-[#0A0D14] px-4 py-2 text-sm ">
+            <div className="border-b xs:pb-[28px] sm:pb-2 flex items-center gap-[5px] text-[14px] underline font-inter font-normalZX text-[#0A0D14] px-4 py-2 text-sm ">
             
-           <BsFiletypePdf />Download File
-            </div></a>
+           <a className='flex items-center gap-2' href='#'><BsFiletypePdf /><p>Download File</p></a>
+            </div>
 
             {/* Row 2 */}
             <div className="border-b font-inter font-medium text-[14px] text-[#0A0D14] border-r px-4 py-2 text-sm ">
