@@ -34,7 +34,11 @@ export default function Navbar() {
       <div className="container_fluid flex items-center justify-between py-3 px-4">
         {/* Left: Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img src={Logo} alt="Apex Social Logo" className="h-8 sm:h-10 w-auto" />
+          <img
+            src={Logo}
+            alt="Apex Social Logo"
+            className="h-8 sm:h-10 w-auto"
+          />
         </Link>
 
         {/* Right: Actions */}
@@ -64,7 +68,11 @@ export default function Navbar() {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center gap-2 bg-white border border-gray-200 rounded-full pr-2 pl-1 py-1 hover:shadow-md transition cursor-pointer"
             >
-              <img src={Avatarr} alt="User Avatar" className="w-8 h-8 rounded-full object-cover block" />
+              <img
+                src={Avatarr}
+                alt="User Avatar"
+                className="w-8 h-8 rounded-full object-cover block"
+              />
               <ChevronDown className="w-4 h-4 text-gray-500" />
             </button>
 
@@ -72,17 +80,20 @@ export default function Navbar() {
               <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                 <ul className="py-2 text-sm text-gray-700 font-inter font-semibold">
                   <li>
-                    <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+                    <Link
+                      to="/view-profile"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                    >
                       Profile
                     </Link>
                   </li>
                   <li>
-                    <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100">
+                    <Link to="settings" className="block px-4 py-2 hover:bg-gray-100">
                       Settings
                     </Link>
                   </li>
                   <li>
-                    <Link to="/logout" className="block px-4 py-2 hover:bg-gray-100">
+                    <Link to="/login" className="block px-4 py-2 hover:bg-gray-100">
                       Logout
                     </Link>
                   </li>

@@ -1,62 +1,84 @@
-import * as React from "react"
-import * as AccordionPrimitive from "@radix-ui/react-accordion"
-import { ChevronDownIcon } from "lucide-react"
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { DownIcon } from "../shared/svgs";
 
-import { cn } from "@/lib/utils"
+export function Accordion({ type = "single", collapsible = true, className, children, defaultValue }) {
+  const [openItems, setOpenItems] = useState(() => {
+    if (type === "single") return defaultValue ? [defaultValue] : [];
+    return Array.isArray(defaultValue) ? defaultValue : [];
+  });
 
-function Accordion({
-  ...props
-}) {
-  return <AccordionPrimitive.Root data-slot="accordion" {...props} />;
-}
+  const toggleItem = (value) => {
+    setOpenItems((prev) => {
+      const isOpen = prev.includes(value);
+      if (type === "single") {
+        if (isOpen && collapsible) return [];
+        return [value];
+      }
+      if (isOpen) return prev.filter((v) => v !== value);
+      return [...prev, value];
+    });
+  };
 
-function AccordionItem({
-  className,
-  ...props
-}) {
   return (
-    <AccordionPrimitive.Item
-      data-slot="accordion-item"
-      className={cn("border-b last:border-b-0", className)}
-      {...props} />
+    <div className={cn("w-full", className)}>
+      {Array.isArray(children)
+        ? children.map((child, idx) =>
+            child && child.type === AccordionItem
+              ? { ...child, props: { ...child.props, __openItems: openItems, __toggleItem: toggleItem } }
+              : child
+          )
+        : children && children.type === AccordionItem
+        ? { ...children, props: { ...children.props, __openItems: openItems, __toggleItem: toggleItem } }
+        : children}
+    </div>
   );
 }
 
-function AccordionTrigger({
-  className,
-  children,
-  ...props
-}) {
+export function AccordionItem({ value, className, children, __openItems = [], __toggleItem = () => {} }) {
+  const isOpen = __openItems.includes(value);
   return (
-    <AccordionPrimitive.Header className="flex">
-      <AccordionPrimitive.Trigger
-        data-slot="accordion-trigger"
-        className={cn(
-          "focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50  [&[data-state=open]>svg]:rotate-0",
-          className
-        )}
-        {...props}>
-        {children}
-        <ChevronDownIcon
-          className="pointer-events-none font-inter text-[12px] text-[#0A0D14] size-4 shrink-0 rotate-270 translate-y-0.5 transition-transform duration-200" />
-      </AccordionPrimitive.Trigger>
-    </AccordionPrimitive.Header>
+    <div className={cn(" cardShadow overflow-hidden", className)}>
+      {Array.isArray(children)
+        ? children.map((child) =>
+            child && child.type && (child.type === AccordionTrigger || child.type === AccordionContent)
+              ? { ...child, props: { ...child.props, value, isOpen, onToggle: () => __toggleItem(value) } }
+              : child
+          )
+        : children && children.type && (children.type === AccordionTrigger || children.type === AccordionContent)
+        ? { ...children, props: { ...children.props, value, isOpen, onToggle: () => __toggleItem(value) } }
+        : children}
+    </div>
   );
 }
 
-function AccordionContent({
-  className,
-  children,
-  ...props
-}) {
+export function AccordionTrigger({ children, className, onToggle, isOpen, icon }) {
   return (
-    <AccordionPrimitive.Content
-      data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
-      {...props}>
-      <div className={cn("pt-0 pb-4", className)}>{children}</div>
-    </AccordionPrimitive.Content>
+    <button
+      type="button"
+      onClick={onToggle}
+      className={cn(
+        "bg-[#7DA336] text-white flex items-center justify-between w-full px-4 py-2 ",
+        className
+      )}
+      aria-expanded={undefined}
+    >
+      <div className="flex items-center gap-2 sm:gap-4">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded grid place-items-center shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
+          {icon || null}
+        </div>
+        <div className="text-base sm:text-xl lg:text-2xl font-inter font-semibold">{children}</div>
+      </div>
+      <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded grid place-items-center shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]" aria-hidden="true">
+        <DownIcon className={cn("transition-transform text-neutral-900", isOpen ? "rotate-180" : "rotate-0")}/>
+      </div>
+    </button>
   );
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
+export function AccordionContent({ children, className, isOpen }) {
+  if (!isOpen) return null;
+  return <div className={cn("p-2 sm:p-4", className)}>{children}</div>;
+}
+
+

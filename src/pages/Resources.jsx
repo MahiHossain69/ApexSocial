@@ -1,21 +1,58 @@
+import ResourcesContent from "@/components/Resources/ResourcesContent";
+import SideBar from "@/components/SideBar/SideBar";
+import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
-import ProfileSideBar from '@/components/ProfileSidebar/ProfileSideBar'
-import ResourcesContent from '@/components/Resources/ResourcesContent'
-import React from 'react'
+const Resources = () => {
+  const [isMainSidebarOpen, setIsMainSidebarOpen] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
-const HelpVid = () => {
+  const toggleMainSidebar = () => {
+    setIsMainSidebarOpen(!isMainSidebarOpen);
+    setIsMobileSidebarOpen(false);
+  };
+
+  const handleResize = () => {
+    if (window.innerWidth < 768) {
+      setIsMobileSidebarOpen(false);
+    } else {
+      setIsMobileSidebarOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-     <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row  md:gap-2">
-          <div className="w-full md:w-72 lg:w-80">
-            <ProfileSideBar />
-          </div>
-          <div className="flex-1">
-            <ResourcesContent  />
+    <div className="flex w-full ">
+      <div className="flex w-full lg:gap-6">
+        <div className="flex">
+          {/* Main Sidebar */}
+          <div
+            className={cn(
+              "w-full transition-width duration-300",
+              isMainSidebarOpen ? "md:w-72 lg:w-80" : "w-18"
+            )}
+          >
+            <SideBar
+              isSidebarOpen={isMainSidebarOpen}
+              toggleSidebar={toggleMainSidebar}
+              isMobileSidebarOpen={isMobileSidebarOpen}
+            />
           </div>
         </div>
-      </div>
-  )
-}
 
-export default HelpVid
+        <div className="w-full mt-[30px] px-4">
+          <ResourcesContent />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Resources;

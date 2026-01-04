@@ -13,11 +13,50 @@
 @theme inline {
   /* colors */
 
+  --color-BrandPrimary: #45b5aa;
+  --color-BrandPrimary-50: #edf8f7;
+  --color-primary-50: #f7fcfc;
+  --color-primary-200: #dff6f4;
+  --color-main-900: #0a0d14;
   --color-neutral-50: #f9fbfb;
+  --color-neutral-100: #EFF2F1;
+  --color-neutral-150: #ebefef;
   --color-neutral-200: #e3e8e8;
-  --color-neutral-300: #d1d8d7;
+  --color-neutral-300: #cdd0d5;
+  --color-neutral-500: #525866;
   --color-neutral-600: #929b9a;
+  --color-neutral-700: #d7d9d9;
+  --color-neutral-800: #3d4b49;
   --color-neutral-primary: #3d4b49;
+  --color-soft-200: #e2e4e9;
+  --color-soft-400: #868c98;
+  --color-secondary-pink-500: #ed5eaf;
+  --color-secondary-blue-200: #d6e0f5;
+  --color-secondary-blue-400: #5281e0;
+  --color-warning-200: #f9dcae;
+  --color-warning-900: #523300;
+  --color-cardFill: #f6f8fa;
+  --color-textPrimary: #171c1c;
+  --color-yellow-darker: #693d11;
+  --color-blue-base: #375dfb;
+  --color-blue-light: #3355ff;
+  --color-blue-darker: #2945ce;
+  --color-negative: #bb2525;
+
+  --color-warning-bg-form: #e9242e;
+  --color-red-base: #df1c41;
+  --color-red-light: #d31f18;
+  --color-red-lighter: #fdedf0;
+
+  --color-pink-base: #ea1166;
+  --color-pink-lighter: #fbb9b2;
+
+  --color-green-base: #447205;
+  --color-green-lighter: #cbf5e5;
+  --color-green-dark: #2d9f75;
+  --color-green-light: #6bc82f;
+  --color-yellow-base: #f7ed4d;
+  --color-orange-base: #f5851f;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -54,6 +93,15 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Shadows */
+
+  --shadow-card: "0px 6px 10px 0px rgba(27, 28, 29, 0.06), 0px 2px 4px 0px rgba(27, 28, 29, 0.02)";
+}
+
+.hostFamilyCardShadow {
+  box-shadow: 0 9.675px 16.125px 0 rgba(27, 28, 29, 0.06),
+    0 3.225px 6.45px 0 rgba(27, 28, 29, 0.02);
 }
 
 :root {
@@ -127,7 +175,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 scroll-smooth;
   }
   body {
     @apply bg-background text-foreground;
@@ -195,7 +243,7 @@
 
 .container_fluid {
   width: 100%;
-  max-width: 1920px;
+  max-width: 100%;
   margin: 0 auto;
 }
 .rdp-day {
@@ -203,3 +251,32 @@
   height: 40px;
   line-height: 40px;
 }
+
+.button-shadow {
+  box-shadow: 0px 1px 2px 0px rgba(82, 88, 102, 0.06);
+}
+.cardShadow {
+  box-shadow: 0px 6px 10px 0px rgba(27, 28, 29, 0.06),
+    0px 2px 4px 0px rgba(27, 28, 29, 0.02);
+}
+.label-childExperience {
+  @apply px-5 py-3 font-medium text-sm text-main-900 border-r;
+}
+.value-childExperience {
+  @apply font-normal text-sm text-main-900;
+}
+.toolTipShadow {
+  box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.noScrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.imgControlBtnShadow {
+  box-shadow: 0 4.076px 4.076px 0 rgba(0, 0, 0, 0.25);
+}
+.customCheckbox{
+ box-shadow: 0px 1px 2px 0px rgba(82, 88, 102, 0.06);
+} 
